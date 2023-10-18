@@ -1,0 +1,18 @@
+\item \textbf{Mode}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 10550
+Mean: 0.631374
+Mode: 1.0
+Median: 1
+
+Min: 0
+25\%: 0
+50\%: 1
+75\%: 1
+Max: 1
+Range: 1
+Variance: 0.232763
+Standard Deviation: 0.482455
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Mode_hist.png}~\[1cm]

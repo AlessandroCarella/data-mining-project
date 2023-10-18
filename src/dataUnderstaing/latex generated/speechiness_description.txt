@@ -1,0 +1,18 @@
+\item \textbf{Speechiness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 0.083779
+Mode: 0.0
+Median: 0.051
+
+Min: 0
+25\%: 0.0373
+50\%: 0.051
+75\%: 0.0886
+Max: 0.939
+Range: 0.939
+Variance: 0.007518
+Standard Deviation: 0.086709
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Speechiness_hist.png}~\[1cm]

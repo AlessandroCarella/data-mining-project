@@ -1,0 +1,113 @@
+\item \textbf{Loudness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: -8.894999
+Mode: -8.207
+Median: -7.303
+
+Min: -49.531
+25\%: -10.63625
+50\%: -7.303
+75\%: -5.101
+Max: 3.156
+Range: 52.687
+Variance: 36.069622
+Standard Deviation: 6.005799
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Loudness_hist.png}~\[1cm]
+
+\item \textbf{Mode}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 10550
+Mean: 0.631374
+Mode: 1.0
+Median: 1
+
+Min: 0
+25\%: 0
+50\%: 1
+75\%: 1
+Max: 1
+Range: 1
+Variance: 0.232763
+Standard Deviation: 0.482455
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Mode_hist.png}~\[1cm]
+
+\item \textbf{Speechiness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 0.083779
+Mode: 0.0
+Median: 0.051
+
+Min: 0
+25\%: 0.0373
+50\%: 0.051
+75\%: 0.0886
+Max: 0.939
+Range: 0.939
+Variance: 0.007518
+Standard Deviation: 0.086709
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Speechiness_hist.png}~\[1cm]
+
+\item \textbf{Acousticness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 0.303896
+Mode: 0.994
+Median: 0.155
+
+Min: 0
+25\%: 0.009745
+50\%: 0.155
+75\%: 0.573
+Max: 0.996
+Range: 0.996
+Variance: 0.108594
+Standard Deviation: 0.329536
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Acousticness_hist.png}~\[1cm]
+
+\item \textbf{Instrumentalness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 0.286734
+Mode: 0.0
+Median: 0.00313
+
+Min: 0
+25\%: 0
+50\%: 0.00313
+75\%: 0.744
+Max: 1
+Range: 1
+Variance: 0.146636
+Standard Deviation: 0.38293
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Instrumentalness_hist.png}~\[1cm]
+
+\item \textbf{Liveness}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 0.21679
+Mode: 0.11
+Median: 0.131
+
+Min: 0
+25\%: 0.0979
+50\%: 0.131
+75\%: 0.28
+Max: 0.994
+Range: 0.994
+Variance: 0.03814
+Standard Deviation: 0.195295
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Liveness_hist.png}~\[1cm]
