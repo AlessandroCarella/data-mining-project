@@ -1,0 +1,18 @@
+\item \textbf{Key}
+\textit{Description of the attribute's central and dispersion tendencies: }
+Count: 15000
+Mean: 5.287867
+Mode: 7.0
+Median: 5
+
+Min: 0
+25\%: 2
+50\%: 5
+75\%: 8
+Max: 11
+Range: 11
+Variance: 12.85239
+Standard Deviation: 3.585023
+
+\textit{Histogram}
+\includegraphics[width=0.9	extwidth]{template/histograms/Key_hist.png}~\[1cm]

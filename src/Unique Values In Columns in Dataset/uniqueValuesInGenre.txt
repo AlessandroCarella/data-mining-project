@@ -1,0 +1,21 @@
+Unique values in genre:
+j-dance
+iranian
+black-metal
+bluegrass
+happy
+industrial
+j-idol
+spanish
+sleep
+techno
+mandopop
+afrobeat
+disney
+study
+indian
+idm
+forro
+chicago-house
+brazil
+breakbeat
