@@ -1,7 +1,7 @@
 import pandas as pd
 import os.path as path
 import time 
-import math
+import tqdm as tqdm
 
 from spotipyManagement import getSpotifyObj
 
@@ -23,27 +23,46 @@ def createCsvWithAudioFeatures ():
 
     results_list = []
     sp = getSpotifyObj()
-    for idsList in idsChunked:
+    for idsList in tqdm(idsChunked):
         audio_features = sp.audio_features(idsList)
-        print (audio_features[0])
-        for singleId, idRelatedAudioFeatures in zip(idsList, audio_features):
-            result = {
-                "track_id": singleId,
-                "acousticness": idRelatedAudioFeatures["acousticness"],
-                "danceability": idRelatedAudioFeatures["danceability"],
-                "duration_ms": idRelatedAudioFeatures["duration_ms"],
-                "energy": idRelatedAudioFeatures["energy"],
-                "instrumentalness": idRelatedAudioFeatures["instrumentalness"],
-                "key": idRelatedAudioFeatures["key"],
-                "liveness": idRelatedAudioFeatures["liveness"],
-                "loudness": idRelatedAudioFeatures["loudness"],
-                "mode": idRelatedAudioFeatures["mode"],
-                "speechiness": idRelatedAudioFeatures["speechiness"],
-                "tempo": idRelatedAudioFeatures["tempo"],
-                "time_signature": idRelatedAudioFeatures["time_signature"],
-                "valence": idRelatedAudioFeatures["valence"],
-            }
-            results_list.append(result)
+        for singleId, idRelatedAudioFeatures in tqdm(zip(idsList, audio_features), total=len(len(idsList))):
+            if idRelatedAudioFeatures:
+                result = {
+                    "track_id": singleId,
+                    "acousticness": idRelatedAudioFeatures["acousticness"],
+                    "danceability": idRelatedAudioFeatures["danceability"],
+                    "duration_ms": idRelatedAudioFeatures["duration_ms"],
+                    "energy": idRelatedAudioFeatures["energy"],
+                    "instrumentalness": idRelatedAudioFeatures["instrumentalness"],
+                    "key": idRelatedAudioFeatures["key"],
+                    "liveness": idRelatedAudioFeatures["liveness"],
+                    "loudness": idRelatedAudioFeatures["loudness"],
+                    "mode": idRelatedAudioFeatures["mode"],
+                    "speechiness": idRelatedAudioFeatures["speechiness"],
+                    "tempo": idRelatedAudioFeatures["tempo"],
+                    "time_signature": idRelatedAudioFeatures["time_signature"],
+                    "valence": idRelatedAudioFeatures["valence"],
+                }
+                results_list.append(result)
+            else:#handling when the spotify api doesnt have any value for the id passed
+                results_list.append(
+                    {
+                        "track_id": singleId,
+                        "acousticness": "",
+                        "danceability": "",
+                        "duration_ms": "",
+                        "energy": "",
+                        "instrumentalness": "",
+                        "key": "",
+                        "liveness": "",
+                        "loudness": "",
+                        "mode": "",
+                        "speechiness": "",
+                        "tempo": "",
+                        "time_signature": "",
+                        "valence": ""
+                    }
+                )
 
         time.sleep(1.5)
     
