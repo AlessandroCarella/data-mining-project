@@ -1,0 +1,24 @@
+Data types of columns:
+_ms,int64
+explicit,bool
+popularity,int64
+artists,object
+album_name,object
+danceability,float64
+energy,float64
+key,int64
+loudness,float64
+mode,float64
+speechiness,float64
+acousticness,float64
+instrumentalness,float64
+liveness,float64
+valence,float64
+tempo,float64
+features_duration_ms,int64
+time_signature,float64
+n_beats,float64
+n_bars,float64
+popularity_confidence,float64
+processing,float64
+genre,object
