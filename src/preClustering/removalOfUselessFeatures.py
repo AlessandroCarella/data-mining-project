@@ -84,3 +84,6 @@ def generateClusterMap (data):
 
 noUselessFeaturesDf = removeUselessFeatures()
 generateClusterMap(noUselessFeaturesDf)
+
+noUselessFeaturesDf.to_csv (path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv"), index=False)
+    
