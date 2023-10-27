@@ -35,11 +35,12 @@ def printMissingValues (df):
     missing_mode = df['mode'].isnull().sum()
     # Count missing values in the "time_signature" column
     missing_time_signature = df['time_signature'].isnull().sum()
-    print(f"Missing values in 'mode' column: {missing_mode}")
-    print(f"Missing values in 'time_signature' column: {missing_time_signature}")
+    print(f"Missing values in 'mode' column after filling the values with mean values: {missing_mode}")
+    print(f"Missing values in 'time_signature' column after filling the values with mode values: {missing_time_signature}")
 
 def findTimeSignatureMissingValues(df):
     mode_time_signature = df['time_signature'].mode().iloc[0]
+    print ("time_signature mode value:", mode_time_signature)
 
     # Replace null values with the mean value
     df['time_signature'].fillna(mode_time_signature, inplace=True)
@@ -50,20 +51,27 @@ def findModeMissingValues (df):
     #tried mean, mode, median, forward fill and backward fill, linear interpolation
     #and they all return 100% different values from the spotify values (ground truth)
 
-    mean_mode = df['mode'].mean()
+    mode_mode = df['mode'].mode().iloc[0]
+    print ("mode mode value:", mode_mode)
     # Replace null values with the mean value
-    df['mode'].fillna(mean_mode, inplace=True)
+    df['mode'].fillna(mode_mode, inplace=True)
 
     return df
+
+def orderDataset (datasetToOrder, baseOrder):
+    orderedDataset = datasetToOrder[datasetToOrder['name'].isin(baseOrder)]
+    return orderedDataset
 
 trainDf = pd.read_csv(path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/train.csv"))
 
 filledTrainDf = findModeMissingValues (trainDf)
 filledTrainDf = findTimeSignatureMissingValues (filledTrainDf)
+filledTrainDf = orderDataset (filledTrainDf, trainDf['name'].tolist())
 
 printMissingValues (filledTrainDf)
 
 spotifyDf = pd.read_csv(path.join(path.abspath(path.dirname(__file__)), "../spotifyCheck/train with all values.csv"))
+spotifyDf = orderDataset(spotifyDf, trainDf['name'].tolist())
 analyisisOnFilledValues (trainDf, filledTrainDf, spotifyDf, ["mode", "time_signature"])
 
 filledTrainDf.to_csv (path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled.csv"), index = False)
