@@ -6,7 +6,7 @@ import sklearn #usually you import the modules from this library and not the who
 import scipy as sp #TODO check if the abbreviation ("sp") is correct
 
 #TODO: name the final file for the train dataset "trainFinalVersion.csv"
-datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalVersion.csv") 
+datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv") 
 
 #those are all the names of the columns in the dataset right now
 #we should select the ones that we can use for the clustering before proceeding
@@ -33,6 +33,31 @@ originalDatasetColumnsToUse = [
     "genre"
 ]
 
+categoricalFeatures = [
+    "name",
+    "explicit",
+    "artists",
+    "album_name",
+    "key",
+    "genre",
+    "time_signature"
+]
+
+continuousFeatures = [
+    "duration_ms",
+    "popularity",
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "n_beats"
+]
+
 #all the method imported in the following methods should get 
 #as INPUT:
 #the dataset
@@ -45,25 +70,28 @@ def clusterings (df):
     df, hierarchicalColumnName = hierarchical(df, originalDatasetColumnsToUse)
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse)
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, originalDatasetColumnsToUse)
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
-    df, kMeansColumnName = kMeans(df, originalDatasetColumnsToUse)
+    df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
     df, bisectingKmeansColumnName = bisectingKmeans(df, originalDatasetColumnsToUse)
     df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse)
     df, kModesColumnName = kModes(df, originalDatasetColumnsToUse)
 
     from clusteringMethods.mixtureGuassianModel import mixtureGuassian
-    df, mixtureGuassianColumnName = mixtureGuassian(df, originalDatasetColumnsToUse)
+    df, mixtureGuassianColumnName = mixtureGuassian(df, continuousFeatures, n_components=10, tol=1e-4)
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, originalDatasetColumnsToUse)
-    df, opticsColumnName = optics(df, originalDatasetColumnsToUse)
+    df, opticsColumnName = optics(df, continuousFeatures)
     df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
 
 
     #this is a dictionary filled with all the names of the columns related 
     #to clustering that we putted in the dataset
+    #IMPORTANT: some values in the dataset might me simple strings but some others might be list of strings
+    #since, for example, we don't have to do only 1 number of clusters for kmeans clustering
+    #so the value for the key kMeans would be something like: 'kMeans': ['kMeans2', 'kMeans3', 'kMeans4', 'kMeans5', ...]
     keys = ["hierarchical", "hierarchicalCompleteLinkage", "hierarchicalSingleLink", "hierarchicalGroupAverage",
                     "kMeans", "bisectingKmeans", "xMeans", "kModes",
                     "mixtureGuassian",
@@ -73,6 +101,8 @@ def clusterings (df):
                     mixtureGuassianColumnName,
                     dbscanColumnName, opticsColumnName, hdbscanColumnName]
     clusteringColumnsNames = {method: column for method, column in zip(keys, values)}
+
+    print (clusteringColumnsNames)
 
     return df, clusteringColumnsNames
 
@@ -190,4 +220,5 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
 
 finalTrainDataset = pd.read_csv (datasetPath)
 finalTrainDatasetWithClustering, clusteringColumnsNames = clusterings (finalTrainDataset)
+#TODO: save the finalTrainDatasetWithClustering to file
 measuresAndVisualizationsForDeterminingClustersQuality (finalTrainDatasetWithClustering, clusteringColumnsNames)

@@ -1,3 +1,4 @@
+from sklearn.preprocessing import StandardScaler
 
 def hierarchical(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
@@ -14,7 +15,28 @@ def hierarchicalSingleLink(df, originalDatasetColumnsToUse):
     # TODO: Implement the hierarchicalSingleLink method
     return df, "hierarchicalSingleLink"
 
-def hierarchicalGroupAverage(df, originalDatasetColumnsToUse):
+# threshold: The distance threshold for clustering. Data points with distances below thisthreshold will be assigned to the same cluster.
+def hierarchicalGroupAverage(df, columnsToUse, threshold=5.1):
     #@AlessandroCarella
-    # TODO: Implement the hierarchicalGroupAverage method
+    from scipy.cluster.hierarchy import linkage, fcluster
+    import matplotlib.pyplot as plt
+
+    #create a copy of the dataset to select only certain features
+    tempDf = df.copy()
+    tempDf = tempDf [columnsToUse]
+
+    #scale the temp dataset to use the clustering algorithm
+    scaler = StandardScaler()
+    scaler.fit(tempDf)
+    tempDfScal = scaler.transform(tempDf)
+
+    # Perform hierarchical clustering using the 'average' linkage method
+    linkage_matrix = linkage(tempDfScal, method='average')
+
+    # Determine the cluster assignments using a distance or number of clusters threshold
+    clusters = fcluster(linkage_matrix, threshold, criterion='distance')
+
+    # Add the cluster assignments to the dataset
+    df['hierarchicalGroupAverage'] = clusters
+
     return df, "hierarchicalGroupAverage"
