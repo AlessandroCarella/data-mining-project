@@ -16,7 +16,7 @@ def hierarchicalSingleLink(df, originalDatasetColumnsToUse):
     return df, "hierarchicalSingleLink"
 
 # threshold: The distance threshold for clustering. Data points with distances below thisthreshold will be assigned to the same cluster.
-def hierarchicalGroupAverage(df, columnsToUse, threshold=5.1):
+def hierarchicalGroupAverage(df, columnsToUse, criterion, thresholds=[1, 100]):
     #@AlessandroCarella
     from scipy.cluster.hierarchy import linkage, fcluster
     import matplotlib.pyplot as plt
@@ -33,10 +33,13 @@ def hierarchicalGroupAverage(df, columnsToUse, threshold=5.1):
     # Perform hierarchical clustering using the 'average' linkage method
     linkage_matrix = linkage(tempDfScal, method='average')
 
-    # Determine the cluster assignments using a distance or number of clusters threshold
-    clusters = fcluster(linkage_matrix, threshold, criterion='distance')
+    columnsNames = []
+    for threshold in thresholds:
+        # Determine the cluster assignments using a distance or number of clusters threshold
+        clusters = fcluster(linkage_matrix, threshold, criterion=criterion)
 
-    # Add the cluster assignments to the dataset
-    df['hierarchicalGroupAverage'] = clusters
+        # Add the cluster assignments to the dataset
+        df['hierarchicalGroupAverage' + ' ' + 'criterion=' + criterion + ' ' + 'threshold' + str (threshold)] = clusters
+        columnsNames.append ('hierarchicalGroupAverage' + ' ' + 'criterion=' + criterion + ' ' + 'threshold' + str (threshold))
 
-    return df, "hierarchicalGroupAverage"
+    return df, columnsNames

@@ -10,7 +10,7 @@ def dbscan(df, originalDatasetColumnsToUse):
 # more emphasis on global clustering structure.
 #min_cluster_size (float, optional): The minimum size of a cluster, as a fraction 
 # of the dataset size. (the number is a percentage of the dataset size)
-def optics(df, columnsToUse, min_samples=5, xi=0.05, min_cluster_size=0.05):
+def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0.05]):
     #@AlessandroCarella
     import numpy as np
     import pandas as pd
@@ -26,20 +26,25 @@ def optics(df, columnsToUse, min_samples=5, xi=0.05, min_cluster_size=0.05):
     scaler.fit(tempDf)
     tempDfScal = scaler.transform(tempDf)
 
-    # Create an Optics clustering model
-    clustering = OPTICS(min_samples=min_samples, xi=xi, min_cluster_size=min_cluster_size)
+    columnsNames = []
+    for min_sample in range (min_samples[0], min_samples[1]):
+        for singleXi in xi:
+            for single_min_cluster_size in min_cluster_size:
+                # Create an Optics clustering model                                                   #using all possible cores
+                clustering = OPTICS(min_samples=min_sample, xi=singleXi, min_cluster_size=single_min_cluster_size, n_jobs=-1)
 
-    # Fit the model to your data
-    clustering.fit(tempDfScal)
+                # Fit the model to your data
+                clustering.fit(tempDfScal)
 
-    # Predict the cluster labels
-    cluster_labels = clustering.labels_
+                # Predict the cluster labels
+                cluster_labels = clustering.labels_
 
-    # The cluster labels are stored in 'cluster_labels' variable
-    # You can add them to your DataFrame if needed
-    df['optics'] = cluster_labels
+                # The cluster labels are stored in 'cluster_labels' variable
+                # You can add them to your DataFrame if needed
+                df['optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size] = cluster_labels
+                columnsNames.append ('optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size)
 
-    return df, "optics"
+    return df, columnsNames
 
 def hdbscan(df, originalDatasetColumnsToUse):
     #@RafaelUrbina

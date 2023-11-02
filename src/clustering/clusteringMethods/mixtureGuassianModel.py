@@ -6,7 +6,7 @@
 # Convergence tolerance for the EM algorithm
 # Controls when the algorithm stops iterating
 # Smaller values for higher precision, larger values for faster convergence
-def mixtureGuassian(df, columnsToUse, n_components=10, tol=1e-4):
+def mixtureGuassian(df, columnsToUse, n_components=[2, 10], tols=[1e-4]):
     #@AlessandroCarella
     import numpy as np
     from sklearn.mixture import GaussianMixture
@@ -22,14 +22,18 @@ def mixtureGuassian(df, columnsToUse, n_components=10, tol=1e-4):
     scaler.fit(tempDf)
     tempDfScal = scaler.transform(tempDf)
 
-    # Create and fit a Gaussian Mixture Model
-    gmm = GaussianMixture(n_components=n_components, tol=tol)
-    gmm.fit(tempDf)
+    columnsNames = []
+    for n_component in range (n_components[0], n_components[1]):
+        for tol in tols:
+            # Create and fit a Gaussian Mixture Model
+            gmm = GaussianMixture(n_components=n_component, tol=tol)
+            gmm.fit(tempDfScal)
 
-    # Predict the cluster assignments for each data point
-    labels = gmm.predict(tempDf)
+            # Predict the cluster assignments for each data point
+            labels = gmm.predict(tempDfScal)
 
-    # Add the cluster assignment as a new column in the DataFrame
-    df['mixtureGaussian'] = labels
+            # Add the cluster assignment as a new column in the DataFrame
+            df['mixtureGaussian' + ' ' + 'nComponents=' + ' ' + str (n_component) + ' ' + 'tol=' + str(tol)] = labels
+            columnsNames.append ('mixtureGaussian' + ' ' + 'nComponents=' + ' ' + str (n_component) + ' ' + 'tol=' + str(tol))
 
-    return df, "mixtureGaussian"
+    return df, columnsNames

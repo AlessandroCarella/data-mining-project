@@ -29,8 +29,8 @@ def kMeans(df, columnsToUse, Krange=[2, 3]):
         centers = kmeans.cluster_centers_
 
         # Add the cluster assignment as a new column in the DataFrame
-        df['kMeans' + str (k)] = labels
-        columnsNames.append ('kMeans' + str (k))
+        df['kMeans=' + str (k)] = labels
+        columnsNames.append ('kMeans=' + str (k))
 
     return df, columnsNames
 

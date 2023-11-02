@@ -70,7 +70,8 @@ def clusterings (df):
     df, hierarchicalColumnName = hierarchical(df, originalDatasetColumnsToUse)
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse)
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures)
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
@@ -79,11 +80,11 @@ def clusterings (df):
     df, kModesColumnName = kModes(df, originalDatasetColumnsToUse)
 
     from clusteringMethods.mixtureGuassianModel import mixtureGuassian
-    df, mixtureGuassianColumnName = mixtureGuassian(df, continuousFeatures, n_components=10, tol=1e-4)
+    df, mixtureGuassianColumnName = mixtureGuassian(df, continuousFeatures, n_components=[2, 20], tols=[1e-2, 1e-3, 1e-4, 1e-5])
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, originalDatasetColumnsToUse)
-    df, opticsColumnName = optics(df, continuousFeatures)
+    df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
     df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
 
 
