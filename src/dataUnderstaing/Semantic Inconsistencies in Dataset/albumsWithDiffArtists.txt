@@ -1,0 +1,45 @@
+,Album,Similar_Artists
+0,1law,"Chronic Law,ATTOMATIC RECORDS,DANSKY RECORDS; Chronic Law,ATTOMATIC RECORDS"
+1,Abra Sua Cabeça,"Abayomy Afrobeat Orquestra; Abayomy Afrobeat Orquestra,Otto"
+2,Acústico (Ao Vivo),Charlie Brown Jr.; Cássia Eller; Armandinho
+3,Agent Vinod,"Pritam,Hamsika,Arijit Singh; Pritam,Hamsika,Arijit Singh,Joi"
+4,All Of My Best Friends,"Hillsong Young & Free,Melodie Wagner; Hillsong Young & Free"
+5,Ao Vivo,Biquini Cavadão; Canindé
+6,Baby Sleep: Ocean Sounds,"Ocean Sounds,BodyHI,Ocean Waves For Sleep; Ocean Sounds,Ocean Waves For Sleep"
+7,BaianaSystem,"BaianaSystem; BaianaSystem,Lucas Santtana"
+8,Cielo,Timothy Infinite; Benny
+9,"Classical Christmas, Vol. 1","Traditional,Royal Philharmonic Orchestra; Traditional,London Philharmonic Orchestra,The London Philharmonic Chorus; Traditional,Richard Benson and His Orchestra"
+10,"Classical Christmas, Vol. 2","Traditional,Les Chanteurs de la Vierge; Traditional,London Philharmonic Orchestra,The London Philharmonic Chorus; Traditional,Aeolian Kammerchor"
+11,Decksandrumsandrockandroll 20th anniversary,"Propellerheads; Propellerheads,Shirley Bassey"
+12,Defected Presents House Masters: Mike Dunn,"Mike Dunn,MD X-Spress; Mike Dunn"
+13,Doctora Juguetes: Ya Llegó la Doctora,"Doctora Juguetes,Felpita,Lambie,Hallie; Doctora Juguetes,Felpita,Lambie,Mona; Doctora Juguetes,Felpita,Lambie"
+14,Fetty Wap (Deluxe),"Fetty Wap; Fetty Wap,Monty"
+15,Five,Farzad Golpayegani; Balsam Range
+16,I'll Take You There,"Frankie Knuckles,Director's Cut,Eric Kupper,Jamie Principle,Dimitri From Paris; Frankie Knuckles,Director's Cut,Eric Kupper,Jamie Principle; Frankie Knuckles,Director's Cut,Eric Kupper,Jamie Principle,Moplen"
+17,Imac Riddim,"Jah Vinci; Jah Vinci,Nae.Nae; Beenie Man,Blakk Man"
+18,Judgement,VNV Nation; Ten City
+19,Klassische Weihnachtsmusik,"Traditional,phil Blech Wien,Anton Mittermayr; Traditional,Wiener Sängerknaben,Schubert-Akademie,Gerald Wirth"
+20,Live à l'Olympia,"Deluxe,IAM; Deluxe,IAM,M"
+21,Loopable Rain Sounds,Rain Sounds; Nature Sounds
+22,Lullaby Versions of Disney Classics,Twinkle Twinkle Little Rock Star; The Sleep Diaries
+23,New Forms,"Roni Size,Reprazent; Roni Size"
+24,Ocean Waves Sounds,Ocean Waves For Sleep; Ocean Sounds
+25,Oxeaxeexu,"BaianaSystem; BaianaSystem,Claudia Manzo"
+26,RUN WILD. LIVE FREE. LOVE STRONG. (Deluxe Anniversary Edition),"for KING & COUNTRY; for KING & COUNTRY,KB"
+27,Sheherazade,"Alireza Mashayekhi,Layla Ramezan; Alireza Mashayekhi,Djamchid Chemirani,Keyvan Chemirani"
+28,Skydivin',Darren Styles; Styles & Breeze
+29,Snow White and the Seven Dwarfs (Original Motion Picture Soundtrack),"The Dwarf Chorus; Frank Churchill,Leigh Harline,Larry Morey"
+30,Sofia the First,"Cast - Sofia the First,Amber,Sofia; Cast - Sofia the First,Sofia"
+31,Só as Melhores do Pop Rock Brasileiro,Kid Abelha; Lulu Santos; Nando Reis
+32,The Best Of Charly Lownoise & Mental Theo,"Charly Lownoise & Mental Theo; Charly Lownoise,Mental Theo"
+33,The Deplar Effect,"The New Mastersounds,Eddie Roberts,Lamar Williams Jr.; The New Mastersounds,Eddie Roberts"
+34,The Director's Cut Collection,"Frankie Knuckles,Director's Cut,Eric Kupper,Sybil; Frankie Knuckles,Director's Cut,Eric Kupper"
+35,The Hardcore Archive Part 2 (1995 - 1996),"The Prophet; The Prophet,3 Steps Ahead"
+36,Tokyo Disney Resort Autumn Best (Special Edition),Tokyo DisneySea; Tokyo Disneyland
+37,Troféu,"Major RD,Rock Danger,Raffé,El Lif Beatz; Major RD,Rock Danger,El Lif Beatz"
+38,Underground Communication,"Bassnectar,Persia; Bassnectar"
+39,"Veni: Songs of Christmas, Vol. 2","Traditional,The Norwegian Soloists' Choir,Grete Pedersen,Gjermund Larsen,Marco Ambrosini,Mari Askvik; Traditional,The Norwegian Soloists' Choir,Grete Pedersen,Gjermund Larsen,Marco Ambrosini,Sondre Meisfjord,David McCune; Traditional,The Norwegian Soloists' Choir,Grete Pedersen,Gjermund Larsen,Marco Ambrosini,Sondre Meisfjord,Knut Johannessen; Traditional,The Norwegian Soloists' Choir,Grete Pedersen,Gjermund Larsen,Marco Ambrosini,Sondre Meisfjord,Mari Askvik"
+40,Wet And Warm,"Asef Akbari,Nima Alizade; Asef Akbari"
+41,Work.Groove,"Mark Farina,Homero Espinosa; Mark Farina,Homero Espinosa,Chezz"
+42,Éxitos del Pop en Español de los Años 2000,La Oreja de Van Gogh; Pereza
+43,エビ中 秋声と螻蛄と音楽の輝き 題して「ちゅうおん」2021(Live),"Shiritsu Ebisu Chugaku,bird; Shiritsu Ebisu Chugaku"
