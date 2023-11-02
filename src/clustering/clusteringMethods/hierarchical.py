@@ -1,7 +1,6 @@
 from scipy.cluster.hierarchy import linkage, fcluster
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
-
 from clusteringUtility import columnAlreadyInDf
 
 def hierarchical(df, originalDatasetColumnsToUse):
@@ -9,10 +8,25 @@ def hierarchical(df, originalDatasetColumnsToUse):
     # TODO: Implement the hierarchical method
     return df, "hierarchical"
 
-def hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse):
+def hierarchicalCompleteLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
     #@SaraHoxha
-    # TODO: Implement the hierarchicalCompleteLinkage method
-    return df, "hierarchicalCompleteLinkage"
+    df_subset = df[columnsToUse]
+
+    # Calculate the linkage matrix using complete linkage
+    linkage_matrix = linkage(df_subset, method='complete')
+    
+    columnsNames=[]
+    for threshold in linkage_thresholds:
+        newColumnName = 'hierarchicalCompleteLinkage' + ' '  + 'threshold' + str (threshold)
+        columnsNames.append (newColumnName)
+        if not columnAlreadyInDf (newColumnName, df):
+            # Determine the cluster assignments using a distance or number of clusters threshold
+            clusters = fcluster(linkage_matrix, threshold, criterion='distance')
+            # Add the cluster assignments to the dataset
+            df[newColumnName] = clusters
+    # Return the linkage matrix, and a string indicating the algorithm used
+    return df, columnsNames
+
 
 def hierarchicalSingleLink(df, originalDatasetColumnsToUse):
     #@RafaelUrbina

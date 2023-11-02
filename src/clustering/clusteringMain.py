@@ -72,7 +72,7 @@ continuousFeatures = [
 def clusterings (df):
     from clusteringMethods.hierarchical import hierarchical, hierarchicalCompleteLinkage, hierarchicalSingleLink, hierarchicalGroupAverage
     df, hierarchicalColumnName = hierarchical(df, originalDatasetColumnsToUse)
-    df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse)
+    df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=[1, 50])
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
