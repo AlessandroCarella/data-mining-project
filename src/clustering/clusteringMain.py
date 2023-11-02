@@ -5,8 +5,12 @@ import os.path as path
 import sklearn #usually you import the modules from this library and not the whole thing
 import scipy as sp #TODO check if the abbreviation ("sp") is correct
 
+from clusteringMethods.clusteringUtility import saveDfToFile
+
 #TODO: name the final file for the train dataset "trainFinalVersion.csv"
-datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv") 
+datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalWithClustering.csv")
+if not path.exists (datasetPath):
+    datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv") 
 
 #those are all the names of the columns in the dataset right now
 #we should select the ones that we can use for the clustering before proceeding
@@ -72,20 +76,24 @@ def clusterings (df):
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
+    saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
     df, bisectingKmeansColumnName = bisectingKmeans(df, originalDatasetColumnsToUse)
     df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse)
     df, kModesColumnName = kModes(df, originalDatasetColumnsToUse)
+    saveDfToFile (df)
 
     from clusteringMethods.mixtureGuassianModel import mixtureGuassian
     df, mixtureGuassianColumnName = mixtureGuassian(df, continuousFeatures, n_components=[2, 20], tols=[1e-2, 1e-3, 1e-4, 1e-5])
+    saveDfToFile (df)
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, originalDatasetColumnsToUse)
     df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
     df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
+    saveDfToFile (df)
 
 
     #this is a dictionary filled with all the names of the columns related 

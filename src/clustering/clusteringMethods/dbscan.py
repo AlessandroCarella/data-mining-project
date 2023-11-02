@@ -1,3 +1,7 @@
+from sklearn.cluster import OPTICS
+from sklearn.preprocessing import StandardScaler
+
+from clusteringUtility import columnAlreadyInDf
 
 def dbscan(df, originalDatasetColumnsToUse):
     #@SaraHoxha
@@ -12,11 +16,6 @@ def dbscan(df, originalDatasetColumnsToUse):
 # of the dataset size. (the number is a percentage of the dataset size)
 def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0.05]):
     #@AlessandroCarella
-    import numpy as np
-    import pandas as pd
-    from sklearn.cluster import OPTICS
-    from sklearn.preprocessing import StandardScaler
-
     #create a copy of the dataset to select only certain features
     tempDf = df.copy()
     tempDf = tempDf [columnsToUse]
@@ -30,19 +29,21 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
     for min_sample in range (min_samples[0], min_samples[1]):
         for singleXi in xi:
             for single_min_cluster_size in min_cluster_size:
-                # Create an Optics clustering model                                                   #using all possible cores
-                clustering = OPTICS(min_samples=min_sample, xi=singleXi, min_cluster_size=single_min_cluster_size, n_jobs=-1)
+                newColumnName = 'optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size
+                columnsNames.append (newColumnName)
+                if not columnAlreadyInDf (newColumnName, df):
+                    # Create an Optics clustering model                                                   #using all possible cores
+                    clustering = OPTICS(min_samples=min_sample, xi=singleXi, min_cluster_size=single_min_cluster_size, n_jobs=-1)
 
-                # Fit the model to your data
-                clustering.fit(tempDfScal)
+                    # Fit the model to your data
+                    clustering.fit(tempDfScal)
 
-                # Predict the cluster labels
-                cluster_labels = clustering.labels_
+                    # Predict the cluster labels
+                    cluster_labels = clustering.labels_
 
-                # The cluster labels are stored in 'cluster_labels' variable
-                # You can add them to your DataFrame if needed
-                df['optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size] = cluster_labels
-                columnsNames.append ('optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size)
+                    # The cluster labels are stored in 'cluster_labels' variable
+                    # You can add them to your DataFrame if needed
+                    df[newColumnName] = cluster_labels
 
     return df, columnsNames
 

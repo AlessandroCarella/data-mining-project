@@ -1,6 +1,7 @@
 from sklearn.cluster import KMeans
-
 from sklearn.preprocessing import StandardScaler
+
+from clusteringUtility import columnAlreadyInDf
 
 # The parameter 'K' controls the number of clusters in the K-means algorithm, allowing you to customize the granularity of your data segmentation.
 def kMeans(df, columnsToUse, Krange=[2, 3]):
@@ -16,21 +17,23 @@ def kMeans(df, columnsToUse, Krange=[2, 3]):
 
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):
-        # Initialize the K-means model
-        kmeans = KMeans(n_clusters=k)
+        newColumnName = 'kMeans=' + str (k)
+        columnsNames.append (newColumnName)
+        if not columnAlreadyInDf (newColumnName, df):
+            # Initialize the K-means model
+            kmeans = KMeans(n_clusters=k)
 
-        # Fit the model to your data
-        kmeans.fit(tempDfScal)
+            # Fit the model to your data
+            kmeans.fit(tempDfScal)
 
-        # Get the cluster assignments for each data point
-        labels = kmeans.labels_
+            # Get the cluster assignments for each data point
+            labels = kmeans.labels_
 
-        # Get the cluster centers
-        centers = kmeans.cluster_centers_
+            # Get the cluster centers
+            centers = kmeans.cluster_centers_
 
-        # Add the cluster assignment as a new column in the DataFrame
-        df['kMeans=' + str (k)] = labels
-        columnsNames.append ('kMeans=' + str (k))
+            # Add the cluster assignment as a new column in the DataFrame
+            df[newColumnName] = labels
 
     return df, columnsNames
 

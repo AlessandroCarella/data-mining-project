@@ -1,3 +1,10 @@
+import numpy as np
+from sklearn.mixture import GaussianMixture
+import matplotlib.pyplot as plt 
+from sklearn.preprocessing import StandardScaler
+
+from clusteringUtility import columnAlreadyInDf
+
 # n_components:
 # Number of Gaussian components (clusters) to identify
 # Determines the granularity of clustering
@@ -8,11 +15,6 @@
 # Smaller values for higher precision, larger values for faster convergence
 def mixtureGuassian(df, columnsToUse, n_components=[2, 10], tols=[1e-4]):
     #@AlessandroCarella
-    import numpy as np
-    from sklearn.mixture import GaussianMixture
-    import matplotlib.pyplot as plt 
-    from sklearn.preprocessing import StandardScaler
-
     #create a copy of the dataset to select only certain features
     tempDf = df.copy()
     tempDf = tempDf [columnsToUse]
@@ -25,15 +27,17 @@ def mixtureGuassian(df, columnsToUse, n_components=[2, 10], tols=[1e-4]):
     columnsNames = []
     for n_component in range (n_components[0], n_components[1]):
         for tol in tols:
-            # Create and fit a Gaussian Mixture Model
-            gmm = GaussianMixture(n_components=n_component, tol=tol)
-            gmm.fit(tempDfScal)
+            newColumnName = 'mixtureGaussian' + ' ' + 'nComponents=' + ' ' + str (n_component) + ' ' + 'tol=' + str(tol)
+            columnsNames.append (newColumnName)
+            if not columnAlreadyInDf (newColumnName, df):
+                # Create and fit a Gaussian Mixture Model
+                gmm = GaussianMixture(n_components=n_component, tol=tol)
+                gmm.fit(tempDfScal)
 
-            # Predict the cluster assignments for each data point
-            labels = gmm.predict(tempDfScal)
+                # Predict the cluster assignments for each data point
+                labels = gmm.predict(tempDfScal)
 
-            # Add the cluster assignment as a new column in the DataFrame
-            df['mixtureGaussian' + ' ' + 'nComponents=' + ' ' + str (n_component) + ' ' + 'tol=' + str(tol)] = labels
-            columnsNames.append ('mixtureGaussian' + ' ' + 'nComponents=' + ' ' + str (n_component) + ' ' + 'tol=' + str(tol))
+                # Add the cluster assignment as a new column in the DataFrame
+                df[newColumnName] = labels
 
     return df, columnsNames
