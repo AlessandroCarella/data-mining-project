@@ -80,9 +80,9 @@ def clusterings (df):
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
-    df, bisectingKmeansColumnName = bisectingKmeans(df, originalDatasetColumnsToUse)
+    df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 50])
     df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse)
-    df, kModesColumnName = kModes(df, originalDatasetColumnsToUse)
+    df, kModesColumnName = kModes(df, continuousFeatures, Krange=[2, 50])
     saveDfToFile (df)
 
     from clusteringMethods.mixtureGuassianModel import mixtureGuassian
@@ -90,7 +90,7 @@ def clusterings (df):
     saveDfToFile (df)
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
-    df, dbscanColumnName = dbscan(df, originalDatasetColumnsToUse)
+    df, dbscanColumnName = dbscan(df, continuousFeatures, eps= [0.1, 3], min_samples=[1, 20])
     df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
     df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
     saveDfToFile (df)
