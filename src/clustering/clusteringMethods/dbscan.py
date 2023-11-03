@@ -1,12 +1,29 @@
-from sklearn.cluster import OPTICS
+from sklearn.cluster import OPTICS, DBSCAN
 from sklearn.preprocessing import StandardScaler
+from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
-from clusteringUtility import columnAlreadyInDf
-
-def dbscan(df, originalDatasetColumnsToUse):
+def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
     #@SaraHoxha
-    # TODO: Implement the dbscan method
-    return df, "dbscan"
+    df_subset = df[columnsToUse]
+    
+    columnsNames = []
+    for min_sample in range (min_samples[0], min_samples[1]):
+        for radius in range(eps[0], eps[1]):
+                newColumnName = 'dbscan' + ' ' + 'min_samples=' + min_sample + ' ' + 'eps=' + radius
+                columnsNames.append (newColumnName)
+                if not columnAlreadyInDf (newColumnName, df):
+                    
+                    cluster = DBSCAN(eps=radius, min_samples=min_sample)
+
+                    # Fit the model to your data
+                    cluster.fit(df_subset)
+
+                    # Predict the cluster labels
+                    cluster_labels = cluster.labels_
+
+                    df[newColumnName] = cluster_labels
+
+    return df, columnsNames
 
 #min_samples (int, optional): The minimum number of samples required to form a core 
 # point.
@@ -16,20 +33,13 @@ def dbscan(df, originalDatasetColumnsToUse):
 # of the dataset size. (the number is a percentage of the dataset size)
 def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0.05]):
     #@AlessandroCarella
-    #create a copy of the dataset to select only certain features
-    tempDf = df.copy()
-    tempDf = tempDf [columnsToUse]
-
-    #scale the temp dataset to use the clustering algorithm
-    scaler = StandardScaler()
-    scaler.fit(tempDf)
-    tempDfScal = scaler.transform(tempDf)
+    tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
     columnsNames = []
     for min_sample in range (min_samples[0], min_samples[1]):
         for singleXi in xi:
             for single_min_cluster_size in min_cluster_size:
-                newColumnName = 'optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size
+                newColumnName = 'optics' + ' ' + 'min_samples=' + str(min_sample) + ' ' + 'xi=' + str(singleXi) + ' ' + 'min_cluster_size=' + str(single_min_cluster_size)
                 columnsNames.append (newColumnName)
                 if not columnAlreadyInDf (newColumnName, df):
                     # Create an Optics clustering model                                                   #using all possible cores
@@ -50,4 +60,4 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
 def hdbscan(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hdbscan method
-    return df, "hdbscan"
+    return df, ["hdbscan"]

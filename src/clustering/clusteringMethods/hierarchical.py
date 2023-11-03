@@ -1,12 +1,10 @@
 from scipy.cluster.hierarchy import linkage, fcluster
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from clusteringUtility import columnAlreadyInDf
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 def hierarchical(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hierarchical method
-    return df, "hierarchical"
+    return df, ["hierarchical"]
 
 def hierarchicalCompleteLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
     #@SaraHoxha
@@ -24,26 +22,19 @@ def hierarchicalCompleteLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
             clusters = fcluster(linkage_matrix, threshold, criterion='distance')
             # Add the cluster assignments to the dataset
             df[newColumnName] = clusters
-    # Return the linkage matrix, and a string indicating the algorithm used
+            
     return df, columnsNames
 
 
 def hierarchicalSingleLink(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hierarchicalSingleLink method
-    return df, "hierarchicalSingleLink"
+    return df, ["hierarchicalSingleLink"]
 
 # threshold: The distance threshold for clustering. Data points with distances below thisthreshold will be assigned to the same cluster.
 def hierarchicalGroupAverage(df, columnsToUse, criterion, thresholds=[1, 100]):
     #@AlessandroCarella
-    #create a copy of the dataset to select only certain features
-    tempDf = df.copy()
-    tempDf = tempDf [columnsToUse]
-
-    #scale the temp dataset to use the clustering algorithm
-    scaler = StandardScaler()
-    scaler.fit(tempDf)
-    tempDfScal = scaler.transform(tempDf)
+    tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
     # Perform hierarchical clustering using the 'average' linkage method
     linkage_matrix = linkage(tempDfScal, method='average')
