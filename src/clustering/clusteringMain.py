@@ -37,7 +37,7 @@ originalDatasetColumnsToUse = [
     "genre"
 ]
 
-categoricalFeatures = [
+allCategoricalFeatures = [
     "name",
     "explicit",
     "artists",
@@ -74,8 +74,8 @@ def clusterings (df):
     df, hierarchicalColumnName = hierarchical(df, originalDatasetColumnsToUse)
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse)
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", thresholds=[1, 50])
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", thresholds=[2,20])
     saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
@@ -91,7 +91,9 @@ def clusterings (df):
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, originalDatasetColumnsToUse)
-    df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
+    #df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
+    opticsColumnName = ["optics"]
+    #TODO remove the comment for optics and delete the mock opticsColumnName
     df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
     saveDfToFile (df)
 
@@ -136,7 +138,17 @@ def clusterings (df):
 #(obviously the dendograms are visual and not measuerments, it's 
 #just that i don't want to find another thing that might mess the
 #idea up)
-def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clusteringColumnsNames:dict):
+def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clusteringColumnsNames:dict):   
+    plotsUsefulCategoricalFeatures = [
+        #"name", #too many
+        #"explicit", #binary
+        #"artists", #too many
+        #"album_name", #too many
+        "key",
+        "genre",
+        "time_signature"
+    ]
+
     allClusteringColumns = [
         clusteringColumnsNames.get("hierarchical"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
@@ -171,7 +183,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     )
 
     from measuresAndVisualizations.visualizationAndPlot import countPlotBetweenEachFeatureAndEachCluster
-    countPlotBetweenEachFeatureAndEachCluster (df, allClusteringColumns)
+    countPlotBetweenEachFeatureAndEachCluster (df, allClusteringColumns, plotsUsefulCategoricalFeatures)
 
     from measuresAndVisualizations.visualizationAndPlot import similarityMatrix
     similarityMatrix (df, [

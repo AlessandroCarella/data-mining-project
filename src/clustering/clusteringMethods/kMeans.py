@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 
-from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 # The parameter 'K' controls the number of clusters in the K-means algorithm, allowing you to customize the granularity of your data segmentation.
 def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):

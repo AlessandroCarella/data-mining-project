@@ -1,6 +1,6 @@
 from scipy.cluster.hierarchy import linkage, fcluster
 
-from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 def hierarchical(df, originalDatasetColumnsToUse):
     #@RafaelUrbina

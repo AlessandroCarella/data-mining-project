@@ -1,6 +1,6 @@
 from sklearn.cluster import OPTICS
 
-from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 def dbscan(df, originalDatasetColumnsToUse):
     #@SaraHoxha
@@ -21,7 +21,7 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
     for min_sample in range (min_samples[0], min_samples[1]):
         for singleXi in xi:
             for single_min_cluster_size in min_cluster_size:
-                newColumnName = 'optics' + ' ' + 'min_samples=' + min_sample + ' ' + 'xi=' + singleXi + ' ' + 'min_cluster_size=' + single_min_cluster_size
+                newColumnName = 'optics' + ' ' + 'min_samples=' + str(min_sample) + ' ' + 'xi=' + str(singleXi) + ' ' + 'min_cluster_size=' + str(single_min_cluster_size)
                 columnsNames.append (newColumnName)
                 if not columnAlreadyInDf (newColumnName, df):
                     # Create an Optics clustering model                                                   #using all possible cores
