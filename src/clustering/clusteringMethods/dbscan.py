@@ -5,7 +5,7 @@ from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 def dbscan(df, originalDatasetColumnsToUse):
     #@SaraHoxha
     # TODO: Implement the dbscan method
-    return df, "dbscan"
+    return df, ["dbscan"]
 
 #min_samples (int, optional): The minimum number of samples required to form a core 
 # point.
@@ -42,4 +42,4 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
 def hdbscan(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hdbscan method
-    return df, "hdbscan"
+    return df, ["hdbscan"]

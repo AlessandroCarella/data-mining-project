@@ -101,6 +101,8 @@ def clusterings (df):
     #IMPORTANT: some values in the dataset might me simple strings but some others might be list of strings
     #since, for example, we don't have to do only 1 number of clusters for kmeans clustering
     #so the value for the key kMeans would be something like: 'kMeans': ['kMeans2', 'kMeans3', 'kMeans4', 'kMeans5', ...]
+    #still put all the values in a list, even if it's only one
+    #so for example, if mixtureGuassian only returns one value (not actually true) you would still return a list as: ["mixtureGuassian"]
     keys = ["hierarchical", "hierarchicalCompleteLinkage", "hierarchicalSingleLink", "hierarchicalGroupAverage",
                     "kMeans", "bisectingKmeans", "xMeans", "kModes",
                     "mixtureGuassian",

@@ -5,17 +5,17 @@ from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 def hierarchical(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hierarchical method
-    return df, "hierarchical"
+    return df, ["hierarchical"]
 
 def hierarchicalCompleteLinkage(df, originalDatasetColumnsToUse):
     #@SaraHoxha
     # TODO: Implement the hierarchicalCompleteLinkage method
-    return df, "hierarchicalCompleteLinkage"
+    return df, ["hierarchicalCompleteLinkage"]
 
 def hierarchicalSingleLink(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the hierarchicalSingleLink method
-    return df, "hierarchicalSingleLink"
+    return df, ["hierarchicalSingleLink"]
 
 # threshold: The distance threshold for clustering. Data points with distances below thisthreshold will be assigned to the same cluster.
 def hierarchicalGroupAverage(df, columnsToUse, criterion, thresholds=[1, 100]):

@@ -32,14 +32,14 @@ def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 def bisectingKmeans(df, originalDatasetColumnsToUse):
     #@SaraHoxha
     # TODO: Implement the bisectingKmeans method
-    return df, "bisectingKmeans"
+    return df, ["bisectingKmeans"]
 
 def xMeans(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
     # TODO: Implement the xMeans method
-    return df, "xMeans"
+    return df, ["xMeans"]
 
 def kModes(df, originalDatasetColumnsToUse):
     #@SaraHoxha
     # TODO: Implement the kModes method
-    return df, "kModes"
+    return df, ["kModes"]
