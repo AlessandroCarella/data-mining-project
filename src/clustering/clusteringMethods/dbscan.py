@@ -1,7 +1,6 @@
 from sklearn.cluster import OPTICS
-from sklearn.preprocessing import StandardScaler
 
-from clusteringUtility import columnAlreadyInDf
+from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 def dbscan(df, originalDatasetColumnsToUse):
     #@SaraHoxha
@@ -16,14 +15,7 @@ def dbscan(df, originalDatasetColumnsToUse):
 # of the dataset size. (the number is a percentage of the dataset size)
 def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0.05]):
     #@AlessandroCarella
-    #create a copy of the dataset to select only certain features
-    tempDf = df.copy()
-    tempDf = tempDf [columnsToUse]
-
-    #scale the temp dataset to use the clustering algorithm
-    scaler = StandardScaler()
-    scaler.fit(tempDf)
-    tempDfScal = scaler.transform(tempDf)
+    tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
     columnsNames = []
     for min_sample in range (min_samples[0], min_samples[1]):
