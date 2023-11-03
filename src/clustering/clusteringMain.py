@@ -82,7 +82,7 @@ def clusterings (df):
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
     df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 50])
     df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse)
-    df, kModesColumnName = kModes(df, continuousFeatures, Krange=[2, 50])
+    df, kModesColumnName = kModes(df, categoricalFeatures, Krange=[2, 50])
     saveDfToFile (df)
 
     from clusteringMethods.mixtureGuassianModel import mixtureGuassian
