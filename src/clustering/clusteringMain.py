@@ -70,8 +70,8 @@ continuousFeatures = [
 #the same dataset with an added column named after the method of clustering we're using and the relative values in it
 #the name of the column used
 def clusterings (df):
-    from clusteringMethods.hierarchical import hierarchical, hierarchicalCompleteLinkage, hierarchicalSingleLink, hierarchicalGroupAverage
-    df, hierarchicalColumnName = hierarchical(df, originalDatasetColumnsToUse)
+    from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLink, hierarchicalGroupAverage
+    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, originalDatasetColumnsToUse)
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=[1, 50])
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
@@ -101,7 +101,7 @@ def clusterings (df):
     #IMPORTANT: some values in the dataset might me simple strings but some others might be list of strings
     #since, for example, we don't have to do only 1 number of clusters for kmeans clustering
     #so the value for the key kMeans would be something like: 'kMeans': ['kMeans2', 'kMeans3', 'kMeans4', 'kMeans5', ...]
-    keys = ["hierarchical", "hierarchicalCompleteLinkage", "hierarchicalSingleLink", "hierarchicalGroupAverage",
+    keys = ["hierarchicalCentroidLinkage", "hierarchicalCompleteLinkage", "hierarchicalSingleLink", "hierarchicalGroupAverage",
                     "kMeans", "bisectingKmeans", "xMeans", "kModes",
                     "mixtureGuassian",
                     "dbscan", "optics", "hdbscan"]
@@ -136,7 +136,7 @@ def clusterings (df):
 #idea up)
 def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clusteringColumnsNames:dict):
     allClusteringColumns = [
-        clusteringColumnsNames.get("hierarchical"), 
+        clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
         clusteringColumnsNames.get("hierarchicalSingleLink"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
@@ -152,7 +152,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
 
     from measuresAndVisualizations.visualizationAndPlot import dendogram
     dendogram (df, [
-        clusteringColumnsNames.get("hierarchical"), 
+        clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
         clusteringColumnsNames.get("hierarchicalSingleLink"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage")
@@ -160,7 +160,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     
     from measuresAndVisualizations.visualizationAndPlot import correlationMatrix
     correlationMatrix (df, [
-        clusteringColumnsNames.get("hierarchical"), 
+        clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
         clusteringColumnsNames.get("hierarchicalSingleLink"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
@@ -173,7 +173,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
 
     from measuresAndVisualizations.visualizationAndPlot import similarityMatrix
     similarityMatrix (df, [
-        clusteringColumnsNames.get("hierarchical"), 
+        clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
         clusteringColumnsNames.get("hierarchicalSingleLink"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
@@ -190,14 +190,14 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     what's entropy in dataset clustering?
     Entropy in dataset clustering is a measure used to assess the purity of clusters created during 
     a clustering algorithm's execution. 
-    It's commonly used in the context of hierarchical clustering, particularly when performing 
+    It's commonly used in the context of hierarchicalCentroidLinkage clustering, particularly when performing 
     agglomerative clustering. The goal of clustering is to group similar data points together into 
     clusters, and entropy helps quantify the homogeneity of these clusters.
     """
     entropy (df, allClusteringColumns)
     
-    from measuresAndVisualizations.metrics import sseZeroToFiftyClusters
-    sseZeroToFiftyClusters (df, [
+    from measuresAndVisualizations.metrics import sse
+    sse (df, [
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
         clusteringColumnsNames.get("xMeans"),
