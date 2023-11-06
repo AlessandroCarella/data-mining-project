@@ -59,7 +59,7 @@ def silhouette(df, clustering_columns):
         #     file.write(metric_result)
 
 def kthNeighborDistance(df, clustering_columns):
-    #@SaraHoxha
+    #@AlessandroCarella
     # TODO: Write the method kthNeighborDistance
     for clustering_type in clustering_columns:
         pass
