@@ -1,13 +1,14 @@
 from sklearn.cluster import KMeans, BisectingKMeans
 from kmodes.kmodes import KModes
-from sklearn.preprocessing import StandardScaler
-from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset, getMidRunObjectFolderPath, saveMidRunObjectToFile
+import os.path as path
 
 # The parameter 'K' controls the number of clusters in the K-means algorithm, allowing you to customize the granularity of your data segmentation.
 def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
     #@AlessandroCarella
     tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
+    centersDict = {}
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):
         newColumnName = 'kMeans=' + str (k)
@@ -24,9 +25,12 @@ def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
             # Get the cluster centers
             centers = kmeans.cluster_centers_
+            centersDict [newColumnName] = centers
 
             # Add the cluster assignment as a new column in the DataFrame
             df[newColumnName] = labels
+
+    saveMidRunObjectToFile (centersDict, path.join(getMidRunObjectFolderPath(), "kMeansCenters"))
 
     return df, columnsNames
 
@@ -42,7 +46,6 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
         newColumnName = 'bisectingKmeans=' + str (k)
         columnsNames.append (newColumnName)
         if not columnAlreadyInDf (newColumnName, df):
-            
             clusters = BisectingKMeans(n_clusters = k).fit(df_subset)
 
             df[newColumnName] = clusters.labels_
@@ -55,7 +58,6 @@ def xMeans(df, originalDatasetColumnsToUse):
     return df, ["xMeans"]
 
 def kModes(df, columnsToUse, Krange = [2,3]):
-    
     df_subset = df[columnsToUse]
     
     columnsNames = []

@@ -3,11 +3,10 @@ import os.path as path
 
 #all the methods we're gonna use (unless they're not in there should be from those two libraries (cause the teahers were using)):
 import sklearn #usually you import the modules from this library and not the whole thing
-import scipy as sp #TODO check if the abbreviation ("sp") is correct
+import scipy as sp 
 
 from clusteringMethods.clusteringUtility import saveDfToFile
 
-#TODO: name the final file for the train dataset "trainFinalVersion.csv"
 datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalWithClustering.csv")
 if not path.exists (datasetPath):
     datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv") 

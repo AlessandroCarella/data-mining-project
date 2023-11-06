@@ -1,5 +1,7 @@
 from scipy.cluster.hierarchy import linkage, fcluster
-from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+import os.path as path
+
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset, getMidRunObjectFolderPath, saveMidRunObjectToFile
 
 def hierarchical(df, originalDatasetColumnsToUse):
     #@RafaelUrbina
@@ -12,7 +14,8 @@ def hierarchicalCompleteLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
 
     # Calculate the linkage matrix using complete linkage
     linkage_matrix = linkage(df_subset, method='complete')
-    
+    saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalCompleteLinkageLinkageMatrix"))
+
     columnsNames=[]
     for threshold in linkage_thresholds:
         newColumnName = 'hierarchicalCompleteLinkage' + ' '  + 'threshold' + str (threshold)
@@ -38,6 +41,7 @@ def hierarchicalGroupAverage(df, columnsToUse, criterion, thresholds=[1, 100]):
 
     # Perform hierarchical clustering using the 'average' linkage method
     linkage_matrix = linkage(tempDfScal, method='average')
+    saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalGroupAverageLinkageMatrix"))
 
     columnsNames = []
     for threshold in thresholds:

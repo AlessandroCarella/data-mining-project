@@ -1,9 +1,7 @@
 import numpy as np
 from sklearn.mixture import GaussianMixture
-import matplotlib.pyplot as plt 
-from sklearn.preprocessing import StandardScaler
 
-from clusteringUtility import columnAlreadyInDf
+from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 # n_components:
 # Number of Gaussian components (clusters) to identify
@@ -15,14 +13,7 @@ from clusteringUtility import columnAlreadyInDf
 # Smaller values for higher precision, larger values for faster convergence
 def mixtureGuassian(df, columnsToUse, n_components=[2, 10], tols=[1e-4]):
     #@AlessandroCarella
-    #create a copy of the dataset to select only certain features
-    tempDf = df.copy()
-    tempDf = tempDf [columnsToUse]
-
-    #scale the temp dataset to use the clustering algorithm
-    scaler = StandardScaler()
-    scaler.fit(tempDf)
-    tempDfScal = scaler.transform(tempDf)
+    tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
     columnsNames = []
     for n_component in range (n_components[0], n_components[1]):
