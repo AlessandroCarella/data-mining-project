@@ -9,7 +9,7 @@ from clusteringMethods.clusteringUtility import saveDfToFile
 
 datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalWithClustering.csv")
 if not path.exists (datasetPath):
-    datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv") 
+    datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/Dataset_nomissing_nofeatur_noutlier_noinconsistencies.csv") 
 
 #those are all the names of the columns in the dataset right now
 #we should select the ones that we can use for the clustering before proceeding
