@@ -69,10 +69,10 @@ continuousFeatures = [
 #the same dataset with an added column named after the method of clustering we're using and the relative values in it
 #the name of the column used
 def clusterings (df):
-    from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLink, hierarchicalGroupAverage
-    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, originalDatasetColumnsToUse)
+    from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLinkage, hierarchicalGroupAverage
+    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, originalDatasetColumnsToUse,linkage_thresholds=[1, 50])
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=[1, 50])
-    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLink(df, originalDatasetColumnsToUse)
+    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, originalDatasetColumnsToUse,linkage_thresholds=[1, 50])
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
     saveDfToFile (df)
@@ -80,7 +80,7 @@ def clusterings (df):
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
     df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 50])
-    df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse)
+    df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse,Krange=[2,50])
     df, kModesColumnName = kModes(df, categoricalFeatures, Krange=[2, 50])
     saveDfToFile (df)
 
@@ -91,7 +91,7 @@ def clusterings (df):
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, continuousFeatures, eps= [0.1, 3], min_samples=[1, 20])
     df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
-    df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse)
+    df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse,min_cluster_size=[50,200])
     saveDfToFile (df)
 
 
@@ -100,7 +100,7 @@ def clusterings (df):
     #IMPORTANT: some values in the dataset might me simple strings but some others might be list of strings
     #since, for example, we don't have to do only 1 number of clusters for kmeans clustering
     #so the value for the key kMeans would be something like: 'kMeans': ['kMeans2', 'kMeans3', 'kMeans4', 'kMeans5', ...]
-    keys = ["hierarchicalCentroidLinkage", "hierarchicalCompleteLinkage", "hierarchicalSingleLink", "hierarchicalGroupAverage",
+    keys = ["hierarchicalCentroidLinkage", "hierarchicalCompleteLinkage", "hierarchicalSingleLinkage", "hierarchicalGroupAverage",
                     "kMeans", "bisectingKmeans", "xMeans", "kModes",
                     "mixtureGuassian",
                     "dbscan", "optics", "hdbscan"]
@@ -137,7 +137,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     allClusteringColumns = [
         clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
-        clusteringColumnsNames.get("hierarchicalSingleLink"), 
+        clusteringColumnsNames.get("hierarchicalSingleLinkage"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
@@ -153,7 +153,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     dendogram (df, [
         clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
-        clusteringColumnsNames.get("hierarchicalSingleLink"), 
+        clusteringColumnsNames.get("hierarchicalSingleLinkage"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage")
         ])
     
@@ -161,7 +161,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     correlationMatrix (df, [
         clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
-        clusteringColumnsNames.get("hierarchicalSingleLink"), 
+        clusteringColumnsNames.get("hierarchicalSingleLinkage"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
         clusteringColumnsNames.get("mixtureGuassian"),
         ]
@@ -174,7 +174,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     similarityMatrix (df, [
         clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
-        clusteringColumnsNames.get("hierarchicalSingleLink"), 
+        clusteringColumnsNames.get("hierarchicalSingleLinkage"), 
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
         clusteringColumnsNames.get("dbscan"),
         clusteringColumnsNames.get("optics"),

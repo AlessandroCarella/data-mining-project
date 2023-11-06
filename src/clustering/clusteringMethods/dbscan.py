@@ -1,6 +1,7 @@
 from sklearn.cluster import OPTICS, DBSCAN
 from sklearn.preprocessing import StandardScaler
 from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from hdbscan import HDBSCAN
 
 def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
     #@SaraHoxha
@@ -57,7 +58,28 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
 
     return df, columnsNames
 
-def hdbscan(df, originalDatasetColumnsToUse):
+def hdbscan(df, columnsToUse, min_cluster_size=[50,200]):
     #@RafaelUrbina
-    # TODO: Implement the hdbscan method
-    return df, ["hdbscan"]
+
+    df_subset = df[columnsToUse]
+
+    columnsNames = []
+    for min_sample in range(min_cluster_size[0], min_cluster_size[1] + 1):
+        newColumnName = f'hdbscan min_samples{min_sample}'
+        columnsNames.append(newColumnName)
+
+        if not columnAlreadyInDf(newColumnName, df):
+
+            # Initialize the HDBSCAN clusterer with the desired parameters
+            clusterer = HDBSCAN(min_cluster_size=min_cluster_size)
+
+            # Fit the model to the data
+            clusterer.fit(df_subset)
+
+            # Extract cluster labels
+            cluster_labels = clusterer.labels_
+
+            df[newColumnName] = cluster_labels
+
+
+    return df, columnsNames
