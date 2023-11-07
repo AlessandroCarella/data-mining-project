@@ -1,7 +1,9 @@
 from sklearn.cluster import OPTICS, DBSCAN
 from sklearn.preprocessing import StandardScaler
-from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset, saveMidRunObjectToFile, getMidRunObjectFolderPath
 from hdbscan import HDBSCAN
+import os.path as path
+
 
 def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
     #@SaraHoxha
@@ -21,6 +23,8 @@ def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
 
                     # Predict the cluster labels
                     cluster_labels = cluster.labels_
+
+                    saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) dbscanLabels "+ newColumnName))
 
                     df[newColumnName] = cluster_labels
 
@@ -52,6 +56,9 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
                     # Predict the cluster labels
                     cluster_labels = clustering.labels_
 
+                    saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) opticsLabels "+ newColumnName))
+
+
                     # The cluster labels are stored in 'cluster_labels' variable
                     # You can add them to your DataFrame if needed
                     df[newColumnName] = cluster_labels
@@ -80,6 +87,8 @@ def hdbscan(df, columnsToUse, min_cluster_size=[50,200]):
             cluster_labels = clusterer.labels_
 
             df[newColumnName] = cluster_labels
+            saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) hdbscanLabels "+ newColumnName))
+
 
 
     return df, columnsNames

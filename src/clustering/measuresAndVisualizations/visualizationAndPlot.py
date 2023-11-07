@@ -3,9 +3,12 @@ import os.path as path
 from scipy.spatial import distance_matrix
 import numpy as np
 import seaborn as sns
+from sklearn.metrics import pairwise_distances
+from clusteringMethods.clusteringUtility import copyAndScaleDataset
 
-from measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrix
+from measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrixhierarchical, reorderDistanceMatrixgmm, reorderDistanceMatrixdensity
 from clusteringUtility import getMidRunObject
+from clusteringMain import continuousFeatures
 
 def dendogram(df, listOfClusteringColumns):
     #@SaraHoxha
@@ -29,13 +32,10 @@ def correlationMatrix(df, listOfClusteringColumns):
                     distanceMatrix = distance_matrix (linkage_matrix)
                     
                     #Reorder in terms of the labels
-                    dist_ordered_matrix = reorderDistanceMatrix(distanceMatrix, linkage_matrix)
-
-                    # Convert distance matrix to similarity matrix (smaller distances should mean higher similarity)
-                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+                    dist_ordered_matrix = reorderDistanceMatrixhierarchical(distanceMatrix, linkage_matrix)
 
                     #Correlation coef.
-                    correlation_coef = np.corrcoef(similarity_matrix)
+                    correlation_coef = np.corrcoef(dist_ordered_matrix)
 
                     #set plt features
                     plt.figure(figsize=(21, 9))
@@ -49,8 +49,29 @@ def correlationMatrix(df, listOfClusteringColumns):
                     plt.savefig(imgPath, dpi=100)
 
             elif "mixtureGuassian" in clusteringColumn:
-                # correlation matrix for mixture guassian clustering
-                pass 
+                tempDfScal = copyAndScaleDataset (df, continuousFeatures)
+                gmmtype = clusteringColumn
+                imageName = gmmtype + " correlationMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "correlationMatrix", imageName)
+                if not visualizazionAlreadyExists (imgPath):
+                    # correlation matrix for mixture guassian clustering
+                    labels = getMidRunObject("(just object) gmmLabels "+ gmmtype)
+                    component_means = getMidRunObject("(just object) gmmComponent_means "+ gmmtype)
+                    distanceMatrix = pairwise_distances(tempDfScal, component_means, metric='euclidean')
+                    dist_ordered_matrix = reorderDistanceMatrixgmm(distanceMatrix,labels,component_means)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+
+                    # Plot the correlation matrix
+                    sns.heatmap(dist_ordered_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+            else:
+                pass
+             
 
 def clusterBarChart(df, listOfClusteringColumns, featuresToPlotOn):
     #@AlessandroCarella
@@ -82,8 +103,93 @@ def clusterBarChart(df, listOfClusteringColumns, featuresToPlotOn):
                     plt.savefig(imgPath, dpi=100)
 
 def similarityMatrix(df, listOfClusteringColumns):
-    #@RafaelUrbina
-    # TODO: Write the similarityMatrix method
-    for clusteringType in listOfClusteringColumns:
-        pass
-    # plt.savefig("""path""")
+     #@RafaelUrbina
+    for clusteringType in listOfClusteringColumns:#[["", ""],["", ""]]
+        for clusteringColumn in clusteringType:#["", ""]
+            if "hierarchical" in clusteringColumn: #clusteringColumn example: "hierarchicalGroupAverage threshold3 criterion=blabla"
+                hierarchicalType = clusteringColumn.split (" ")[0] #get just the clustering type since the formatting of the strings for hierarchical is hierarchicalType + ' ' + 'threshold' + n + ' ' + 'criterion=' + n
+                imageName = hierarchicalType + " similarityMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
+
+                if not visualizazionAlreadyExists (imgPath):
+                    linkage_matrix = getMidRunObject ("(just object) " + hierarchicalType + "LinkageMatrix")
+                    
+                    distanceMatrix = distance_matrix (linkage_matrix)
+                    
+                    #Reorder in terms of the labels
+                    dist_ordered_matrix = reorderDistanceMatrixhierarchical(distanceMatrix, linkage_matrix)
+
+                    # Convert distance matrix to similarity matrix (smaller distances should mean higher similarity)
+                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+
+                    # Plot the correlation matrix
+                    sns.heatmap(similarity_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+            elif "dbscan" in clusteringColumn:
+                tempDfScal = copyAndScaleDataset (df, continuousFeatures)
+                dbscantype = clusteringColumn
+                imageName = dbscantype + " similarityMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
+                if not visualizazionAlreadyExists (imgPath):
+                    distanceMatrix = pairwise_distances(tempDfScal)
+                    labels = getMidRunObject("(just object) dbscanLabels "+ dbscantype)
+                    dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
+                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+
+                    # Plot the correlation matrix
+                    sns.heatmap(similarity_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+            elif "optics" in clusteringColumn:
+                tempDfScal = copyAndScaleDataset (df, continuousFeatures)
+                opticstype = clusteringColumn
+                imageName = opticstype + " similarityMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
+                if not visualizazionAlreadyExists (imgPath):
+                    distanceMatrix = pairwise_distances(tempDfScal)
+                    labels = getMidRunObject("(just object) opticsLabels "+ opticstype)
+                    dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
+                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+
+                    # Plot the correlation matrix
+                    sns.heatmap(similarity_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+            elif "hdbscan" in clusteringColumn:
+                tempDfScal = copyAndScaleDataset (df, continuousFeatures)
+                hdbscantype = clusteringColumn
+                imageName = hdbscantype + " similarityMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
+                if not visualizazionAlreadyExists (imgPath):
+                    distanceMatrix = pairwise_distances(tempDfScal)
+                    labels = getMidRunObject("(just object) hdbscanLabels "+ hdbscantype)
+                    dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
+                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+
+                    # Plot the correlation matrix
+                    sns.heatmap(similarity_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+            else:
+                pass

@@ -91,7 +91,7 @@ def clusterings (df):
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
     df, dbscanColumnName = dbscan(df, continuousFeatures, eps= [0.1, 3], min_samples=[1, 20])
     df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
-    df, hdbscanColumnName = hdbscan(df, originalDatasetColumnsToUse,min_cluster_size=[50,200])
+    df, hdbscanColumnName = hdbscan(df, continuousFeatures,min_cluster_size=[50,200])
     saveDfToFile (df)
 
 

@@ -29,7 +29,7 @@ def checkSubFoldersExists (path):
 def visualizazionAlreadyExists (imgPath):
     path.exists(imgPath)
 
-def reorderDistanceMatrix(distance_matrix, linkage_matrix):
+def reorderDistanceMatrixhierarchical(distance_matrix, linkage_matrix):
     # Extract cluster assignments
     clusters = fcluster(linkage_matrix, t=0, criterion='inconsistent')
 
@@ -39,4 +39,19 @@ def reorderDistanceMatrix(distance_matrix, linkage_matrix):
     # Reorder rows and columns of the distance matrix based on clusters
     sorted_distance_matrix = distance_matrix[np.concatenate(order_within_clusters)][:, np.concatenate(order_within_clusters)]
 
+    return sorted_distance_matrix
+
+def reorderDistanceMatrixgmm(distance_matrix,labels,n_component):
+    # Organize the distance_matrix based on cluster labels
+    sorted_distance_matrix = np.zeros_like(distance_matrix)
+
+    for i in range(n_component):
+        mask = labels == i
+        sorted_distance_matrix[i, :] = distance_matrix[mask, :]
+    return sorted_distance_matrix
+
+def reorderDistanceMatrixdensity(distance_matrix, labels):
+    unique_labels = np.unique(labels)
+    new_order = np.argsort(labels)
+    sorted_distance_matrix = distance_matrix[new_order][:, new_order]
     return sorted_distance_matrix
