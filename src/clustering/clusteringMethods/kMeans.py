@@ -56,6 +56,7 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
 
 # Function to perform X-Means clustering and add cluster assignments
 def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
+    #@RafaelUrbina
     data = df[columnsToUse].values
     
     columnsNames = []
@@ -87,6 +88,7 @@ def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
     return df, columnsNames
 
 def kModes(df, columnsToUse, Krange = [2,3]):
+    #@SaraHoxha
     df_subset = df[columnsToUse]
     
     columnsNames = []

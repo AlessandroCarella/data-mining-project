@@ -1,6 +1,6 @@
 from sklearn.cluster import OPTICS, DBSCAN
 from sklearn.preprocessing import StandardScaler
-from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 from hdbscan import HDBSCAN
 
 def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
@@ -14,7 +14,7 @@ def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
                 columnsNames.append (newColumnName)
                 if not columnAlreadyInDf (newColumnName, df):
                     
-                    cluster = DBSCAN(eps=radius, min_samples=min_sample)
+                    cluster = DBSCAN(eps=radius, min_samples=min_sample, n_jobs=-1)
 
                     # Fit the model to your data
                     cluster.fit(df_subset)

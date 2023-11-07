@@ -7,9 +7,9 @@ import scipy as sp
 
 from clusteringMethods.clusteringUtility import saveDfToFile
 
-datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalWithClustering.csv")
+datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/DOWNSAMPLED trainFinalWithClustering.csv")
 if not path.exists (datasetPath):
-    datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/Dataset_nomissing_nofeatur_noutlier_noinconsistencies.csv") 
+    datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/DOWNSAMPLED Dataset_nomissing_nofeatur_noutlier_noinconsistencies.csv") 
 
 #those are all the names of the columns in the dataset right now
 #we should select the ones that we can use for the clustering before proceeding
@@ -70,21 +70,21 @@ continuousFeatures = [
 #the name of the column used
 def clusterings (df):
     from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLinkage, hierarchicalGroupAverage
-    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, originalDatasetColumnsToUse,linkage_thresholds=[1, 50])
+    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, continuousFeatures,linkage_thresholds=[1, 50])
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=[1, 50])
-    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, originalDatasetColumnsToUse,linkage_thresholds=[1, 50])
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", threshold=[1, 50])
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", threshold=[2,20])
+    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, continuousFeatures,linkage_thresholds=[1, 50])
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", linkage_thresholds=[1, 50])
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", linkage_thresholds=[2,20])
     saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
     df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
     df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 50])
-    df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse,Krange=[2,50])
+    #df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse,Krange=[2,50])
     df, kModesColumnName = kModes(df, categoricalFeatures, Krange=[2, 50])
     saveDfToFile (df)
 
-    from clusteringMethods.mixtureGuassianModel import mixtureGuassian
+    from clusteringMethods.mixtureGuassian import mixtureGuassian
     df, mixtureGuassianColumnName = mixtureGuassian(df, continuousFeatures, n_components=[2, 20], tols=[1e-2, 1e-3, 1e-4, 1e-5])
     saveDfToFile (df)
 

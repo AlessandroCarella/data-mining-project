@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.mixture import GaussianMixture
 
-from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
 
 # n_components:
 # Number of Gaussian components (clusters) to identify
