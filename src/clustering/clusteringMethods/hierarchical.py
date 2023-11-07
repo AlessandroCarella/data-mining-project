@@ -9,6 +9,7 @@ def hierarchicalCentroidLinkage(df, columnsToUse,linkage_thresholds=[1, 100]):
 
     # Calculate the linkage matrix using centroid linkage
     linkage_matrix = linkage(tempDfScal, method='centroid')
+    saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalCentroidLinkageLinkageMatrix"))
     
     columnsNames = []
     for threshold in linkage_thresholds:
@@ -49,6 +50,7 @@ def hierarchicalSingleLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
 
     # Calculate the linkage matrix using single linkage
     linkage_matrix = linkage(tempDfScal, method='single')
+    saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalSingleLinkageLinkageMatrix"))
     
     columnsNames = []
     for threshold in linkage_thresholds:
@@ -70,10 +72,10 @@ def hierarchicalGroupAverage(df, columnsToUse, criterion, thresholds=[1, 100]):
     # Perform hierarchical clustering using the 'average' linkage method
     linkage_matrix = linkage(tempDfScal, method='average')
     saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalGroupAverageLinkageMatrix"))
-
+    
     columnsNames = []
     for threshold in thresholds:
-        newColumnName = 'hierarchicalGroupAverage' + ' ' + 'criterion=' + criterion + ' ' + 'threshold' + str (threshold)
+        newColumnName = 'hierarchicalGroupAverage' + ' ' + 'threshold' + str (threshold) + ' ' + 'criterion=' + criterion
         columnsNames.append (newColumnName)
         if not columnAlreadyInDf (newColumnName, df):
             # Determine the cluster assignments using a distance or number of clusters threshold

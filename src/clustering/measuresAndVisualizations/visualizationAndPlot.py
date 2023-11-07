@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import os.path as path
+from scipy.spatial import distance_matrix
+import numpy as np
+import seaborn as sns
 
-from measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists
+from measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrix
+from clusteringUtility import getMidRunObject
 
 def dendogram(df, listOfClusteringColumns):
     #@SaraHoxha
@@ -12,10 +16,41 @@ def dendogram(df, listOfClusteringColumns):
 
 def correlationMatrix(df, listOfClusteringColumns):
     #@RafaelUrbina
-    # TODO: Write the correlationMatrix method
-    for clusteringType in listOfClusteringColumns:
-        pass
-    # plt.savefig("""path""")
+    for clusteringType in listOfClusteringColumns:#[["", ""],["", ""]]
+        for clusteringColumn in clusteringType:#["", ""]
+            if "hierarchical" in clusteringColumn: #clusteringColumn example: "hierarchicalGroupAverage threshold3 criterion=blabla"
+                hierarchicalType = clusteringColumn.split (" ")[0] #get just the clustering type since the formatting of the strings for hierarchical is hierarchicalType + ' ' + 'threshold' + n + ' ' + 'criterion=' + n
+                imageName = hierarchicalType + " correlationMatrix.png"
+                imgPath = path.join(getPlotsFolderPath(), "correlationMatrix", imageName)
+
+                if not visualizazionAlreadyExists (imgPath):
+                    linkage_matrix = getMidRunObject ("(just object) " + hierarchicalType + "LinkageMatrix")
+                    
+                    distanceMatrix = distance_matrix (linkage_matrix)
+                    
+                    #Reorder in terms of the labels
+                    dist_ordered_matrix = reorderDistanceMatrix(distanceMatrix, linkage_matrix)
+
+                    # Convert distance matrix to similarity matrix (smaller distances should mean higher similarity)
+                    similarity_matrix = 1 / (1 + dist_ordered_matrix)
+
+                    #Correlation coef.
+                    correlation_coef = np.corrcoef(similarity_matrix)
+
+                    #set plt features
+                    plt.figure(figsize=(21, 9))
+                    plt.title(imageName)
+                    plt.suptitle("Correlation coeficient: "+str(correlation_coef))
+
+                    # Plot the correlation matrix
+                    sns.heatmap(dist_ordered_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+                
+                    checkSubFoldersExists(imgPath)
+                    plt.savefig(imgPath, dpi=100)
+
+            elif "mixtureGuassian" in clusteringColumn:
+                # correlation matrix for mixture guassian clustering
+                pass 
 
 def clusterBarChart(df, listOfClusteringColumns, featuresToPlotOn):
     #@AlessandroCarella
