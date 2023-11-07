@@ -24,6 +24,8 @@ def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
             # Get the cluster assignments for each data point
             labels = kmeans.labels_
+            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
+
 
             # Get the cluster centers
             centers = kmeans.cluster_centers_
@@ -51,6 +53,8 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
             clusters = BisectingKMeans(n_clusters = k).fit(df_subset)
 
             df[newColumnName] = clusters.labels_
+            labels = clusters.labels_
+            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
 
     return df, columnsNames
 
@@ -84,6 +88,9 @@ def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
             # Add the cluster assignment as a new column in the DataFrame
             df[newColumnName] = cluster_assignments
+            
+            labels = cluster_assignments
+            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
 
     return df, columnsNames
 
@@ -98,5 +105,8 @@ def kModes(df, columnsToUse, Krange = [2,3]):
         if not columnAlreadyInDf (newColumnName, df):
             clusters = KModes(n_clusters = k).fit(df_subset)
             df[newColumnName] = clusters.labels_
+            
+            labels = clusters.labels_
+            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
             
     return df, columnsNames

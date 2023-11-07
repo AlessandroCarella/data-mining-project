@@ -1,7 +1,10 @@
 import numpy as np
+import pandas as pd
 import os.path as path 
-
+from sklearn.metrics import silhouette_score
 from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, checkSubFoldersExists
+from clusteringMethods.clusteringUtility import copyAndScaleDataset, getMidRunObject
+from clusteringMain import continuousFeatures, categoricalFeatures
 
 def entropy(df, clustering_columns):
     #@AlessandoCarella
@@ -51,12 +54,35 @@ def clustersCohesionAndSeparation(df, clustering_columns):
         #     file.write(metric_result)
 
 def silhouette(df, clustering_columns):
+    tempDfScal = copyAndScaleDataset (df, continuousFeatures)
+    tempDfScalCat = copyAndScaleDataset (df, categoricalFeatures)
     #@RafaelUrbina
     # TODO: Write the method silhouette
-    for clustering_type in clustering_columns:
-        pass
-        # with open("""path""", 'w') as file:
-        #     file.write(metric_result)
+    silhouettes = {}
+    for clusteringType in clustering_columns:#[["", ""],["", ""]]
+        for clusteringColumn in clusteringType:#["", ""]
+            if "modes" in clustering_columns:
+                labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
+                silhouette = silhouette_score(tempDfScalCat, labels)
+                silhouette[clusteringColumn] = silhouette
+            labels = getMidRunObject ("(just object) Labels"+ +clusteringColumn)
+            silhouette = silhouette_score(tempDfScal, labels)
+            silhouette = silhouette_score(tempDfScal, labels)
+            silhouettes[clusteringColumn] = silhouette
+    
+
+    #NOT SURE HOW TO DO THIS: silhouette_score(X_minmax[dbscan.labels_ != -1], dbscan.labels_[dbscan.labels_ != -1]))
+    df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
+
+    filePath = path.join (getMetricsFolderPath (), "silhouette.csv")
+    
+    checkSubFoldersExists (filePath)
+    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
+
+    
+
+            
+
 
 def kthNeighborDistance(df, clustering_columns):
     #@AlessandroCarella
