@@ -64,14 +64,19 @@ def silhouette(df, clustering_columns):
             if "modes" in clustering_columns:
                 labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
                 silhouette = silhouette_score(tempDfScalCat, labels)
+                #silhouette = silhouette_score(tempDfScalCat[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
                 silhouette[clusteringColumn] = silhouette
-            labels = getMidRunObject ("(just object) Labels"+ +clusteringColumn)
-            silhouette = silhouette_score(tempDfScal, labels)
-            silhouette = silhouette_score(tempDfScal, labels)
-            silhouettes[clusteringColumn] = silhouette
+            if "hdscan" or "dbscan" or "optics" in clustering_columns:
+                labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
+                silhouette = silhouette_score(tempDfScal[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
+                #silhouette_score(X_minmax[dbscan.labels_ != -1], dbscan.labels_[dbscan.labels_ != -1]))
+                silhouette[clusteringColumn] = silhouette
+            else:
+                labels = getMidRunObject ("(just object) Labels"+ +clusteringColumn)
+                silhouette = silhouette_score(tempDfScal, labels)
+                #silhouette = silhouette_score(tempDfScal[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
+                silhouettes[clusteringColumn] = silhouette
     
-
-    #NOT SURE HOW TO DO THIS: silhouette_score(X_minmax[dbscan.labels_ != -1], dbscan.labels_[dbscan.labels_ != -1]))
     df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
 
     filePath = path.join (getMetricsFolderPath (), "silhouette.csv")
