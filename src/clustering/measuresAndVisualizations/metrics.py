@@ -63,18 +63,18 @@ def silhouette(df, clustering_columns):
         for clusteringColumn in clusteringType:#["", ""]
             if "modes" in clustering_columns:
                 labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
-                silhouette = silhouette_score(tempDfScalCat, labels)
-                #silhouette = silhouette_score(tempDfScalCat[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
+                silhouette = silhouette_score(tempDfScalCat[categoricalFeatures], labels)
+                #silhouette = silhouette_score(tempDfScalCat[tempDfScalCat[clusteringType] != -1][categoricalFeatures], labels[labels != -1]) #ASK if this could work
                 silhouette[clusteringColumn] = silhouette
             if "hdscan" or "dbscan" or "optics" in clustering_columns:
                 labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
-                silhouette = silhouette_score(tempDfScal[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
+                silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], labels[labels != -1]) #ASK if this could work
                 #silhouette_score(X_minmax[dbscan.labels_ != -1], dbscan.labels_[dbscan.labels_ != -1]))
                 silhouette[clusteringColumn] = silhouette
             else:
                 labels = getMidRunObject ("(just object) Labels"+ +clusteringColumn)
-                silhouette = silhouette_score(tempDfScal, labels)
-                #silhouette = silhouette_score(tempDfScal[tempDfScal['clusteringType'] != -1], labels[labels != -1]) #ASK if this could work
+                silhouette = silhouette_score(tempDfScal[continuousFeatures], labels)
+                #silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], labels[labels != -1]) #ASK if this could work
                 silhouettes[clusteringColumn] = silhouette
     
     df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
