@@ -7,7 +7,7 @@ import os.path as path
 
 def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
     #@SaraHoxha
-    df_subset = df[columnsToUse]
+    df_subset = copyAndScaleDataset (df, columnsToUse)
     
     columnsNames = []
     for min_sample in range (min_samples[0], min_samples[1]):

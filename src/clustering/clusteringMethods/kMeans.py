@@ -40,7 +40,7 @@ def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
 def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
     #@SaraHoxha
-    df_subset = df[columnsToUse]
+    df_subset = copyAndScaleDataset (df, columnsToUse)
     
     # Initial cluster assignment
     df['bisectingKmeans'] = 0
@@ -96,7 +96,7 @@ def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
 def kModes(df, columnsToUse, Krange = [2,3]):
     #@SaraHoxha
-    df_subset = df[columnsToUse]
+    df_subset = copyAndScaleDataset (df, columnsToUse)
     
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):

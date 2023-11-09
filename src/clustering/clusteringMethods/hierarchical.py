@@ -25,8 +25,8 @@ def hierarchicalCentroidLinkage(df, columnsToUse,linkage_thresholds=[1, 100]):
 
 def hierarchicalCompleteLinkage(df, columnsToUse, linkage_thresholds=[1, 100]):
     #@SaraHoxha
-    df_subset = df[columnsToUse]
-
+    df_subset = copyAndScaleDataset (df, columnsToUse)
+    
     # Calculate the linkage matrix using complete linkage
     linkage_matrix = linkage(df_subset, method='complete')
     saveMidRunObjectToFile (linkage_matrix, path.join(getMidRunObjectFolderPath(), "(just object) hierarchicalCompleteLinkageLinkageMatrix"))
