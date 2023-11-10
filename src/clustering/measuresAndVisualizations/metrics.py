@@ -116,15 +116,3 @@ def silhouette(df, clustering_columns):
     checkSubFoldersExists (filePath)
     saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
 
-    
-
-            
-
-
-def kthNeighborDistance(df, clustering_columns):
-    #@AlessandroCarella
-    # TODO: Write the method kthNeighborDistance
-    for clustering_type in clustering_columns:
-        pass
-        # with open("""path""", 'w') as file:
-        #     file.write(metric_result)

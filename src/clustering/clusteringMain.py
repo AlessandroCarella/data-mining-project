@@ -218,14 +218,6 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("hdbscan"),
     ])
 
-    from measuresAndVisualizations.metrics import kthNeighborDistance
-    kthNeighborDistance (df, [
-        clusteringColumnsNames.get("dbscan"),
-        clusteringColumnsNames.get("optics"),
-        clusteringColumnsNames.get("hdbscan"),
-    ])
-
-
 finalTrainDataset = pd.read_csv (datasetPath)
 finalTrainDatasetWithClustering, clusteringColumnsNames = clusterings (finalTrainDataset)
 #TODO: save the finalTrainDatasetWithClustering to file
