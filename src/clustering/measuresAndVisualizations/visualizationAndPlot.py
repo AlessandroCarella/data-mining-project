@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import os.path as path
+from scipy.cluster.hierarchy import dendrogram
 from scipy.spatial import distance_matrix
 import numpy as np
 import seaborn as sns
@@ -12,10 +13,21 @@ from clusteringMain import continuousFeatures
 
 def dendogram(df, listOfClusteringColumns):
     #@SaraHoxha
-    # TODO: Write the dendogram method
     for clusteringType in listOfClusteringColumns:
-        pass
-    # plt.savefig("""path""")
+        for clusteringColumn in clusteringType:
+            if "hierarchical" in clusteringColumn:
+                    hierarchicalType = clusteringColumn.split (" ")[0] 
+                    imageName = hierarchicalType + " dendogram.png"
+                    imgPath = path.join(getPlotsFolderPath(), "dendogram", imageName)
+                    if not visualizazionAlreadyExists (imgPath):
+                        linkage_matrix = getMidRunObject ("(just object) " + hierarchicalType + "LinkageMatrix")
+                        dendrogram(linkage_matrix, orientation="top")
+                        
+                        plt.figure(figsize=(21, 9))
+                        plt.title(f"Dendrogram for Clustering Type: {hierarchicalType}")
+                        
+                        checkSubFoldersExists(imgPath)
+                        plt.savefig(imgPath)
 
 def correlationMatrix(df, listOfClusteringColumns):
     #@RafaelUrbina

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import os.path as path 
-from sklearn.metrics import silhouette_score
+from sklearn.metrics import silhouette_score, pairwise_distances_argmin_min, davies_bouldin_score
 from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, checkSubFoldersExists
 from clusteringMethods.clusteringUtility import copyAndScaleDataset, getMidRunObject
 from clusteringMain import continuousFeatures, categoricalFeatures
@@ -39,19 +39,51 @@ def entropy(df, clustering_columns):
 
 def sse(df, clustering_columns):
     #@SaraHoxha
-    # TODO: Write the method sse
-    for clustering_type in clustering_columns:
-        pass
-        # with open("""path""", 'w') as file:
-        #     file.write(metric_result)
+    sse_results = []
+    for clusteringType in clustering_columns:
+        for column in clusteringType:
+            cluster_centers = df.groupby(column).mean()
+            cluster_assignments, _ = pairwise_distances_argmin_min(df.drop(columns=clustering_columns).values, cluster_centers.values)
+            sse = np.sum((df.drop(columns=clustering_columns).values - cluster_centers.values[cluster_assignments]) ** 2)
+            sse_results.append((column, sse))
+        
+    filePath = path.join (getMetricsFolderPath (), "sse.csv")
+    checkSubFoldersExists (filePath)
+    saveDictToFile(sse_results, filePath, custom_headers=["clustering type", "sse value"])
 
 def clustersCohesionAndSeparation(df, clustering_columns):
     #@SaraHoxha
-    # TODO: Write the method clustersCohesionAndSeparation
+    cohesion_separation_results = []
+
     for clustering_type in clustering_columns:
-        pass
-        # with open("""path""", 'w') as file:
-        #     file.write(metric_result)
+        for column in clustering_type:
+        # Calculate Cohesion
+            cluster_centers = df.groupby(column).mean()
+            cluster_assignments, _ = pairwise_distances_argmin_min(df.drop(columns=clustering_columns).values, cluster_centers.values)
+            sse = np.sum((df.drop(columns=clustering_columns).values - cluster_centers.values[cluster_assignments]) ** 2)
+            cohesion = sse
+
+        # Calculate Separation for each cluster
+        cluster_davies_bouldin_scores = []
+        unique_clusters = np.unique(df[column])    
+        for cluster in unique_clusters:
+            cluster_data = df[df[column] == cluster]
+            separation = davies_bouldin_score(cluster_data.drop(columns=clustering_columns).values)
+            cluster_davies_bouldin_scores.append(separation)
+
+        metric_result = {
+            "clustering type": column,
+            "cohesion": cohesion,
+            "separation": cluster_davies_bouldin_scores
+        }
+
+        cohesion_separation_results.append(metric_result)
+
+    filePath = path.join(getMetricsFolderPath(), "cohesion_and_separation.csv")
+    checkSubFoldersExists(filePath)
+    custom_headers = ["clustering type", "cohesion (SSE)", "separation (Davies-Bouldin Index)"]
+    saveDictToFile(cohesion_separation_results, filePath, custom_headers=custom_headers)
+
 
 def silhouette(df, clustering_columns):
     tempDfScal = copyAndScaleDataset (df, continuousFeatures)
