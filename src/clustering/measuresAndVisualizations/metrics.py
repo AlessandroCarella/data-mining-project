@@ -39,13 +39,16 @@ def entropy(df, clustering_columns):
 
 def sse(df, clustering_columns):
     #@SaraHoxha
-    sse_results = []
+    #sse_results = []
+    #changing to dict cuz of the saveDictToFile method you call at the end
+    sse_results = {}
     for clusteringType in clustering_columns:
         for column in clusteringType:
             cluster_centers = df.groupby(column).mean()
             cluster_assignments, _ = pairwise_distances_argmin_min(df.drop(columns=clustering_columns).values, cluster_centers.values)
             sse = np.sum((df.drop(columns=clustering_columns).values - cluster_centers.values[cluster_assignments]) ** 2)
-            sse_results.append((column, sse))
+            #sse_results.append((column, sse))
+            sse_results[column] = sse
         
     filePath = path.join (getMetricsFolderPath (), "sse.csv")
     checkSubFoldersExists (filePath)
@@ -84,29 +87,23 @@ def clustersCohesionAndSeparation(df, clustering_columns):
     custom_headers = ["clustering type", "cohesion (SSE)", "separation (Davies-Bouldin Index)"]
     saveDictToFile(cohesion_separation_results, filePath, custom_headers=custom_headers)
 
-
 def silhouette(df, clustering_columns):
+    #@RafaelUrbina
     tempDfScal = copyAndScaleDataset (df, continuousFeatures)
     tempDfScalCat = copyAndScaleDataset (df, categoricalFeatures)
-    #@RafaelUrbina
-    # TODO: Write the method silhouette
+
     silhouettes = {}
     for clusteringType in clustering_columns:#[["", ""],["", ""]]
         for clusteringColumn in clusteringType:#["", ""]
+            labels = df[clusteringColumn]
             if "modes" in clustering_columns:
-                labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
-                silhouette = silhouette_score(tempDfScalCat[categoricalFeatures], labels)
-                #silhouette = silhouette_score(tempDfScalCat[tempDfScalCat[clusteringType] != -1][categoricalFeatures], labels[labels != -1]) #ASK if this could work
+                silhouette = silhouette_score(tempDfScalCat[categoricalFeatures], df[clusteringColumn])
                 silhouette[clusteringColumn] = silhouette
             if "hdscan" or "dbscan" or "optics" in clustering_columns:
-                labels = getMidRunObject ("(just object) Labels "+clusteringColumn)
-                silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], labels[labels != -1]) #ASK if this could work
-                #silhouette_score(X_minmax[dbscan.labels_ != -1], dbscan.labels_[dbscan.labels_ != -1]))
+                silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], df[clusteringColumn][df[clusteringColumn] != -1]) #ASK if this could work
                 silhouette[clusteringColumn] = silhouette
             else:
-                labels = getMidRunObject ("(just object) Labels"+ +clusteringColumn)
                 silhouette = silhouette_score(tempDfScal[continuousFeatures], labels)
-                #silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], labels[labels != -1]) #ASK if this could work
                 silhouettes[clusteringColumn] = silhouette
     
     df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])

@@ -28,7 +28,6 @@ def mixtureGuassian(df, columnsToUse, n_components=[2, 10], tols=[1e-4]):
                 # Predict the cluster assignments for each data point
                 labels = gmm.predict(tempDfScal)
                 component_means = gmm.means_
-                saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) gmmLabels "+ newColumnName))
                 saveMidRunObjectToFile (component_means, path.join(getMidRunObjectFolderPath(), "(just object) gmmComponent_means "+ newColumnName))
 
                 # Add the cluster assignment as a new column in the DataFrame

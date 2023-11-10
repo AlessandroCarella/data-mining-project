@@ -24,7 +24,8 @@ def getPlotsFolderPath ():
     return path.join (path.dirname(__file__), "../plots")
 
 def checkSubFoldersExists (path):
-    os.makedirs(path, exist_ok=True)
+    dirname = os.path.dirname(path)
+    os.makedirs(dirname, exist_ok=True)
 
 def visualizazionAlreadyExists (imgPath):
     path.exists(imgPath)

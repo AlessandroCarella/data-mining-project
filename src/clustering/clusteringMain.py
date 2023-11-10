@@ -89,9 +89,9 @@ def clusterings (df):
     saveDfToFile (df)
 
     from clusteringMethods.dbscan import dbscan, optics, hdbscan
-    df, dbscanColumnName = dbscan(df, continuousFeatures, eps= [0.1, 3], min_samples=[1, 20])
-    df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1], min_cluster_size=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1])
-    df, hdbscanColumnName = hdbscan(df, continuousFeatures,min_cluster_size=[50,200])
+    df, dbscanColumnName = dbscan(df, continuousFeatures, eps= [0.1, 0.5, 1, 1.5, 2, 2.5, 3], min_samples=[1, 20])#eps= [0.1, 3], min_samples=[1, 20])
+    #df, opticsColumnName = optics(df, continuousFeatures, min_samples=[1, 20], xi=[0.01, 0.05, 0.1], min_cluster_size=[0.01, 0.05, 0.1])
+    df, hdbscanColumnName = hdbscan(df, continuousFeatures,min_cluster_size=[50, 200])
     saveDfToFile (df)
 
 
@@ -101,13 +101,13 @@ def clusterings (df):
     #since, for example, we don't have to do only 1 number of clusters for kmeans clustering
     #so the value for the key kMeans would be something like: 'kMeans': ['kMeans2', 'kMeans3', 'kMeans4', 'kMeans5', ...]
     keys = ["hierarchicalCentroidLinkage", "hierarchicalCompleteLinkage", "hierarchicalSingleLinkage", "hierarchicalGroupAverage",
-                    "kMeans", "bisectingKmeans", "xMeans", "kModes",
+                    "kMeans", "bisectingKmeans", "kModes", #"xMeans", 
                     "mixtureGuassian",
                     "dbscan", "optics", "hdbscan"]
     values = [hierarchicalColumnName, hierarchicalCompleteLinkageColumnName, hierarchicalSingleLinkColumnName, hierarchicalGroupAverageColumnName,
-                    kMeansColumnName, bisectingKmeansColumnName, xMeansColumnName, kModesColumnName,
-                    mixtureGuassianColumnName,
-                    dbscanColumnName, opticsColumnName, hdbscanColumnName]
+                    kMeansColumnName, bisectingKmeansColumnName, kModesColumnName,
+                    mixtureGuassianColumnName, #xMeansColumnName, 
+                    dbscanColumnName, hdbscanColumnName,]#opticsColumnName, ]
     clusteringColumnsNames = {method: column for method, column in zip(keys, values)}
 
     print (clusteringColumnsNames)
@@ -141,7 +141,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("hierarchicalGroupAverage"),
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
-        clusteringColumnsNames.get("xMeans"),
+        #clusteringColumnsNames.get("xMeans"),
         clusteringColumnsNames.get("kModes"),
         clusteringColumnsNames.get("mixtureGuassian"),
         clusteringColumnsNames.get("dbscan"),
@@ -199,7 +199,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     sse (df, [
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
-        clusteringColumnsNames.get("xMeans"),
+        #clusteringColumnsNames.get("xMeans"),
         clusteringColumnsNames.get("mixtureGuassian"),
     ])
 
@@ -210,7 +210,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     silhouette (df, [
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
-        clusteringColumnsNames.get("xMeans"),
+        #clusteringColumnsNames.get("xMeans"),
         clusteringColumnsNames.get("kModes"),
         clusteringColumnsNames.get("mixtureGuassian"),
         clusteringColumnsNames.get("dbscan"),
@@ -220,5 +220,4 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
 
 finalTrainDataset = pd.read_csv (datasetPath)
 finalTrainDatasetWithClustering, clusteringColumnsNames = clusterings (finalTrainDataset)
-#TODO: save the finalTrainDatasetWithClustering to file
 measuresAndVisualizationsForDeterminingClustersQuality (finalTrainDatasetWithClustering, clusteringColumnsNames)

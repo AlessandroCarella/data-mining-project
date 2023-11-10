@@ -11,8 +11,8 @@ def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
     
     columnsNames = []
     for min_sample in range (min_samples[0], min_samples[1]):
-        for radius in range(eps[0], eps[1]):
-                newColumnName = 'dbscan' + ' ' + 'min_samples=' + min_sample + ' ' + 'eps=' + radius
+        for radius in eps:#range(eps[0], eps[1]):
+                newColumnName = 'dbscan' + ' ' + 'min_samples=' + str(min_sample) + ' ' + 'eps=' + str(radius)
                 columnsNames.append (newColumnName)
                 if not columnAlreadyInDf (newColumnName, df):
                     
@@ -23,8 +23,6 @@ def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
 
                     # Predict the cluster labels
                     cluster_labels = cluster.labels_
-
-                    saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) dbscanLabels "+ newColumnName))
 
                     df[newColumnName] = cluster_labels
 
@@ -56,9 +54,6 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
                     # Predict the cluster labels
                     cluster_labels = clustering.labels_
 
-                    saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) opticsLabels "+ newColumnName))
-
-
                     # The cluster labels are stored in 'cluster_labels' variable
                     # You can add them to your DataFrame if needed
                     df[newColumnName] = cluster_labels
@@ -68,7 +63,7 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
 def hdbscan(df, columnsToUse, min_cluster_size=[50,200]):
     #@RafaelUrbina
 
-    df_subset = df[columnsToUse]
+    df_subset = copyAndScaleDataset (df, columnsToUse)
 
     columnsNames = []
     for min_sample in range(min_cluster_size[0], min_cluster_size[1] + 1):
@@ -78,7 +73,7 @@ def hdbscan(df, columnsToUse, min_cluster_size=[50,200]):
         if not columnAlreadyInDf(newColumnName, df):
 
             # Initialize the HDBSCAN clusterer with the desired parameters
-            clusterer = HDBSCAN(min_cluster_size=min_cluster_size)
+            clusterer = HDBSCAN(min_cluster_size=min_sample)
 
             # Fit the model to the data
             clusterer.fit(df_subset)
@@ -87,8 +82,5 @@ def hdbscan(df, columnsToUse, min_cluster_size=[50,200]):
             cluster_labels = clusterer.labels_
 
             df[newColumnName] = cluster_labels
-            saveMidRunObjectToFile (cluster_labels, path.join(getMidRunObjectFolderPath(), "(just object) hdbscanLabels "+ newColumnName))
-
-
 
     return df, columnsNames

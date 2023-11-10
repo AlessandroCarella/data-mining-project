@@ -43,7 +43,7 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
     df_subset = copyAndScaleDataset (df, columnsToUse)
     
     # Initial cluster assignment
-    df['bisectingKmeans'] = 0
+    #df['bisectingKmeans'] = 0
     
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):
@@ -53,9 +53,7 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
             clusters = BisectingKMeans(n_clusters = k).fit(df_subset)
 
             df[newColumnName] = clusters.labels_
-            labels = clusters.labels_
-            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
-
+            
     return df, columnsNames
 
 # Function to perform X-Means clustering and add cluster assignments
@@ -96,17 +94,16 @@ def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
 def kModes(df, columnsToUse, Krange = [2,3]):
     #@SaraHoxha
-    df_subset = copyAndScaleDataset (df, columnsToUse)
-    
+    #df_subset = copyAndScaleDataset (df, columnsToUse)
+    tempDf = df.copy()
+    tempDf = tempDf [columnsToUse]
+
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):
         newColumnName = 'kModes=' + str (k)
         columnsNames.append (newColumnName)
         if not columnAlreadyInDf (newColumnName, df):
-            clusters = KModes(n_clusters = k).fit(df_subset)
+            clusters = KModes(n_clusters = k).fit(tempDf)#(df_subset)
             df[newColumnName] = clusters.labels_
-            
-            labels = clusters.labels_
-            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
             
     return df, columnsNames

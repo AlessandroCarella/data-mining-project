@@ -7,9 +7,23 @@ import seaborn as sns
 from sklearn.metrics import pairwise_distances
 from clusteringMethods.clusteringUtility import copyAndScaleDataset
 
-from measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrixhierarchical, reorderDistanceMatrixgmm, reorderDistanceMatrixdensity
-from clusteringUtility import getMidRunObject
-from clusteringMain import continuousFeatures
+from measuresAndVisualizations.measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrixhierarchical, reorderDistanceMatrixgmm, reorderDistanceMatrixdensity
+from measuresAndVisualizations.clusteringUtility import getMidRunObject
+continuousFeatures = [
+    "duration_ms",
+    "popularity",
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "n_beats"
+]
+
 
 def dendogram(df, listOfClusteringColumns):
     #@SaraHoxha
@@ -17,17 +31,21 @@ def dendogram(df, listOfClusteringColumns):
         for clusteringColumn in clusteringType:
             if "hierarchical" in clusteringColumn:
                     hierarchicalType = clusteringColumn.split (" ")[0] 
-                    imageName = hierarchicalType + " dendogram.png"
+                    imageName = hierarchicalType + " " + clusteringColumn + " dendogram.png"
                     imgPath = path.join(getPlotsFolderPath(), "dendogram", imageName)
                     if not visualizazionAlreadyExists (imgPath):
+                        plt.figure(figsize=(21, 9))
+                        plt.title(f"Dendrogram for Clustering Type: {hierarchicalType} {clusteringColumn}")
+                        
                         linkage_matrix = getMidRunObject ("(just object) " + hierarchicalType + "LinkageMatrix")
                         dendrogram(linkage_matrix, orientation="top")
-                        
-                        plt.figure(figsize=(21, 9))
-                        plt.title(f"Dendrogram for Clustering Type: {hierarchicalType}")
+
+                         # Hide x-axis labels
+                        plt.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                         
                         checkSubFoldersExists(imgPath)
                         plt.savefig(imgPath)
+                        plt.close()
 
 def correlationMatrix(df, listOfClusteringColumns):
     #@RafaelUrbina
@@ -59,6 +77,7 @@ def correlationMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
 
             elif "mixtureGuassian" in clusteringColumn:
                 tempDfScal = copyAndScaleDataset (df, continuousFeatures)
@@ -67,7 +86,7 @@ def correlationMatrix(df, listOfClusteringColumns):
                 imgPath = path.join(getPlotsFolderPath(), "correlationMatrix", imageName)
                 if not visualizazionAlreadyExists (imgPath):
                     # correlation matrix for mixture guassian clustering
-                    labels = getMidRunObject("(just object) gmmLabels "+ gmmtype)
+                    labels = df[gmmtype]
                     component_means = getMidRunObject("(just object) gmmComponent_means "+ gmmtype)
                     distanceMatrix = pairwise_distances(tempDfScal, component_means, metric='euclidean')
                     dist_ordered_matrix = reorderDistanceMatrixgmm(distanceMatrix,labels,component_means)
@@ -81,10 +100,10 @@ def correlationMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
             else:
                 pass
              
-
 def clusterBarChart(df, listOfClusteringColumns, featuresToPlotOn):
     #@AlessandroCarella
     for clusteringType in listOfClusteringColumns:
@@ -113,9 +132,10 @@ def clusterBarChart(df, listOfClusteringColumns, featuresToPlotOn):
                     imgPath = path.join(getPlotsFolderPath(), "clusterBarChart", f'{categoricalColumn} for {clusteringColumn}.png')
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
 
 def similarityMatrix(df, listOfClusteringColumns):
-     #@RafaelUrbina
+    #@RafaelUrbina
     for clusteringType in listOfClusteringColumns:#[["", ""],["", ""]]
         for clusteringColumn in clusteringType:#["", ""]
             if "hierarchical" in clusteringColumn: #clusteringColumn example: "hierarchicalGroupAverage threshold3 criterion=blabla"
@@ -143,6 +163,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
             elif "dbscan" in clusteringColumn:
                 tempDfScal = copyAndScaleDataset (df, continuousFeatures)
                 dbscantype = clusteringColumn
@@ -150,7 +171,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
                 if not visualizazionAlreadyExists (imgPath):
                     distanceMatrix = pairwise_distances(tempDfScal)
-                    labels = getMidRunObject("(just object) dbscanLabels "+ dbscantype)
+                    labels = df[dbscantype]
                     dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
                     similarity_matrix = 1 / (1 + dist_ordered_matrix)
 
@@ -163,6 +184,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
             elif "optics" in clusteringColumn:
                 tempDfScal = copyAndScaleDataset (df, continuousFeatures)
                 opticstype = clusteringColumn
@@ -170,7 +192,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
                 if not visualizazionAlreadyExists (imgPath):
                     distanceMatrix = pairwise_distances(tempDfScal)
-                    labels = getMidRunObject("(just object) opticsLabels "+ opticstype)
+                    labels = df[opticstype]
                     dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
                     similarity_matrix = 1 / (1 + dist_ordered_matrix)
 
@@ -183,6 +205,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
             elif "hdbscan" in clusteringColumn:
                 tempDfScal = copyAndScaleDataset (df, continuousFeatures)
                 hdbscantype = clusteringColumn
@@ -190,7 +213,7 @@ def similarityMatrix(df, listOfClusteringColumns):
                 imgPath = path.join(getPlotsFolderPath(), "similarityMatrix", imageName)
                 if not visualizazionAlreadyExists (imgPath):
                     distanceMatrix = pairwise_distances(tempDfScal)
-                    labels = getMidRunObject("(just object) hdbscanLabels "+ hdbscantype)
+                    labels = df[hdbscantype]
                     dist_ordered_matrix = reorderDistanceMatrixdensity(distanceMatrix,labels)
                     similarity_matrix = 1 / (1 + dist_ordered_matrix)
 
@@ -203,5 +226,6 @@ def similarityMatrix(df, listOfClusteringColumns):
                 
                     checkSubFoldersExists(imgPath)
                     plt.savefig(imgPath, dpi=100)
+                    plt.close()
             else:
                 pass
