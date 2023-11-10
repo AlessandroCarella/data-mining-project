@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import os.path as path 
 from sklearn.metrics import silhouette_score
+
 from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, checkSubFoldersExists
 from clusteringMethods.clusteringUtility import copyAndScaleDataset, getMidRunObject
 from clusteringMain import continuousFeatures, categoricalFeatures
@@ -84,15 +85,3 @@ def silhouette(df, clustering_columns):
     checkSubFoldersExists (filePath)
     saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
 
-    
-
-            
-
-
-def kthNeighborDistance(df, clustering_columns):
-    #@AlessandroCarella
-    # TODO: Write the method kthNeighborDistance
-    for clustering_type in clustering_columns:
-        pass
-        # with open("""path""", 'w') as file:
-        #     file.write(metric_result)
