@@ -34,7 +34,8 @@ def kMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
             # Add the cluster assignment as a new column in the DataFrame
             df[newColumnName] = labels
 
-    saveMidRunObjectToFile (centersDict, path.join(getMidRunObjectFolderPath(), "kMeansCenters"))
+    if centersDict != {}:
+        saveMidRunObjectToFile (centersDict, path.join(getMidRunObjectFolderPath(), "kMeansCenters"))
 
     return df, columnsNames
 
@@ -86,9 +87,6 @@ def xMeans(df, columnsToUse, Krange=[2, 3], random_state=69):
 
             # Add the cluster assignment as a new column in the DataFrame
             df[newColumnName] = cluster_assignments
-            
-            labels = cluster_assignments
-            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
 
     return df, columnsNames
 

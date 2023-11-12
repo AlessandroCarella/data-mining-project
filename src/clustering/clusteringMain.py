@@ -7,7 +7,7 @@ import scipy as sp
 
 from clusteringMethods.clusteringUtility import saveDfToFile
 
-datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/DOWNSAMPLED trainFinalWithClustering.csv")
+datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFinalWithClustering.csv")
 if not path.exists (datasetPath):
     datasetPath = path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/DOWNSAMPLED Dataset_nomissing_nofeatur_noutlier_noinconsistencies.csv") 
 
@@ -41,6 +41,16 @@ categoricalFeatures = [
     "explicit",
     "artists",
     "album_name",
+    "key",
+    "genre",
+    "time_signature"
+]
+
+categoricalFeaturesForPlotting = [
+    #"name",
+    #"explicit",
+    #"artists",
+    #"album_name",
     "key",
     "genre",
     "time_signature"
@@ -103,14 +113,12 @@ def clusterings (df):
     keys = ["hierarchicalCentroidLinkage", "hierarchicalCompleteLinkage", "hierarchicalSingleLinkage", "hierarchicalGroupAverage",
                     "kMeans", "bisectingKmeans", "kModes", #"xMeans", 
                     "mixtureGuassian",
-                    "dbscan", "optics", "hdbscan"]
+                    "dbscan", "hdbscan",]#"optics",]
     values = [hierarchicalColumnName, hierarchicalCompleteLinkageColumnName, hierarchicalSingleLinkColumnName, hierarchicalGroupAverageColumnName,
-                    kMeansColumnName, bisectingKmeansColumnName, kModesColumnName,
-                    mixtureGuassianColumnName, #xMeansColumnName, 
+                    kMeansColumnName, bisectingKmeansColumnName, kModesColumnName, #xMeansColumnName, 
+                    mixtureGuassianColumnName,
                     dbscanColumnName, hdbscanColumnName,]#opticsColumnName, ]
     clusteringColumnsNames = {method: column for method, column in zip(keys, values)}
-
-    print (clusteringColumnsNames)
 
     return df, clusteringColumnsNames
 
@@ -145,7 +153,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("kModes"),
         clusteringColumnsNames.get("mixtureGuassian"),
         clusteringColumnsNames.get("dbscan"),
-        clusteringColumnsNames.get("optics"),
+        #clusteringColumnsNames.get("optics"),
         clusteringColumnsNames.get("hdbscan"),
         ]
 
@@ -167,8 +175,8 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         ]
     )
 
-    from measuresAndVisualizations.visualizationAndPlot import countPlotBetweenEachFeatureAndEachCluster
-    countPlotBetweenEachFeatureAndEachCluster (df, allClusteringColumns)
+    from measuresAndVisualizations.visualizationAndPlot import clusterBarChart
+    clusterBarChart (df, allClusteringColumns, categoricalFeaturesForPlotting)
 
     from measuresAndVisualizations.visualizationAndPlot import similarityMatrix
     similarityMatrix (df, [
@@ -183,7 +191,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
 
     ################################################################
     
-    from measuresAndVisualizations.metrics import entropy
+    from measuresAndVisualizations.metrics import entropyMetric
     """
     from chatgpt:
     what's entropy in dataset clustering?
@@ -193,7 +201,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     agglomerative clustering. The goal of clustering is to group similar data points together into 
     clusters, and entropy helps quantify the homogeneity of these clusters.
     """
-    entropy (df, allClusteringColumns)
+    entropyMetric (df, allClusteringColumns)
     
     from measuresAndVisualizations.metrics import sse
     sse (df, [
@@ -214,7 +222,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("kModes"),
         clusteringColumnsNames.get("mixtureGuassian"),
         clusteringColumnsNames.get("dbscan"),
-        clusteringColumnsNames.get("optics"),
+        #clusteringColumnsNames.get("optics"),
         clusteringColumnsNames.get("hdbscan"),
     ])
 
