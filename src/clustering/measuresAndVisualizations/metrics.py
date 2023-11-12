@@ -4,6 +4,7 @@ import os.path as path
 from clusteringMethods.clusteringUtility import getMidRunObject
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 from scipy.stats import entropy
+from sklearn.preprocessing import StandardScaler
 
 from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, checkSubFoldersExists
 from clusteringMethods.clusteringUtility import copyAndScaleDataset
@@ -39,7 +40,6 @@ continuousFeatures = [
     "tempo",
     "n_beats"
 ]
-
 
 def entropyMetric(df, clustering_columns):
     #@AlessandoCarella
@@ -143,18 +143,33 @@ def silhouette(df, clustering_columns):
         for clusteringType in clustering_columns:#[["", ""],["", ""]]
             for clusteringColumn in clusteringType:#["", ""]
                 labels = df[clusteringColumn]
-                if "modes" in clustering_columns:
-                    silhouette = silhouette_score(tempDfScalCat[categoricalFeatures], df[clusteringColumn])
-                    silhouette[clusteringColumn] = silhouette
-                if "hdbscan" or "dbscan" or "optics" in clustering_columns:
-                    pass
-                #    silhouette = silhouette_score(tempDfScal[tempDfScal[clusteringType] != -1][continuousFeatures], df[clusteringColumn][df[clusteringColumn] != -1]) #ASK if this could work
-                #    silhouette[clusteringColumn] = silhouette
-                else:
-                    silhouette = silhouette_score(tempDfScal[continuousFeatures], labels)
+                if "Modes" in clustering_columns:
+                    silhouette = silhouette_score(tempDfScalCat, labels)
                     silhouettes[clusteringColumn] = silhouette
+                    checkSubFoldersExists (filePath)
+                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
+                elif "hdbscan" in clusteringColumn.lower() or "dbscan" in clusteringColumn.lower():
+                    non_noise_mask = df[clusteringColumn] != -1
+                    X_non_noise = tempDfScal[non_noise_mask]
+                    labels_non_noise = df[clusteringColumn][non_noise_mask]
+                    if X_non_noise.shape[0] > 1 and len(labels_non_noise) > 1: #when all the values are noise 
+                        silhouette_avg = silhouette_score(X_non_noise, labels_non_noise)
+                        checkSubFoldersExists (filePath)
+                        saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
+                    else:
+                        silhouette_avg = -1
+                    silhouettes[clusteringColumn] = silhouette_avg
+                    checkSubFoldersExists (filePath)
+                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
+                #elif clusteringColumn.lower() == "optics":
+                    #pass   
+                else:
+                    silhouette = silhouette_score(tempDfScal, labels)
+                    silhouettes[clusteringColumn] = silhouette
+                    checkSubFoldersExists (filePath)
+                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
         
-        df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
+        #df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
         
         checkSubFoldersExists (filePath)
         saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])

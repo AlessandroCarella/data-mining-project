@@ -204,12 +204,12 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     entropyMetric (df, allClusteringColumns)
     
     from measuresAndVisualizations.metrics import sse
-    sse (df, [
+    """sse (df, [
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
         #clusteringColumnsNames.get("xMeans"),
         #clusteringColumnsNames.get("mixtureGuassian"),
-    ])
+    ])"""
 
     from measuresAndVisualizations.metrics import clustersCohesionAndSeparation
     clustersCohesionAndSeparation (df, allClusteringColumns)
