@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import os.path as path 
-from sklearn.metrics import silhouette_score, pairwise_distances_argmin_min, davies_bouldin_score
+from clusteringMethods.clusteringUtility import getMidRunObject
+from sklearn.metrics import silhouette_score, davies_bouldin_score
 from scipy.stats import entropy
 
 from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, checkSubFoldersExists
@@ -79,44 +80,50 @@ def sse(df, clustering_columns):
     filePath = path.join(getMetricsFolderPath(), "sse.csv")
     if not path.exists (filePath):
         sse_results = {}
-        """dfContinuous = df[continuousFeatures]
+        dfContinuous = df[continuousFeatures]
         for clusteringType in clustering_columns:
             for column in clusteringType:
-                cluster_centers = dfContinuous.groupby(column).mean()
-                cluster_assignments, _ = pairwise_distances_argmin_min(df.drop(columns=clustering_columns).values, cluster_centers.values)
-                sse = np.sum((df.drop(columns=clustering_columns).values - cluster_centers.values[cluster_assignments]) ** 2)
-                #sse_results.append((column, sse))
+                X = dfContinuous[column].values.reshape(-1, 1)
+                
+                centersDict= getMidRunObject ("kMeansCenters")
+                cluster_centers = centersDict[column]
+                
+                dfContinuous['centroid'] = dfContinuous[column].apply(lambda x: cluster_centers[x])
+                sse = np.sum((X - dfContinuous['centroid'].values.reshape(-1, 1)) ** 2)
+                dfContinuous.drop(['centroid'], axis=1, inplace=True)
                 sse_results[column] = sse
         
         checkSubFoldersExists (filePath)
-        saveDictToFile(sse_results, filePath, custom_headers=["clustering type", "sse value"])"""
+        saveDictToFile(sse_results, filePath, custom_headers=["clustering type", "sse value"])
 
 def clustersCohesionAndSeparation(df, clustering_columns):
     #@SaraHoxha
-    filePath = path.join(getMetricsFolderPath(), "cohesion_and_separation.csv")
+    """filePath = path.join(getMetricsFolderPath(), "cohesion_and_separation.csv")
     if not path.exists(filePath):
         cohesion_separation_results = {}
-        """dfContinuous = df[continuousFeatures]
+        dfContinuous = df[continuousFeatures]
         for clustering_type in clustering_columns:
             for column in clustering_type:
             # Calculate Cohesion
-                cluster_centers = dfContinuous.groupby(column).mean()
-                cluster_assignments, _ = pairwise_distances_argmin_min(df.drop(columns=clustering_columns).values, cluster_centers.values)
-                sse = np.sum((df.drop(columns=clustering_columns).values - cluster_centers.values[cluster_assignments]) ** 2)
-                cohesion = sse
+                X = dfContinuous[column].values.reshape(-1, 1)
+                
+                centersDict= getMidRunObject ("kMeansCenters")
+                cluster_centers = centersDict[column]
+                
+                dfContinuous['centroid'] = dfContinuous[column].apply(lambda x: cluster_centers[x])
+                cohesion = np.sum((X - dfContinuous['centroid'].values.reshape(-1, 1)) ** 2)
 
             # Calculate Separation for each cluster
             cluster_davies_bouldin_scores = []
             unique_clusters = np.unique(df[column])    
-            for cluster in unique_clusters:
-                cluster_data = df[df[column] == cluster]
-                separation = davies_bouldin_score(cluster_data.drop(columns=clustering_columns).values)
-                cluster_davies_bouldin_scores.append(separation)
+            features = df[continuousFeatures].values
+            clusters = dfContinuous[column].values
+            davies_bouldin = davies_bouldin_score(features, clusters)
 
             metric_result = {
                 #"clustering type": column,
                 "cohesion": cohesion,
-                "separation": cluster_davies_bouldin_scores
+                "separation": davies_bouldin
             }
 
             cohesion_separation_results[column] = metric_result
