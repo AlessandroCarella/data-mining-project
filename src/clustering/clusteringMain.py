@@ -208,7 +208,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
         #clusteringColumnsNames.get("xMeans"),
-        clusteringColumnsNames.get("mixtureGuassian"),
+        #clusteringColumnsNames.get("mixtureGuassian"),
     ])
 
     from measuresAndVisualizations.metrics import clustersCohesionAndSeparation

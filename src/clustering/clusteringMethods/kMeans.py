@@ -51,6 +51,7 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
         newColumnName = 'bisectingKmeans=' + str (k)
         columnsNames.append (newColumnName)
         if not columnAlreadyInDf (newColumnName, df):
+            #TODO: X
             clusters = BisectingKMeans(n_clusters = k).fit(df_subset)
 
             df[newColumnName] = clusters.labels_

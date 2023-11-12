@@ -83,12 +83,12 @@ def sse(df, clustering_columns):
         dfContinuous = df[continuousFeatures]
         for clusteringType in clustering_columns:
             for column in clusteringType:
-                X = dfContinuous[column].values.reshape(-1, 1)
+                X = df[column].values.reshape(-1, 1)
                 
-                centersDict= getMidRunObject ("kMeansCenters")
+                centersDict = getMidRunObject ("kMeansCenters")
                 cluster_centers = centersDict[column]
                 
-                dfContinuous['centroid'] = dfContinuous[column].apply(lambda x: cluster_centers[x])
+                dfContinuous['centroid'] = df[column].apply(lambda x: cluster_centers[x])
                 sse = np.sum((X - dfContinuous['centroid'].values.reshape(-1, 1)) ** 2)
                 dfContinuous.drop(['centroid'], axis=1, inplace=True)
                 sse_results[column] = sse
