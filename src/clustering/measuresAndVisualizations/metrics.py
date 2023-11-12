@@ -146,28 +146,22 @@ def silhouette(df, clustering_columns):
                 if "Modes" in clustering_columns:
                     silhouette = silhouette_score(tempDfScalCat, labels)
                     silhouettes[clusteringColumn] = silhouette
-                    checkSubFoldersExists (filePath)
-                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
                 elif "hdbscan" in clusteringColumn.lower() or "dbscan" in clusteringColumn.lower():
                     non_noise_mask = df[clusteringColumn] != -1
                     X_non_noise = tempDfScal[non_noise_mask]
                     labels_non_noise = df[clusteringColumn][non_noise_mask]
-                    if X_non_noise.shape[0] > 1 and len(labels_non_noise) > 1: #when all the values are noise 
+                    #if X_non_noise.shape[0] > 1 and len(labels_non_noise) > 1: #when all the values are noise 
+                    try:
                         silhouette_avg = silhouette_score(X_non_noise, labels_non_noise)
-                        checkSubFoldersExists (filePath)
-                        saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
-                    else:
+                    #else
+                    except:
                         silhouette_avg = -1
                     silhouettes[clusteringColumn] = silhouette_avg
-                    checkSubFoldersExists (filePath)
-                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
                 #elif clusteringColumn.lower() == "optics":
                     #pass   
                 else:
                     silhouette = silhouette_score(tempDfScal, labels)
                     silhouettes[clusteringColumn] = silhouette
-                    checkSubFoldersExists (filePath)
-                    saveDictToFile(silhouettes, filePath, custom_headers=["clustering type", "value"])
         
         #df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
         
