@@ -71,6 +71,18 @@ continuousFeatures = [
     "n_beats"
 ]
 
+#Range for the hierarchical methods
+min_sample_range = [5, 10, 15, 20, 25, 30, 
+                    35, 40, 50, 60, 70, 80, 
+                    90, 100, 125, 150, 175, 
+                    200, 250, 300, 350, 400,
+                    450, 500, 550, 600,650,
+                    700, 750, 800, 850, 900, 
+                    1000, 1100, 1250, 1400,
+                    1500, 1750, 2000, 2500, 
+                    3000, 3500, 4000, 4500, 
+                    5000, 5500, 6000, 65000, 
+                    7000, 7500, 8000, 9000, 10000]
 #all the method imported in the following methods should get 
 #as INPUT:
 #the dataset
@@ -80,11 +92,11 @@ continuousFeatures = [
 #the name of the column used
 def clusterings (df):
     from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLinkage, hierarchicalGroupAverage
-    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, continuousFeatures,linkage_thresholds=[1, 50])
-    df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=[1, 50])
-    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, continuousFeatures,linkage_thresholds=[1, 50])
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", linkage_thresholds=[1, 50])
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", linkage_thresholds=[2,20])
+    df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range)
+    df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=min_sample_range)
+    df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range)
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", linkage_thresholds=min_sample_range)
+    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", linkage_thresholds=min_sample_range)
     saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
