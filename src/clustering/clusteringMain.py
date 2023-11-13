@@ -88,10 +88,10 @@ def clusterings (df):
     saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
-    df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 50])
-    df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 50])
-    #df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse,Krange=[2,50])
-    df, kModesColumnName = kModes(df, categoricalFeatures, Krange=[2, 50])
+    df, kMeansColumnName = kMeans(df, continuousFeatures, Krange=[2, 200])
+    df, bisectingKmeansColumnName = bisectingKmeans(df, continuousFeatures, Krange=[2, 200])
+    #df, xMeansColumnName = xMeans(df, originalDatasetColumnsToUse,Krange=[2,200])
+    df, kModesColumnName = kModes(df, categoricalFeatures, Krange=[2, 200])
     saveDfToFile (df)
 
     from clusteringMethods.mixtureGuassian import mixtureGuassian
