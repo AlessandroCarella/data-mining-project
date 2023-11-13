@@ -41,17 +41,28 @@ def bisectingKmeans(df, columnsToUse,Krange=[2, 3]):
     #@SaraHoxha
     df_subset = copyAndScaleDataset (df, columnsToUse)
     
-    # Initial cluster assignment
-    #df['bisectingKmeans'] = 0
-    
+    centersDict = {}
     columnsNames = []
     for k in range (Krange[0], Krange[1] + 1):
         newColumnName = 'bisectingKmeans=' + str (k)
         columnsNames.append (newColumnName)
+        df.drop([col for col in df.columns if 'bisectingKmeans=' in col])
         if not columnAlreadyInDf (newColumnName, df):
             clusters = BisectingKMeans(n_clusters = k).fit(df_subset)
 
-            df[newColumnName] = clusters.labels_
+            # Get the cluster assignments for each data point
+            labels = clusters.labels_
+            saveMidRunObjectToFile (labels, path.join(getMidRunObjectFolderPath(), "(just object) Labels "+newColumnName))
+
+            # Get the cluster centers
+            centers = clusters.cluster_centers_
+            centersDict [newColumnName] = centers
+
+            # Add the cluster assignment as a new column in the DataFrame
+            df[newColumnName] = labels
+
+    if centersDict != {}:
+        saveMidRunObjectToFile (centersDict, path.join(getMidRunObjectFolderPath(), "kMeansCenters"))
             
     return df, columnsNames
 
