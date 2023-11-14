@@ -1,7 +1,9 @@
 from sklearn.cluster import OPTICS, DBSCAN
 from scipy.spatial.distance import pdist, squareform
-from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset, saveMidRunObjectToFile, getMidRunObjectFolderPath
 from hdbscan import HDBSCAN
+
+#from clusteringMethods.clusteringUtility import columnAlreadyInDf, copyAndScaleDataset
+from clusteringUtility import columnAlreadyInDf, copyAndScaleDataset #just for optics testing
 
 
 def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
@@ -34,6 +36,7 @@ def dbscan(df, columnsToUse, eps = [0.5, 3], min_samples=[1, 10]):
 #min_cluster_size (float, optional): The minimum size of a cluster, as a fraction 
 # of the dataset size. (the number is a percentage of the dataset size)
 def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0.05]):
+    print ("optics with " + str(len(df)) + " samples")
     #@AlessandroCarella
     tempDfScal = copyAndScaleDataset (df, columnsToUse)
 
@@ -42,13 +45,16 @@ def optics(df, columnsToUse, min_samples=[1, 10], xi=[0.05], min_cluster_size=[0
 
     # Convert the distance vector to a square distance matrix
     distance_matrix = squareform(distance_vector)
-
+    
+    from datetime import datetime
+    
     columnsNames = []
-    for min_sample in range (min_samples[0], min_samples[1]):
+    for min_sample in range (min_samples[0], min_samples[1] + 1):
         for singleXi in xi:
             for single_min_cluster_size in min_cluster_size:
                 newColumnName = 'optics' + ' ' + 'min_samples=' + str(min_sample) + ' ' + 'xi=' + str(singleXi) + ' ' + 'min_cluster_size=' + str(single_min_cluster_size)
                 print (newColumnName)
+                print (datetime.now().time().strftime("%H:%M:%S"))
                 columnsNames.append (newColumnName)
                 if not columnAlreadyInDf (newColumnName, df):
                     # Create an Optics clustering model                                                               #using all possible cores
