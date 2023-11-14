@@ -218,11 +218,11 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
     clustersCohesionAndSeparation (df, allClusteringColumns)
     
     from measuresAndVisualizations.metrics import silhouette  
-    silhouette (df, [
+    silhouette(df, [
         clusteringColumnsNames.get("hierarchicalCentroidLinkage"), 
         clusteringColumnsNames.get("hierarchicalCompleteLinkage"), 
         clusteringColumnsNames.get("hierarchicalSingleLinkage"), 
-        clusteringColumnsNames.get("hierarchicalGroupAverage")
+        clusteringColumnsNames.get("hierarchicalGroupAverage"),
         clusteringColumnsNames.get("kMeans"),
         clusteringColumnsNames.get("bisectingKmeans"),
         #clusteringColumnsNames.get("xMeans"),
@@ -230,7 +230,7 @@ def measuresAndVisualizationsForDeterminingClustersQuality (df:pd.DataFrame, clu
         clusteringColumnsNames.get("mixtureGuassian"),
         clusteringColumnsNames.get("dbscan"),
         #clusteringColumnsNames.get("optics"),
-        clusteringColumnsNames.get("hdbscan"),
+        clusteringColumnsNames.get("hdbscan")
     ])
 
 finalTrainDataset = pd.read_csv (datasetPath)
