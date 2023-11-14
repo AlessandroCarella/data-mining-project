@@ -143,7 +143,13 @@ def silhouette(df, clustering_columns):
         for clusteringType in clustering_columns:#[["", ""],["", ""]]
             for clusteringColumn in clusteringType:#["", ""]
                 labels = df[clusteringColumn]
-                if "Modes" in clustering_columns:
+                if "hierarchical" in clusteringColumn.lower():
+                    try: 
+                        silhouette = silhouette_score(tempDfScal, df[clusteringColumn])
+                        silhouettes[clusteringColumn] = silhouette
+                    except:
+                        silhouettes[clusteringColumn] = -1
+                elif "Modes" in clustering_columns:
                     silhouette = silhouette_score(tempDfScalCat, labels)
                     silhouettes[clusteringColumn] = silhouette
                 elif "hdbscan" in clusteringColumn.lower() or "dbscan" in clusteringColumn.lower():
