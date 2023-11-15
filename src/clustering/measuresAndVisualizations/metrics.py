@@ -142,32 +142,33 @@ def silhouette(df, clustering_columns):
         silhouettes = {}
         for clusteringType in clustering_columns:#[["", ""],["", ""]]
             for clusteringColumn in clusteringType:#["", ""]
-                labels = df[clusteringColumn]
-                if "hierarchical" in clusteringColumn.lower():
-                    try: 
-                        silhouette = silhouette_score(tempDfScal, df[clusteringColumn])
+                if clusteringColumn in df.columns:
+                    labels = df[clusteringColumn]
+                    if "hierarchical" in clusteringColumn.lower():
+                        try: 
+                            silhouette = silhouette_score(tempDfScal, df[clusteringColumn])
+                            silhouettes[clusteringColumn] = silhouette
+                        except:
+                            silhouettes[clusteringColumn] = -1
+                    elif "Modes" in clustering_columns:
+                        silhouette = silhouette_score(tempDfScalCat, labels)
                         silhouettes[clusteringColumn] = silhouette
-                    except:
-                        silhouettes[clusteringColumn] = -1
-                elif "Modes" in clustering_columns:
-                    silhouette = silhouette_score(tempDfScalCat, labels)
-                    silhouettes[clusteringColumn] = silhouette
-                elif "hdbscan" in clusteringColumn.lower() or "dbscan" in clusteringColumn.lower():
-                    non_noise_mask = df[clusteringColumn] != -1
-                    X_non_noise = tempDfScal[non_noise_mask]
-                    labels_non_noise = df[clusteringColumn][non_noise_mask]
-                    #if X_non_noise.shape[0] > 1 and len(labels_non_noise) > 1: #when all the values are noise 
-                    try:
-                        silhouette_avg = silhouette_score(X_non_noise, labels_non_noise)
-                    #else
-                    except:
-                        silhouette_avg = -1
-                    silhouettes[clusteringColumn] = silhouette_avg
-                #elif clusteringColumn.lower() == "optics":
-                    #pass   
-                else:
-                    silhouette = silhouette_score(tempDfScal, labels)
-                    silhouettes[clusteringColumn] = silhouette
+                    elif "hdbscan" in clusteringColumn.lower() or "dbscan" in clusteringColumn.lower():
+                        non_noise_mask = df[clusteringColumn] != -1
+                        X_non_noise = tempDfScal[non_noise_mask]
+                        labels_non_noise = df[clusteringColumn][non_noise_mask]
+                        #if X_non_noise.shape[0] > 1 and len(labels_non_noise) > 1: #when all the values are noise 
+                        try:
+                            silhouette_avg = silhouette_score(X_non_noise, labels_non_noise)
+                        #else
+                        except:
+                            silhouette_avg = -1
+                        silhouettes[clusteringColumn] = silhouette_avg
+                    #elif clusteringColumn.lower() == "optics":
+                        #pass   
+                    else:
+                        silhouette = silhouette_score(tempDfScal, labels)
+                        silhouettes[clusteringColumn] = silhouette
         
         #df_silhouettes = pd.DataFrame.from_dict(silhouettes, orient="index", columns=["Silhouette Score"])
         

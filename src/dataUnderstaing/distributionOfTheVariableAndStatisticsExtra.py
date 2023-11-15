@@ -13,13 +13,14 @@ corr_matrix = data.select_dtypes(include=['int', 'float']).corr()
 plt.figure(figsize=(21, 9))
 
 # Use hierarchical clustering to reorder the correlation matrix and display values
-clustermap = sns.clustermap(corr_matrix, cmap='coolwarm', annot=True, figsize=(21, 12))
+clustermap = sns.clustermap(corr_matrix, cmap='coolwarm', annot=True, figsize=(21, 12), row_cluster=False, col_cluster=False)
+clustermap.ax_cbar.remove()
 
 # Create a directory to save files
 output_directory = path.join(path.dirname(__file__), 'analysis')
 
 # Save the clustermap image with higher resolution
-clustermap.savefig(os.path.join(output_directory, "visualizations", "clustermap.png"), dpi=600)
+clustermap.savefig(os.path.join(output_directory, "visualizations", "clustermapWithoutDendograms.png"), dpi=600)
 
 # Close the previous figure
 plt.close()

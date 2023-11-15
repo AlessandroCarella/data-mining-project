@@ -1,13 +1,9 @@
 import matplotlib.pyplot as plt
 import os.path as path
-from scipy.cluster.hierarchy import dendrogram
-from scipy.spatial import distance_matrix
+from scipy.cluster.hierarchy import dendrogram, cophenet
+from scipy.spatial.distance import pdist
 import numpy as np
-import seaborn as sns
-from sklearn.metrics import pairwise_distances
-from clusteringMethods.clusteringUtility import copyAndScaleDataset
-
-from measuresAndVisualizations.measuresAndVisualizationsUtils import getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists, reorderDistanceMatrixhierarchical, reorderDistanceMatrixgmm, reorderDistanceMatrixdensity
+from measuresAndVisualizations.measuresAndVisualizationsUtils import saveDictToFile, getMetricsFolderPath, getPlotsFolderPath, checkSubFoldersExists, visualizazionAlreadyExists
 from measuresAndVisualizations.clusteringUtility import getMidRunObject
 continuousFeatures = [
     "duration_ms",
@@ -27,6 +23,8 @@ continuousFeatures = [
 
 def dendogram(df, listOfClusteringColumns):
     #@SaraHoxha
+    results = {}
+    filePath = path.join (getMetricsFolderPath (), "cophenetCoefficients.csv")
     for clusteringType in listOfClusteringColumns:
         for clusteringColumn in clusteringType:
             if "hierarchical" in clusteringColumn:
@@ -41,12 +39,14 @@ def dendogram(df, listOfClusteringColumns):
                         linkage_matrix = getMidRunObject ("(just object) " + hierarchicalType + "LinkageMatrix")
                         dendrogram(linkage_matrix, orientation="top", truncate_mode='lastp', p=threshold)
 
-                        # Hide x-axis labels
-                        #plt.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
+                        c, coph_dists = cophenet(linkage_matrix, pdist(df[continuousFeatures].values))
+                        results[clusteringColumn] = c
                         
                         checkSubFoldersExists(imgPath)
                         plt.savefig(imgPath)
                         plt.close()
+            checkSubFoldersExists (filePath)
+            saveDictToFile(results, filePath, custom_headers=["clustering type", "cophenet"])
 
 def correlationMatrix(df, listOfClusteringColumns):
     #@RafaelUrbina
@@ -104,7 +104,6 @@ def correlationMatrix(df, listOfClusteringColumns):
                     plt.close()
             else:
                 pass"""
-             
 def clusterBarChart(df, listOfClusteringTypes, featuresToPlotOn):
     return
     #@AlessandroCarella

@@ -70,13 +70,14 @@ def generateClusterMap (data):
     plt.figure(figsize=(21, 9))
 
     # Use hierarchical clustering to reorder the correlation matrix and display values
-    clustermap = sns.clustermap(corr_matrix, cmap='coolwarm', annot=True, figsize=(21, 12))
+    clustermap = sns.clustermap(corr_matrix, cmap='coolwarm', annot=True, figsize=(21, 12), row_cluster=False, col_cluster=False)
 
     # Create a directory to save files
     output_directory = path.join(path.dirname(__file__), '../dataUnderstaing','analysis')
 
+    clustermap.ax_cbar.remove()
     # Save the clustermap image with higher resolution
-    clustermap.savefig(os.path.join(output_directory, "visualizations", "clustermapWithoutUselessFeatures.png"), dpi=600)
+    clustermap.savefig(os.path.join(output_directory, "visualizations", "clustermapWithoutUselessFeaturesWithoutDendograms.png"), dpi=600)
 
     # Close the previous figure
     plt.close()
@@ -85,4 +86,3 @@ noUselessFeaturesDf = removeUselessFeatures()
 generateClusterMap(noUselessFeaturesDf)
 
 noUselessFeaturesDf.to_csv (path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilled WithoutUselessFeatures.csv"), index=False)
-    

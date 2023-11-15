@@ -84,10 +84,13 @@ min_sample_range = [5, 10, 15, 20, 25, 30,
 def clusterings (df):
     from clusteringMethods.hierarchical import hierarchicalCentroidLinkage, hierarchicalCompleteLinkage, hierarchicalSingleLinkage, hierarchicalGroupAverage
     df, hierarchicalColumnName = hierarchicalCentroidLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range)
+    df, hierarchicalColumnNameMax = hierarchicalCentroidLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range, criterion="maxclust")
     df, hierarchicalCompleteLinkageColumnName = hierarchicalCompleteLinkage(df, continuousFeatures, linkage_thresholds=min_sample_range)
+    df, hierarchicalCompleteLinkageColumnNameMax = hierarchicalCompleteLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range, criterion="maxclust")
     df, hierarchicalSingleLinkColumnName = hierarchicalSingleLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range)
+    df, hierarchicalSingleLinkColumnNameMax = hierarchicalSingleLinkage(df, continuousFeatures,linkage_thresholds=min_sample_range, criterion="maxclust")
     df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="distance", linkage_thresholds=min_sample_range)
-    df, hierarchicalGroupAverageColumnName = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", linkage_thresholds=min_sample_range)
+    df, hierarchicalGroupAverageColumnNameMax = hierarchicalGroupAverage(df, continuousFeatures, criterion="maxclust", linkage_thresholds=min_sample_range)
     saveDfToFile (df)
 
     from clusteringMethods.kMeans import kMeans, bisectingKmeans, xMeans, kModes
