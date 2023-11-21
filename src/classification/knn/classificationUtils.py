@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import math
 from sklearn.utils import resample
+import json
 
 originalDatasetColumnsToUse = [
     "name",
@@ -66,19 +67,22 @@ continuousFeatures = [
 ]
 
 def getModelsPickleFolder ():
-    return os.path.abspath(os.path.dirname(__file__), "..", "modelPickle")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "modelPickle")
 
 def getModelPath (modelName:str):
     for file in os.listdir(getModelsPickleFolder()):
         if modelName.lower() in file.lower():
             return path.join(getModelsPickleFolder(), file)
-    return getModelsPickleFolder ()
+    return path.join(getModelsPickleFolder(), "Knn Model.pickle")
 
 def createModelPath (modelName:str):
     return path.join(getModelsPickleFolder(), modelName + ".pickle")
 
-def saveModelToPickleFile (model, modelName:str):
-    with open (createModelPath (modelName), "wb") as f:
+def getMetricsPath (modelName:str):
+    return path.join(path.abspath(path.dirname(__file__)), f"{modelName} metrics.txt")
+
+def saveModelToPickleFile (model):
+    with open (createModelPath ("knn"), "wb") as f:
         pickle.dump (model, f)
 
 def getModelFromPickleFile(modelName:str):
@@ -89,11 +93,12 @@ def getModelFromPickleFile(modelName:str):
         raise Exception ("Could not find model")
     
 def getTrainDatasetPath ():
-    path.join(path.abspath(path.dirname(__file__)), "../../dataset (missing + split)/trainFilledWithoutUselessFeatures.csv")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures.csv")
 
-def saveScalerToPickleObject (scaler):
-    with open (path.join (getModelsPickleFolder (), "scaler.pickle"), "wb") as f:
-        pickle.dump (scaler, f)
+def saveScalerToPickleObject (scaler, modelName):
+    if not path.exists (path.join (getModelsPickleFolder (), f"scaler {modelName}.pickle")):
+        with open (path.join (getModelsPickleFolder (), f"scaler {modelName}.pickle"), "wb") as f:
+            pickle.dump (scaler, f)
 
 def getScalerPickleObject ():
     with open (path.join (getModelsPickleFolder (), "scaler.pickle"), "rb") as f:
@@ -109,10 +114,11 @@ def getSampleSizeList (number):
 
     return percentages
 
-def downsampleDataset (dataset:pd.DataFrame, n:int):
-    return resample(dataset, n_samples=n, replace=False, random_state=42)
+def downsampleDataset (dataset:pd.DataFrame, n:int, randomState=69):
+    resampled_array = resample(dataset, n_samples=n, replace=False, random_state=randomState)
+    return pd.DataFrame(resampled_array, columns=dataset.columns)
 
-def copyAndScaleDataset (df, columnsToUse):
+def copyAndScaleDataset (df:pd.DataFrame, columnsToUse:list[str])->pd.DataFrame:
     #create a copy of the dataset to select only certain features
     tempDf = df.copy()
     tempDf = tempDf [columnsToUse]
@@ -121,11 +127,11 @@ def copyAndScaleDataset (df, columnsToUse):
     scaler = StandardScaler()
     scaler.fit(tempDf)
 
-    saveScalerToPickleObject (scaler)
+    #saveScalerToPickleObject (scaler, modelName)
 
     tempDfScal = scaler.transform(tempDf)
 
-    return tempDfScal
+    return pd.DataFrame(tempDfScal, columns=columnsToUse)
 
 def wrongSplitDataset(dataset: pd.DataFrame, targetVariable:str, datasetTrainPercentage: int, datasetTrainForValidationPercentage: int, randomState:int=69) -> dict:
     """
@@ -227,4 +233,27 @@ def splitDataset(dataset: pd.DataFrame, targetVariable:str, datasetTrainPercenta
 
     return result_dict
 
-print (getSampleSizeList (97))
+def getInfoPath (modelName):
+    return path.join(path.abspath(os.path.dirname(__file__)), f"{modelName} infos.txt")
+
+def saveOtherInfoModelDict (modelDict:dict):
+    def addSingleInstanceToFile (filename, kValueAndOtherIdInfo, dictToSave):
+        with open(filename, 'a') as file:
+            file.write(f"k:{kValueAndOtherIdInfo}\n")
+            json.dump(dictToSave, file, indent=4)  # Write the dictionary with indentation
+            file.write("\n---------------------\n")
+
+    #create or reset the info file    
+    with open (getInfoPath("knn"), "w") as file:
+        file.write ("knn dict infos:\n")
+        file.write("\n---------------------\n")
+
+    for key, values in modelDict.items():
+        addSingleInstanceToFile (getInfoPath ("knn"), key, {
+                "k":values.get("k"),
+                "datasetDimension":values.get ("datasetDimension"), 
+                "splitNumber":values.get("splitNumber"),
+                "kFoldTrainIndexAndTestIndex":values.get ("kFoldTrainIndexAndTestIndex"),
+                "targetVariable":values.get ("targetVariable")
+                }
+            )
