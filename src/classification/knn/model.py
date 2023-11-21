@@ -23,6 +23,9 @@ def getRangeForK (numberOfSamplesInTheDataset:int, numberOfKs = 10) -> list[int]
 
 def getKnnModel ():
     if not path.exists(getModelPath ("knn")):
+        import time
+        startTime = time.time()
+
         #TODO: change the target variable to the actual variable
         targetVariable = "genre"
 
@@ -95,12 +98,12 @@ def getKnnModel ():
                         "predictions":predictions,#saving those for 
                         "groundTruth":y_test,#roc curve comupation
                     }
-                    saveModelToPickleFile (knnDict)
-                    saveMetricsToFile (knnDict)
-                    saveOtherInfoModelDict (knnDict)
+                    print (time.time() - startTime)
                     print (f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}")
                 splitNumber += 1
-        
+        saveModelToPickleFile (knnDict)
+        saveMetricsToFile (knnDict)
+        saveOtherInfoModelDict (knnDict)
         return knnDict
     else:
         return getModelFromPickleFile ("knn")

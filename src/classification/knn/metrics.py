@@ -11,10 +11,10 @@ def knnMetrics (predictions, groundTruth):
     accuracy = accuracy_score(groundTruth, predictions)
 
     # Precision
-    precision = precision_score(groundTruth, predictions, average='weighted')
+    precision = precision_score(groundTruth, predictions, average='weighted', zero_division=0)
 
     # Recall
-    recall = recall_score(groundTruth, predictions, average='weighted')
+    recall = recall_score(groundTruth, predictions, average='weighted', zero_division=0)
 
     # F1 Score
     f1 = f1_score(groundTruth, predictions, average='weighted')
