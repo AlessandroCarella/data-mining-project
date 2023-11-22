@@ -66,6 +66,25 @@ continuousFeatures = [
     "n_beats"
 ]
 
+def read_split_pickle_files(input_dir):
+    combined_data = {}
+
+    # Get a list of all pickle files in the input directory
+    pickle_files = [file for file in os.listdir(input_dir) if file.endswith('.pkl')]
+
+    # Load each pickle file and combine the data
+    for pickle_file in pickle_files:
+        file_path = os.path.join(input_dir, pickle_file)
+        with open(file_path, 'rb') as f:
+            chunk_data = pickle.load(f)
+            combined_data.update(chunk_data)
+
+    return combined_data
+
+def modelNameToModelObject (modelName:str):
+    fodlerPath = os.path.join(os.path.dirname(os.path.abspath (__file__)), "..", "modelPickle", f"{modelName}SplittedPickle")
+    return read_split_pickle_files (fodlerPath)
+
 def getModelsPickleFolder ():
     return path.join(path.abspath(path.dirname(__file__)), "..", "modelPickle")
 

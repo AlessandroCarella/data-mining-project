@@ -103,9 +103,9 @@ def getKnnModel ():
                 splitNumber += 1
         saveModelToPickleFile (knnDict)
         saveMetricsToFile (knnDict)
-        saveOtherInfoModelDict (knnDict)
+        #saveOtherInfoModelDict (knnDict)
         return knnDict
     else:
         return getModelFromPickleFile ("knn")
 
-getKnnModel()
+#getKnnModel()

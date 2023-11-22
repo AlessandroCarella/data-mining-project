@@ -1,19 +1,131 @@
+import matplotlib.pyplot as plt
 
+from classificationUtils import modelNameToModelObject
 
-from classificationUtils import getModelFromPickleFile
+def compareMetrics (metrics1:dict, metrics2:dict, metrics_to_compare:list=['accuracy', 'precision', 'recall', 'f1Score']):
+    return all(metrics1[metric] > metrics2[metric] for metric in metrics_to_compare)
 
+def subcomapreModel (data):
+    result_dict = {
+        #key=datasetDimension
+        #value={k, metrics}
+    }
+
+    metrics_to_compare = ['accuracy', 'precision', 'recall', 'f1Score']
+
+    for item in data:
+        # Create a key for grouping
+        key = item['datasetDimension']
+
+        k_value = item['k']
+        metrics = item['metrics']
+    
+        # If key is not present in result_dict or metrics are better, update the result_dict
+        if key not in result_dict:
+            result_dict[key] = {
+                'k': k_value,
+                'metrics': metrics
+            }
+        else:
+            better = compareMetrics (metrics1=metrics, metrics2=result_dict[key]["metrics"], metrics_to_compare=metrics_to_compare)
+            if better:
+                """print (metrics)
+                print ()
+                print (result_dict[key]["metrics"])"""
+                result_dict[key] = {
+                    'k': k_value,
+                    'metrics': metrics
+                }
+
+    return result_dict
+        
 def compareModels ():
-    models = getModelFromPickleFile ("knn")
-    for kValueModel in models:
-        pass
-        #TODO implement the method to compare the various models
-        #this methods prints which value of k is the best for the various models
+    #models = getModelFromPickleFile ("knn")
+    knnModels = modelNameToModelObject ("knn")
+    values = []
+    for key, value in knnModels.items():
+        values.append(value)
 
-def getBestKnnModel ():
-    pass
+    results = subcomapreModel (values)
+    sorted_keys = sorted(results.keys())
+    for key in sorted_keys:
+        #print (key)
+        #print (results.get(key))
+        #print ()
+        pass
+
+    return results
+
+def compareBestModels ():
+    bestModels = compareModels ()
+   
+    bestModel = {'accuracy': float('-inf'), 'precision': float('-inf'), 'recall': float('-inf'), 'f1Score': float('-inf')}
+    bestSize = 0
+    bestK = 0
+    for key, value in bestModels.items():
+        if compareMetrics (value.get("metrics"), bestModel):
+            bestModel = value.get("metrics")
+            bestSize = key
+            bestK = value.get("k")
+    
+    print ("The best model performances are achieved")
+    print ("With a dataset of size " + str(bestSize))
+    print ("This k:", bestK)
+    print ("And those metrics:")
+    for key, value in bestModel.items ():
+        print (key, ":", value)
+        
+def learningCurveForDifferentDatasetSize ():
+    data = compareModels ()
+
+    dataset_sizes = sorted(data.keys())
+    accuracy_values = [data[size]['metrics']['accuracy'] for size in dataset_sizes]
+    precision_values = [data[size]['metrics']['precision'] for size in dataset_sizes]
+    recall_values = [data[size]['metrics']['recall'] for size in dataset_sizes]
+    f1score_values = [data[size]['metrics']['f1Score'] for size in dataset_sizes]
+
+    # Plotting the learning curves
+    plt.figure(figsize=(10, 6))
+    plt.plot(dataset_sizes, accuracy_values, marker='o', label='Accuracy')
+    plt.plot(dataset_sizes, precision_values, marker='o', label='Precision')
+    plt.plot(dataset_sizes, recall_values, marker='o', label='Recall')
+    plt.plot(dataset_sizes, f1score_values, marker='o', label='F1 Score')
+
+    # Adding labels and title
+    plt.xlabel('Dataset Size')
+    plt.ylabel('Metrics Value')
+    plt.title('Learning Curve for Different Dataset Sizes')
+    plt.legend()
+    plt.xticks(dataset_sizes)  # Set x-axis ticks to dataset sizes
+    plt.grid(True)
+    plt.show()
+
+def getBestKnnModel (k=127, datasetSize=3000, ):
     #this method is needed just to get the best model found by the metrics
     #this method should train the classifier on the whole training set, not the train/validation split
+    import pandas as pd
+    from sklearn.neighbors import KNeighborsClassifier
+    import pickle
+    import os.path as path
 
-def learningCurveForDifferentDatasetSize ():
-    #(plot) 
-    pass
+    from classificationUtils import downsampleDataset, getTrainDatasetPath, copyAndScaleDataset, continuousFeatures
+
+    modelFilePath = path.join(path.dirname(__file__), "..", "results", "knnBestModel.pickle")
+
+    dataset = pd.read_csv (getTrainDatasetPath())
+    dowsampledDataset = downsampleDataset (dataset, datasetSize)
+    
+    X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
+    y = dowsampledDataset ["genre"]
+    
+    model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
+    model.fit (X, y)
+
+    with open (modelFilePath, "wb") as file:
+        pickle.dump (model, file)
+
+    return model
+    
+#compareBestModels ()
+#learningCurveForDifferentDatasetSize ()
+getBestKnnModel ()

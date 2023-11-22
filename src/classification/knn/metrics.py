@@ -14,7 +14,7 @@ def knnMetrics (predictions, groundTruth):
     precision = precision_score(groundTruth, predictions, average='weighted', zero_division=0)
 
     # Recall
-    recall = recall_score(groundTruth, predictions, average='weighted', zero_division=0)
+    recall = recall_score(groundTruth, predictions, average='macro', zero_division=0)
 
     # F1 Score
     f1 = f1_score(groundTruth, predictions, average='weighted')
@@ -37,32 +37,8 @@ def knnMetrics (predictions, groundTruth):
         
     }
 
-def plotROCcurve (fpr, tpr, rocAuc):
-    #all the inputs are found in the output of the knnMetrics method.get("rocCurve").get("fpr" or "tpr" or "rocAuc")
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {rocAuc:.2f})')
-    plt.plot([0, 1], [0, 1], linestyle='--', color='black', label='Random')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve - KNN Model')
-    plt.legend()
-    plt.show()
-
-def plotROCcurvesByKRange (kRange:list[int], metrics:dict):
-    #krange shound be a list of Ks such as [3,5,7,9,11,...]
-    #metrics should be the dictionary returned by the method knnMetrics
-    for k in kRange:
-        plt.figure(figsize=(8, 6))
-        
-        values = metrics.get(k)
-        plt.plot(values.get("fpr"), values.get("tpr"), label=f'K={k} (AUC = {values.get("roc_auc"):.2f})')
-
-    plt.plot([0, 1], [0, 1], linestyle='--', color='black', label='Random')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curves for Different Values of K')
-    plt.legend()
-    plt.show()
+def rocCurve ():
+    pass
 
 def saveMetricsToFile (knnDict:dict):
     def addSingleInstanceToFile (filename, kValueAndOtherIdInfo, dictToSave):
