@@ -114,14 +114,15 @@ def getModelFromPickleFile(modelName:str):
 def getTrainDatasetPath ():
     return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures.csv")
 
+def getTestDatasetPath ():
+    #TODO check if the test dataset is ok as it is right now, might need to do the various operations we did on the train one 
+    #(so the path might also change when we create the test dataset with different values, fills etc)
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
+
 def saveScalerToPickleObject (scaler, modelName):
     if not path.exists (path.join (getModelsPickleFolder (), f"scaler {modelName}.pickle")):
         with open (path.join (getModelsPickleFolder (), f"scaler {modelName}.pickle"), "wb") as f:
             pickle.dump (scaler, f)
-
-def getScalerPickleObject ():
-    with open (path.join (getModelsPickleFolder (), "scaler.pickle"), "rb") as f:
-        return pickle.load (f)
 
 def getSampleSizeList (number):
     percentages = []
@@ -137,14 +138,14 @@ def downsampleDataset (dataset:pd.DataFrame, n:int, randomState=69):
     resampled_array = resample(dataset, n_samples=n, replace=False, random_state=randomState)
     return pd.DataFrame(resampled_array, columns=dataset.columns)
 
-def copyAndScaleDataset (df:pd.DataFrame, columnsToUse:list[str])->pd.DataFrame:
+def copyAndScaleDataset (df:pd.DataFrame, columnsToUse:list[str], scaler=None)->pd.DataFrame:
     #create a copy of the dataset to select only certain features
     tempDf = df.copy()
     tempDf = tempDf [columnsToUse]
 
-    #scale the temp dataset to use the clustering algorithm
-    scaler = StandardScaler()
-    scaler.fit(tempDf)
+    if not scaler:
+        scaler = StandardScaler()
+        scaler.fit(tempDf)
 
     #saveScalerToPickleObject (scaler, modelName)
 

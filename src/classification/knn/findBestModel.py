@@ -1,11 +1,16 @@
 import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+import pickle
+import os.path as path
 
-from classificationUtils import modelNameToModelObject
+from classificationUtils import downsampleDataset, getTrainDatasetPath, copyAndScaleDataset, continuousFeatures, modelNameToModelObject
 
 def compareMetrics (metrics1:dict, metrics2:dict, metrics_to_compare:list=['accuracy', 'precision', 'recall', 'f1Score']):
+    #Returns True if metrics1 is better than metrics2
     return all(metrics1[metric] > metrics2[metric] for metric in metrics_to_compare)
 
-def subcomapreModel (data):
+def getComapreModelResults (data):
     result_dict = {
         #key=datasetDimension
         #value={k, metrics}
@@ -46,7 +51,7 @@ def compareModels ():
     for key, value in knnModels.items():
         values.append(value)
 
-    results = subcomapreModel (values)
+    results = getComapreModelResults (values)
     sorted_keys = sorted(results.keys())
     for key in sorted_keys:
         #print (key)
@@ -77,18 +82,21 @@ def compareBestModels ():
         
 def learningCurveForDifferentDatasetSize ():
     data = compareModels ()
-
     dataset_sizes = sorted(data.keys())
+
+    plt.figure(figsize=(10, 6))
+
     accuracy_values = [data[size]['metrics']['accuracy'] for size in dataset_sizes]
-    precision_values = [data[size]['metrics']['precision'] for size in dataset_sizes]
-    recall_values = [data[size]['metrics']['recall'] for size in dataset_sizes]
-    f1score_values = [data[size]['metrics']['f1Score'] for size in dataset_sizes]
+    plt.plot(dataset_sizes, accuracy_values, marker='o', label='Accuracy')
 
     # Plotting the learning curves
-    plt.figure(figsize=(10, 6))
-    plt.plot(dataset_sizes, accuracy_values, marker='o', label='Accuracy')
+    precision_values = [data[size]['metrics']['precision'] for size in dataset_sizes]
     plt.plot(dataset_sizes, precision_values, marker='o', label='Precision')
+
     plt.plot(dataset_sizes, recall_values, marker='o', label='Recall')
+    recall_values = [data[size]['metrics']['recall'] for size in dataset_sizes]
+    
+    f1score_values = [data[size]['metrics']['f1Score'] for size in dataset_sizes]
     plt.plot(dataset_sizes, f1score_values, marker='o', label='F1 Score')
 
     # Adding labels and title
@@ -100,32 +108,31 @@ def learningCurveForDifferentDatasetSize ():
     plt.grid(True)
     plt.show()
 
-def getBestKnnModel (k=127, datasetSize=3000, ):
+def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
     #this method is needed just to get the best model found by the metrics
     #this method should train the classifier on the whole training set, not the train/validation split
-    import pandas as pd
-    from sklearn.neighbors import KNeighborsClassifier
-    import pickle
-    import os.path as path
-
-    from classificationUtils import downsampleDataset, getTrainDatasetPath, copyAndScaleDataset, continuousFeatures
-
     modelFilePath = path.join(path.dirname(__file__), "..", "results", "knnBestModel.pickle")
+    if not path.exists(modelFilePath):
+        dataset = pd.read_csv (getTrainDatasetPath())
+        
+        if dataset.shape[0] > datasetSize:
+            dowsampledDataset = downsampleDataset (dataset, datasetSize)
+        
+        X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
+        y = dowsampledDataset [targetVariable]
+        
+        model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
+        model.fit (X, y)
 
-    dataset = pd.read_csv (getTrainDatasetPath())
-    dowsampledDataset = downsampleDataset (dataset, datasetSize)
-    
-    X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
-    y = dowsampledDataset ["genre"]
-    
-    model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
-    model.fit (X, y)
+        with open (modelFilePath, "wb") as file:
+            pickle.dump (model, file)
+        
+        return model
+    else:
+        with open (modelFilePath, "rb") as file:
+            return pickle.load (file) 
 
-    with open (modelFilePath, "wb") as file:
-        pickle.dump (model, file)
-
-    return model
-    
-#compareBestModels ()
-#learningCurveForDifferentDatasetSize ()
-getBestKnnModel ()
+"""    
+compareBestModels ()
+learningCurveForDifferentDatasetSize ()
+getBestKnnModel ()"""

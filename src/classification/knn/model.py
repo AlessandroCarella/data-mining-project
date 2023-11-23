@@ -5,6 +5,7 @@ import math
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold
+import numpy as np
 
 from classificationUtils import getModelPath, getTrainDatasetPath, getModelFromPickleFile, saveModelToPickleFile, getSampleSizeList, downsampleDataset, splitDataset, copyAndScaleDataset, continuousFeatures, saveOtherInfoModelDict
 from metrics import knnMetrics, saveMetricsToFile
@@ -20,6 +21,25 @@ def getRangeForK (numberOfSamplesInTheDataset:int, numberOfKs = 10) -> list[int]
 
     # Generate a list of odd numbers
     return list(range(lower_limit, upper_limit + 1, 2))
+
+def getDownsampledDataset (dataset:pd.DataFrame) -> dict:
+    dowsampledDatasets = {}
+    for datasetDimension in getSampleSizeList (dataset.shape[0]):#for the learning curve plot
+        dowsampledDatasets[datasetDimension] = downsampleDataset(dataset, datasetDimension)
+    return downsampleDataset
+
+def makeKnnDictValue (k:int, model, metrics:dict, datasetDimension:int, splitNumber:int, trainIndex:np.ndarray, testIndex:np.ndarray, targetVariable:str, predictions:np.ndarray, y_test:pd.Series):
+    return {
+        "k":k, 
+        "model": model, 
+        "metrics": metrics,
+        "datasetDimension":datasetDimension,
+        "splitNumber":splitNumber, 
+        "kFoldTrainIndexAndTestIndex":{"trainIndex":trainIndex.tolist(), "testIndex":testIndex.tolist()}, 
+        "targetVariable":targetVariable,
+        "predictions":predictions,#saving those for 
+        "groundTruth":y_test,#roc curve comupation
+    }
 
 def getKnnModel ():
     if not path.exists(getModelPath ("knn")):
@@ -66,9 +86,7 @@ def getKnnModel ():
         This nested approach provides a more comprehensive evaluation of your model's performance, considering both class imbalance and generalization across different subsets of the data.
         """
         
-        dowsampledDatasets = {}
-        for datasetDimension in getSampleSizeList (dataset.shape[0]):#for the learning curve plot
-            dowsampledDatasets[datasetDimension] = downsampleDataset(dataset, datasetDimension)
+        dowsampledDatasets = getDownsampledDataset (dataset=dataset)
 
         kf = KFold(n_splits=33, shuffle=True, random_state=42)
 
@@ -76,6 +94,7 @@ def getKnnModel ():
         for datasetDimension, subDataset in dowsampledDatasets.items ():
             X = copyAndScaleDataset (df=subDataset, columnsToUse=continuousFeatures)
             y = subDataset[targetVariable]
+            
             splitNumber = 1
             for trainIndex, testIndex in kf.split (X):
                 for k in getRangeForK (dataset.shape[0]): #for different values of k
@@ -86,18 +105,12 @@ def getKnnModel ():
                     model.fit (X_train, y_train)
 
                     predictions=model.predict(X_test)
-                    metrics = knnMetrics (predictions=predictions, groundTruth=y_test)
-                    knnDict[f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}"] = {
-                        "k":k, 
-                        "model": model, 
-                        "metrics": metrics,
-                        "datasetDimension":datasetDimension,
-                        "splitNumber":splitNumber, 
-                        "kFoldTrainIndexAndTestIndex":{"trainIndex":trainIndex.tolist(), "testIndex":testIndex.tolist()}, 
-                        "targetVariable":targetVariable,
-                        "predictions":predictions,#saving those for 
-                        "groundTruth":y_test,#roc curve comupation
-                    }
+                    metrics = knnMetrics (predictions=model.predict(X_test), groundTruth=y_test)
+
+                    knnDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}"
+                    knnDict[knnDictKey] = makeKnnDictValue (k, model, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
+                    
+                    #To check on the advancement
                     print (time.time() - startTime)
                     print (f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}")
                 splitNumber += 1

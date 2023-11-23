@@ -38,6 +38,7 @@ def knnMetrics (predictions, groundTruth):
     }
 
 def rocCurve ():
+    #TODO: ask andrea how to do this, also check the jupyter from the class
     pass
 
 def saveMetricsToFile (knnDict:dict):
