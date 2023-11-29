@@ -1,0 +1,9 @@
+1. We can add the randomization validation for clustering models (example: Clustering_Iris line 80)(For the randomized dataset for silhouette and sse)
+2. Improve the readability of the plots (Not only the sse ones also, hists, entropy, correlation and so on)(Also maybe add new prittier and maybe useful ones(?))
+3. Report the different test that we did and the differences between dendrograms and other stuff for hirearchical clusterings(Not only hierarchical all models in general)
+4. Remove the time_signature table for the replacement of the values from one of the firsts pages
+5. Remove the table for semantic inconsistences
+6. Remove the example column from the first table
+7. Replace the python type of the features with continuous, categorical etc(In the first table)
+8. 1.2.1 table, remove the count column and say that there are X missing values from feature A, Y missing values from feature B, etc
+9. Remove one of the 2 clustermap and make it larger, describe the changes (Remove the hirerachical correlation in the clustermap)
