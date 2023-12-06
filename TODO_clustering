@@ -9,3 +9,4 @@
 9. Remove one of the 2 clustermap and make it larger, describe the changes (Remove the hirerachical correlation in the clustermap)
 10. evaluate the clustering models regarding the genre so we could then put some of them in groups for classification models
 11. we could popuate time signature NANS by calculating the missing values with the nbeats nbars and length of the song
+12. we could also use key as the target in classification models
