@@ -24,12 +24,14 @@ def getComapreModelResults (data):
 
         k_value = item['k']
         metrics = item['metrics']
+        weight = item["weight"]
     
         # If key is not present in result_dict or metrics are better, update the result_dict
         if key not in result_dict:
             result_dict[key] = {
                 'k': k_value,
-                'metrics': metrics
+                'metrics': metrics,
+                'weight': weight
             }
         else:
             better = compareMetrics (metrics1=metrics, metrics2=result_dict[key]["metrics"], metrics_to_compare=metrics_to_compare)
@@ -39,7 +41,8 @@ def getComapreModelResults (data):
                 print (result_dict[key]["metrics"])"""
                 result_dict[key] = {
                     'k': k_value,
-                    'metrics': metrics
+                    'metrics': metrics,
+                    'weight':weight
                 }
 
     return result_dict
@@ -72,10 +75,12 @@ def compareBestModels ():
             bestModel = value.get("metrics")
             bestSize = key
             bestK = value.get("k")
+            bestWeight = value.get("weight")
     
     print ("The best model performances are achieved")
     print ("With a dataset of size " + str(bestSize))
     print ("This k:", bestK)
+    print ("Using this weight:", bestWeight)
     print ("And those metrics:")
     for key, value in bestModel.items ():
         print (key, ":", value)

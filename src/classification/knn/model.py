@@ -28,10 +28,11 @@ def getDownsampledDataset (dataset:pd.DataFrame) -> dict:
         dowsampledDatasets[datasetDimension] = downsampleDataset(dataset, datasetDimension)
     return downsampleDataset
 
-def makeKnnDictValue (k:int, model, metrics:dict, datasetDimension:int, splitNumber:int, trainIndex:np.ndarray, testIndex:np.ndarray, targetVariable:str, predictions:np.ndarray, y_test:pd.Series):
+def makeKnnDictValue (k:int, model, weight:str, metrics:dict, datasetDimension:int, splitNumber:int, trainIndex:np.ndarray, testIndex:np.ndarray, targetVariable:str, predictions:np.ndarray, y_test:pd.Series):
     return {
         "k":k, 
         "model": model, 
+        "weight": weight,
         "metrics": metrics,
         "datasetDimension":datasetDimension,
         "splitNumber":splitNumber, 
@@ -87,30 +88,34 @@ def getKnnModel (targetVariable = "genre"):
 
         kf = KFold(n_splits=33, shuffle=True, random_state=42)
 
+        weights = ['uniform', 'distance']
+
         knnDict = {}
-        for datasetDimension, subDataset in dowsampledDatasets.items ():
-            X = copyAndScaleDataset (df=subDataset, columnsToUse=continuousFeatures)
-            y = subDataset[targetVariable]
-            
-            splitNumber = 1
-            for trainIndex, testIndex in kf.split (X):
-                for k in getRangeForK (dataset.shape[0]): #for different values of k
-                    X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
-                    y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
-                    
-                    model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
-                    model.fit (X_train, y_train)
+        for weight in weights:
+            for datasetDimension, subDataset in dowsampledDatasets.items ():
+                X = copyAndScaleDataset (df=subDataset, columnsToUse=continuousFeatures)
+                y = subDataset[targetVariable]
+                
+                splitNumber = 1
+                for trainIndex, testIndex in kf.split (X):
+                    for k in getRangeForK (dataset.shape[0]): #for different values of k
+                        X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
+                        y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
+                        
+                        model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
+                        model.fit (X_train, y_train)
 
-                    predictions=model.predict(X_test)
-                    metrics = knnMetrics (predictions=model.predict(X_test), groundTruth=y_test)
+                        predictions=model.predict(X_test)
+                        metrics = knnMetrics (predictions=model.predict(X_test), groundTruth=y_test)
 
-                    knnDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}"
-                    knnDict[knnDictKey] = makeKnnDictValue (k, model, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
-                    
-                    #To check on the advancement
-                    print (time.time() - startTime)
-                    print (f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}")
-                splitNumber += 1
+
+                        knnDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"
+                        knnDict[knnDictKey] = makeKnnDictValue (k, model, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
+                        
+                        #To check on the advancement
+                        print (time.time() - startTime)
+                        print (knnDictKey)
+                    splitNumber += 1
         saveModelToPickleFile (knnDict)
         saveMetricsToFile (knnDict)
         #saveOtherInfoModelDict (knnDict)
