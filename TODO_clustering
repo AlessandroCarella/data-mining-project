@@ -7,3 +7,5 @@
 7. Replace the python type of the features with continuous, categorical etc(In the first table)
 8. 1.2.1 table, remove the count column and say that there are X missing values from feature A, Y missing values from feature B, etc
 9. Remove one of the 2 clustermap and make it larger, describe the changes (Remove the hirerachical correlation in the clustermap)
+10. evaluate the clustering models regarding the genre so we could then put some of them in groups for classification models
+11. we could popuate time signature NANS by calculating the missing values with the nbeats nbars and length of the song
