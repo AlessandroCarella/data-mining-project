@@ -32,14 +32,15 @@ def modelTest (targetVariable="genre"):
     #knnModel = getBestKnnModel ()
 
     #Since the results with the best model found are 
-    #{'accuracy': 0.4112, 'precision': 0.4348223885204935, 'recall': 0.4112, 'f1Score': 0.38187370215787847}
-    #I decided to try with the full dataset to check if the results are better
+    #{'accuracy': 0.4164, 'precision': 0.43231061115016034, 'recall': 0.41640000000000005, 'f1Score': 0.39274632191616515}
+    #I decided to try with the full dataset to check if the results are better if i use the same k for the smaller dataset
     #those are the best results for the full dataset btw:
-    #15000: {'k': 113, 'metrics': {'accuracy': 0.512087912087912, 'precision': 0.5302678139424123, 'recall': 0.512087912087912, 'f1Score': 0.4994938879433043}}
-    knnModel = getBestKnnModel (k=113, datasetSize=15000)
+    #{'accuracy': 0.48, 'precision': 0.48525256281376805, 'recall': 0.48, 'f1Score': 0.4635663793692188}
+    #but when using k=35 as used for the 15000 dataset the results are slightly better
+    #{'accuracy': 0.5074, 'precision': 0.5067468815233543, 'recall': 0.5074, 'f1Score': 0.49382314980438785}
+    knnModel = getBestKnnModel (k=25, datasetSize=15000)
     #and i got those results
-    #{'accuracy': 0.4112, 'precision': 0.4348223885204935, 'recall': 0.4112, 'f1Score': 0.38187370215787847}
-    #TODO: ask the teacher if it's normale that i got the same results for both models
+    #
 
     predictions = knnModel.predict (testDatasetScaled)
 

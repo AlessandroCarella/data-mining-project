@@ -82,8 +82,12 @@ def read_split_pickle_files(input_dir):
     return combined_data
 
 def modelNameToModelObject (modelName:str):
-    fodlerPath = os.path.join(os.path.dirname(os.path.abspath (__file__)), "..", "modelPickle", f"{modelName}SplittedPickle")
-    return read_split_pickle_files (fodlerPath)
+    filePath = path.join(path.dirname(path.abspath (__file__)), "..", "modelPickle", f"{modelName}.pickle")
+    if not path.exists (filePath):
+        fodlerPath = path.join(path.dirname(filePath), f"{modelName}SplittedPickle")
+        return read_split_pickle_files (fodlerPath)
+    with open (filePath, 'rb') as f:
+        return pickle.load(f)
 
 def getModelsPickleFolder ():
     return path.join(path.abspath(path.dirname(__file__)), "..", "modelPickle")

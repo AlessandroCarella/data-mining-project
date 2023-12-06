@@ -44,7 +44,7 @@ def rocCurve ():
 def saveMetricsToFile (knnDict:dict):
     def addSingleInstanceToFile (filename, kValueAndOtherIdInfo, dictToSave):
         with open(filename, 'a') as file:
-            file.write(f"k:{kValueAndOtherIdInfo}\n")
+            file.write(f"{kValueAndOtherIdInfo}\n")
             json.dump(dictToSave, file, indent=4)  # Write the dictionary with indentation
             file.write("\n---------------------\n")
 

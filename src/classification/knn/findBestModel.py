@@ -66,6 +66,11 @@ def compareModels ():
 
 def compareBestModels ():
     bestModels = compareModels ()
+
+    for key, value in bestModels.items():
+        print (key)
+        print (value)
+        print()
    
     bestModel = {'accuracy': float('-inf'), 'precision': float('-inf'), 'recall': float('-inf'), 'f1Score': float('-inf')}
     bestSize = 0
@@ -98,8 +103,8 @@ def learningCurveForDifferentDatasetSize ():
     precision_values = [data[size]['metrics']['precision'] for size in dataset_sizes]
     plt.plot(dataset_sizes, precision_values, marker='o', label='Precision')
 
-    plt.plot(dataset_sizes, recall_values, marker='o', label='Recall')
     recall_values = [data[size]['metrics']['recall'] for size in dataset_sizes]
+    plt.plot(dataset_sizes, recall_values, marker='o', label='Recall')
     
     f1score_values = [data[size]['metrics']['f1Score'] for size in dataset_sizes]
     plt.plot(dataset_sizes, f1score_values, marker='o', label='F1 Score')
@@ -117,27 +122,29 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
     #this method is needed just to get the best model found by the metrics
     #this method should train the classifier on the whole training set, not the train/validation split
     modelFilePath = path.join(path.dirname(__file__), "..", "results", "knnBestModel.pickle")
-    if not path.exists(modelFilePath):
-        dataset = pd.read_csv (getTrainDatasetPath())
-        
-        if dataset.shape[0] > datasetSize:
-            dowsampledDataset = downsampleDataset (dataset, datasetSize)
-        
-        X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
-        y = dowsampledDataset [targetVariable]
-        
-        model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
-        model.fit (X, y)
-
-        with open (modelFilePath, "wb") as file:
-            pickle.dump (model, file)
-        
-        return model
+    #if not path.exists(modelFilePath):
+    dataset = pd.read_csv (getTrainDatasetPath())
+    
+    if dataset.shape[0] > datasetSize:
+        dowsampledDataset = downsampleDataset (dataset, datasetSize)
     else:
-        with open (modelFilePath, "rb") as file:
-            return pickle.load (file) 
+        dowsampledDataset = dataset
 
-"""    
-compareBestModels ()
+    X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
+    y = dowsampledDataset [targetVariable]
+    
+    model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
+    model.fit (X, y)
+
+    with open (modelFilePath, "wb") as file:
+        pickle.dump (model, file)
+    
+    return model
+    """else:
+        with open (modelFilePath, "rb") as file:
+            return pickle.load (file) """
+
+
+"""compareBestModels ()
 learningCurveForDifferentDatasetSize ()
 getBestKnnModel ()"""

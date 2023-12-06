@@ -26,7 +26,7 @@ def getDownsampledDataset (dataset:pd.DataFrame) -> dict:
     dowsampledDatasets = {}
     for datasetDimension in getSampleSizeList (dataset.shape[0]):#for the learning curve plot
         dowsampledDatasets[datasetDimension] = downsampleDataset(dataset, datasetDimension)
-    return downsampleDataset
+    return dowsampledDatasets
 
 def makeKnnDictValue (k:int, model, weight:str, metrics:dict, datasetDimension:int, splitNumber:int, trainIndex:np.ndarray, testIndex:np.ndarray, targetVariable:str, predictions:np.ndarray, y_test:pd.Series):
     return {
@@ -98,7 +98,7 @@ def getKnnModel (targetVariable = "genre"):
                 
                 splitNumber = 1
                 for trainIndex, testIndex in kf.split (X):
-                    for k in getRangeForK (dataset.shape[0]): #for different values of k
+                    for k in getRangeForK (datasetDimension): #for different values of k
                         X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
                         y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
                         
@@ -110,8 +110,8 @@ def getKnnModel (targetVariable = "genre"):
 
 
                         knnDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"
-                        knnDict[knnDictKey] = makeKnnDictValue (k, model, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
-                        
+                        knnDict[knnDictKey] = makeKnnDictValue (k, model, weight, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
+
                         #To check on the advancement
                         print (time.time() - startTime)
                         print (knnDictKey)
