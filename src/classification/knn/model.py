@@ -41,13 +41,10 @@ def makeKnnDictValue (k:int, model, metrics:dict, datasetDimension:int, splitNum
         "groundTruth":y_test,#roc curve comupation
     }
 
-def getKnnModel ():
+def getKnnModel (targetVariable = "genre"):
     if not path.exists(getModelPath ("knn")):
         import time
         startTime = time.time()
-
-        #TODO: change the target variable to the actual variable
-        targetVariable = "genre"
 
         dataset = pd.read_csv (getTrainDatasetPath())
         
