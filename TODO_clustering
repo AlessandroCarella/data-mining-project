@@ -10,3 +10,4 @@
 10. evaluate the clustering models regarding the genre so we could then put some of them in groups for classification models
 11. we could popuate time signature NANS by calculating the missing values with the nbeats nbars and length of the song
 12. we could also use key as the target in classification models
+13. we cannot use speechiness and instrumentalness trogether they are oposite from each other in definition and by numbers.
