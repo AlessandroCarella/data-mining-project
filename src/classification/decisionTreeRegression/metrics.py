@@ -6,7 +6,7 @@ import os.path as path
 
 from classificationUtils import getMetricsPath
 
-def knnRegMetrics(predictions, groundTruth):
+def decisionTreeRegMetrics(predictions, groundTruth):
     # R2 Score
     r2 = r2_score(groundTruth, predictions)
 
@@ -26,7 +26,7 @@ def rocCurve ():
     #TODO: ask andrea how to do this, also check the jupyter from the class
     pass
 
-def saveMetricsToFile (knnRegDict:dict):
+def saveMetricsToFile (decisionTreeRegressorDict:dict):
     def addSingleInstanceToFile (filename, kValueAndOtherIdInfo, dictToSave):
         with open(filename, 'a') as file:
             file.write(f"{kValueAndOtherIdInfo}\n")
@@ -34,9 +34,9 @@ def saveMetricsToFile (knnRegDict:dict):
             file.write("\n---------------------\n")
 
     #create or reset the metrics file    
-    with open (getMetricsPath("knn regressor"), "w") as file:
+    with open (getMetricsPath("decision tree regressor"), "w") as file:
         file.write ("knn classificator metrics:\n")
         file.write("\n---------------------\n")
 
-    for key, values in knnRegDict.items():
-        addSingleInstanceToFile (getMetricsPath ("knn regressor"), key, values.get ("metrics"))
+    for key, values in decisionTreeRegressorDict.items():
+        addSingleInstanceToFile (getMetricsPath ("decision tree regressor"), key, values.get ("metrics"))

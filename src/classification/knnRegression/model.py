@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.neighbors import KNeighborsRegressor
 
 from classificationUtils import getModelPath, getTrainDatasetPath, getModelFromPickleFile, saveModelToPickleFile, getSampleSizeList, downsampleDataset, splitDataset, copyAndScaleDataset, continuousFeatures, saveOtherInfoModelDict
-from metrics import knnMetrics, saveMetricsToFile
+from metrics import knnRegMetrics, saveMetricsToFile
 
 def getRangeForK (numberOfSamplesInTheDataset:int, numberOfKs = 10) -> list[int]:
     #k should be sqrt of the number of samples in the training dataset, so maybe we can implement a range around that number
@@ -40,7 +40,11 @@ def makeknnRegDictValue (k:int, model, weight:str, metrics:dict, datasetDimensio
         "groundTruth":y_test,#roc curve comupation
     }
 
-def getKnnRegressorModel (targetVariable = "genre"):
+def getKnnRegressorModel (targetVariable = "popularity"):
+    columnsToUse = continuousFeatures
+    if targetVariable in columnsToUse:
+        columnsToUse.remove (targetVariable)
+    
     if not path.exists(getModelPath ("knnReg")):
         import time
         startTime = time.time()
@@ -60,7 +64,7 @@ def getKnnRegressorModel (targetVariable = "genre"):
         knnRegDict = {}
         for weight in weights:
             for datasetDimension, subDataset in dowsampledDatasets.items ():
-                X = copyAndScaleDataset (df=subDataset, columnsToUse=continuousFeatures)
+                X = copyAndScaleDataset (df=subDataset, columnsToUse=columnsToUse)
                 y = subDataset[targetVariable]
                 
                 splitNumber = 1
@@ -73,7 +77,7 @@ def getKnnRegressorModel (targetVariable = "genre"):
                         model.fit (X_train, y_train)
 
                         predictions=model.predict(X_test)
-                        metrics = knnMetrics (predictions=model.predict(X_test), groundTruth=y_test)
+                        metrics = knnRegMetrics (predictions=predictions, groundTruth=y_test)
 
 
                         knnRegDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"

@@ -43,7 +43,12 @@ def makeKnnDictValue (k:int, model, weight:str, metrics:dict, datasetDimension:i
     }
 
 def getKnnModel (targetVariable = "genre"):
+    columnsToUse = continuousFeatures
+    if targetVariable in columnsToUse:
+        columnsToUse.remove (targetVariable)
+
     if not path.exists(getModelPath ("knn")):
+    #if True:
         import time
         startTime = time.time()
 
@@ -93,7 +98,7 @@ def getKnnModel (targetVariable = "genre"):
         knnDict = {}
         for weight in weights:
             for datasetDimension, subDataset in dowsampledDatasets.items ():
-                X = copyAndScaleDataset (df=subDataset, columnsToUse=continuousFeatures)
+                X = copyAndScaleDataset (df=subDataset, columnsToUse=columnsToUse)
                 y = subDataset[targetVariable]
                 
                 splitNumber = 1
@@ -106,7 +111,7 @@ def getKnnModel (targetVariable = "genre"):
                         model.fit (X_train, y_train)
 
                         predictions=model.predict(X_test)
-                        metrics = knnMetrics (predictions=model.predict(X_test), groundTruth=y_test)
+                        metrics = knnMetrics (predictions=predictions, groundTruth=y_test)
 
 
                         knnDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"
@@ -123,4 +128,4 @@ def getKnnModel (targetVariable = "genre"):
     else:
         return getModelFromPickleFile ("knn")
 
-#getKnnModel()
+getKnnModel()
