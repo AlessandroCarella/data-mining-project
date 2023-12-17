@@ -48,8 +48,8 @@ def getComapreModelResults (data):
     return result_dict
         
 def compareModels ():
-    #models = getModelFromPickleFile ("knn")
-    knnModels = modelNameToModelObject ("knn")
+    #models = getModelFromPickleFile ("knnGroupByGenre")
+    knnModels = modelNameToModelObject ("knnGroupByGenre")
     values = []
     for key, value in knnModels.items():
         values.append(value)

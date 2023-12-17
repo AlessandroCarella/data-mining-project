@@ -56,7 +56,7 @@ def getDecisionTreeRegressorModel (targetVariable = "popularity"):
         y = dataset[targetVariable]
 
         criterions = ['squared_error', 'friedman_mse', 'absolute_error', 'poisson']
-        maxDepths = [None] + list(np.arange(2, 20))
+        maxDepths = [None] + [1, 5, 10, 20, 30, 50, 100]
         minSamplesLeaf = [1, 5, 10, 20, 30, 50, 100]
         minSamplesSplit = [2, 5, 10, 20, 30, 50, 100]
 
@@ -75,6 +75,7 @@ def getDecisionTreeRegressorModel (targetVariable = "popularity"):
                                 criterion=criterion, 
                                 min_samples_leaf=minSampleLeaf, 
                                 min_samples_split=minSampleSplit, 
+                                random_state=69
                                 #n_jobs=-1
                             )
                             model.fit (X_train, y_train)
