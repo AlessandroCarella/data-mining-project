@@ -1,0 +1,8 @@
+For naive bayes models, is more robust to normalize the data and 
+    one-hot encode your categorical variables.
+
+Then it's also important to divide the model estimation between 
+    continuous and categorical variables, in this way we can say that
+    i.e: for continuous we can use, gaussian naive bayes, and for categorical
+    we can use either multinomial naive bayes or bernouli naive bayes
+
