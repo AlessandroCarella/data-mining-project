@@ -116,7 +116,8 @@ def getModelFromPickleFile(modelName:str):
         raise Exception ("Could not find model")
     
 def getTrainDatasetPath ():
-    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures.csv")
+    #return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures.csv")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures + Encoding.csv")
 
 def getTestDatasetPath ():
     #TODO check if the test dataset is ok as it is right now, might need to do the various operations we did on the train one 
