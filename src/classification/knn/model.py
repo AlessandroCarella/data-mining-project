@@ -128,4 +128,4 @@ def getKnnModel (targetVariable = "genre"):
     else:
         return getModelFromPickleFile ("knnGroupByGenre")
 
-getKnnModel()
+getKnnModel("grouped_genres")

@@ -121,7 +121,7 @@ def learningCurveForDifferentDatasetSize ():
 def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
     #this method is needed just to get the best model found by the metrics
     #this method should train the classifier on the whole training set, not the train/validation split
-    #modelFilePath = path.join(path.dirname(__file__), "..", "results", "knnBestModel.pickle")
+    modelFilePath = path.join(path.dirname(__file__), "..", "results", "knnGroupedGenresBestModel.pickle")
     #if not path.exists(modelFilePath):
     dataset = pd.read_csv (getTrainDatasetPath())
     
@@ -147,4 +147,4 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
 
 compareBestModels ()
 learningCurveForDifferentDatasetSize ()
-getBestKnnModel ()
+getBestKnnModel (45, 3000, "grouped_genres")

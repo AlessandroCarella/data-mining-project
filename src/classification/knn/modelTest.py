@@ -50,4 +50,4 @@ for key, value in modelTest().items():
     print (key,":")
     print (value)
 
-print (modelTest())
+print (modelTest("grouped_genres"))
