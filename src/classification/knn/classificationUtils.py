@@ -105,7 +105,7 @@ def getMetricsPath (modelName:str):
     return path.join(path.abspath(path.dirname(__file__)), f"{modelName} metrics.txt")
 
 def saveModelToPickleFile (model):
-    with open (createModelPath ("knnGroupByGenre"), "wb") as f:
+    with open (createModelPath ("knn"), "wb") as f:
         pickle.dump (model, f)
 
 def getModelFromPickleFile(modelName:str):
@@ -269,12 +269,12 @@ def saveOtherInfoModelDict (modelDict:dict):
             file.write("\n---------------------\n")
 
     #create or reset the info file    
-    with open (getInfoPath("knnGroupByGenre"), "w") as file:
-        file.write ("knnGroupByGenre dict infos:\n")
+    with open (getInfoPath("knn"), "w") as file:
+        file.write ("knn dict infos:\n")
         file.write("\n---------------------\n")
 
     for key, values in modelDict.items():
-        addSingleInstanceToFile (getInfoPath ("knnGroupByGenre"), key, {
+        addSingleInstanceToFile (getInfoPath ("knn"), key, {
                 "k":values.get("k"),
                 "datasetDimension":values.get ("datasetDimension"), 
                 "splitNumber":values.get("splitNumber"),

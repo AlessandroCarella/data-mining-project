@@ -49,9 +49,9 @@ def saveMetricsToFile (knnDict:dict):
             file.write("\n---------------------\n")
 
     #create or reset the metrics file    
-    with open (getMetricsPath("knnGroupByGenre"), "w") as file:
-        file.write ("knnGroupByGenre classificator metrics:\n")
+    with open (getMetricsPath("knn"), "w") as file:
+        file.write ("knn classificator metrics:\n")
         file.write("\n---------------------\n")
 
     for key, values in knnDict.items():
-        addSingleInstanceToFile (getMetricsPath ("knnGroupByGenre"), key, values.get ("metrics"))
+        addSingleInstanceToFile (getMetricsPath ("knn"), key, values.get ("metrics"))

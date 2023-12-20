@@ -47,7 +47,7 @@ def getKnnModel (targetVariable = "genre"):
     if targetVariable in columnsToUse:
         columnsToUse.remove (targetVariable)
 
-    if not path.exists(getModelPath ("knnGroupByGenre")):
+    if not path.exists(getModelPath ("knn")):
     #if True:
         import time
         startTime = time.time()
@@ -126,6 +126,6 @@ def getKnnModel (targetVariable = "genre"):
         #saveOtherInfoModelDict (knnDict)
         return knnDict
     else:
-        return getModelFromPickleFile ("knnGroupByGenre")
+        return getModelFromPickleFile ("knn")
 
-getKnnModel("grouped_genres")
+getKnnModel()

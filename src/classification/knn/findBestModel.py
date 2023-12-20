@@ -49,7 +49,7 @@ def getComapreModelResults (data):
         
 def compareModels ():
     #models = getModelFromPickleFile ("knnGroupByGenre")
-    knnModels = modelNameToModelObject ("knnGroupByGenre")
+    knnModels = modelNameToModelObject ("knn")
     values = []
     for key, value in knnModels.items():
         values.append(value)
@@ -147,4 +147,4 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
 
 compareBestModels ()
 learningCurveForDifferentDatasetSize ()
-getBestKnnModel (45, 3000, "grouped_genres")
+getBestKnnModel ()
