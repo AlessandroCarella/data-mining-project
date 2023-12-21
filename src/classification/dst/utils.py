@@ -68,8 +68,8 @@ continuousFeatures = [
 continousAndCategorialFeaturesForClassification = [
     "key",
     "genre",
-    "time_signature",
-    "duration_ms",
+    #"time_signature",
+    #"duration_ms",
     "popularity",
     "danceability",
     "energy",
@@ -84,27 +84,27 @@ continousAndCategorialFeaturesForClassification = [
 ]
 
 def getTrainDatasetPath ():
-    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures.csv")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures + Encoding.csv")
 
 def getTestDatasetPath ():
     #TODO check if the test dataset is ok as it is right now, might need to do the various operations we did on the train one 
     #(so the path might also change when we create the test dataset with different values, fills etc)
     return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
     
-directoryName = "decisionTreeClassifierModels"
-fileName= "decisionTreeClassifierModelsParams.txt"
+directoryName = "W/O SOME FEATURES decisionTreeClassifierModels"
+fileName= "decisionTreeClassifierModelsParams"
 def create_directory(base_directory='src/classification/dst'):
         model_directory = os.path.join(base_directory, directoryName)
 
         if not os.path.exists(model_directory):
             os.makedirs(model_directory)
 
-def saveModelParams(tree_values, base_directory='src/classification/dst'):
-        print('futem ketu')
+def saveModelParams(tree_values, targetVariable, base_directory='src/classification/dst'):
         create_directory(base_directory)
-        file_path = os.path.join(base_directory, directoryName, fileName)
+        file_path = os.path.join(base_directory, directoryName, fileName + " FOR " + targetVariable + " .txt")
 
         with open(file_path, 'a') as file:
-                for key, value in tree_values.items():
-                    file.write(f"{value}\n")
-                    file.write('-' * 30 + '\n')
+                for key,value in tree_values.items():
+                        file.write(f"{key}\n")
+                        file.write(f"{value}\n")
+                        file.write('-' * 30 + '\n')
