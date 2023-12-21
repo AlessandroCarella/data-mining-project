@@ -10,7 +10,8 @@ targetVariable= "genre"
 dataset = pd.read_csv (getTrainDatasetPath())[continousAndCategorialFeaturesForClassification]
 
 X_train = dataset.copy().drop(targetVariable, axis=1)
-Y_train = LabelEncoder().fit_transform(dataset[targetVariable])
+dataset[targetVariable] = LabelEncoder().fit_transform(dataset[targetVariable])
+Y_train = dataset[targetVariable]
 
 param_dist = {
     'criterion': ['gini', 'entropy'],
