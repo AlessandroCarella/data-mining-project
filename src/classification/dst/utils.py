@@ -68,7 +68,7 @@ continuousFeatures = [
 continousAndCategorialFeaturesForClassification = [
     "mode",
     "key",
-    #"genre",
+    "genre",
     #"time_signature",
     #"duration_ms",
     #"popularity",
@@ -92,7 +92,7 @@ def getTestDatasetPath ():
     #(so the path might also change when we create the test dataset with different values, fills etc)
     return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
     
-directoryName = "decisionTreeClassifierModels"
+directoryName = "TAKE 2 decisionTreeClassifierModels"
 fileName= "decisionTreeClassifierModelsParams"
 def create_directory(base_directory='src/classification/dst'):
         model_directory = os.path.join(base_directory, directoryName)

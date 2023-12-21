@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 def plotDecisionTree(tree, rank=""):
 
         base_directory='src/classification/dst'
-        directoryName= 'treePlots'
+        directoryName= 'TAKE 2 treePlots'
         fileName = f"Decision Tree Rank {rank}"
         model_directory = os.path.join(base_directory, directoryName)
         file_path = os.path.join(base_directory, directoryName, fileName + ".png")

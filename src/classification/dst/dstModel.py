@@ -22,9 +22,6 @@ def makeDecisionTreeClassifierDictValue (criterion:str, maxDepth:int, minSampleL
 
 def getDecisionTreeModel (targetVariable):
     columnsToUse = continousAndCategorialFeaturesForClassification  
-    
-    import time
-    startTime = time.time()
 
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
     X = dataset.copy().drop(targetVariable, axis=1)
@@ -32,10 +29,10 @@ def getDecisionTreeModel (targetVariable):
     Y =  dataset[targetVariable]
     kf = KFold(n_splits=20, shuffle=True, random_state=42)
 
-    criterions =  ['gini']
-    maxDepths = [None] + list(np.arange(2, 6))
-    minSamplesLeaf=list(np.arange(2, 6))
-    minSamplesSplit=list(np.arange(2, 6))
+    criterions =  ['gini', 'entropy']
+    maxDepths = list(np.arange(2, 10))
+    minSamplesLeaf= [0.01, 0.05, 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
+    minSamplesSplit=[0.002, 0.01, 0.05, 0.1, 0.2]
     ccp_alphas= list(np.arange(0.0, 0.1))
 
     decisionTreeClassifierDict = {}
@@ -60,7 +57,7 @@ def getDecisionTreeModel (targetVariable):
                                 predictions=model.predict(X_test)
                                 accuracyScore = accuracy_score(predictions, y_test)
                                 print('accuracyScore' + str(accuracyScore))
-                                if accuracyScore < 0.5:
+                                if accuracyScore < 0.4:
                                     continue
                                 
                                 f1Score = f1_score(predictions, y_test, average="weighted")
@@ -72,12 +69,7 @@ def getDecisionTreeModel (targetVariable):
                                 decisionTreeRegKey = f"DST with criterion:{criterion}, maxDepth:{maxDepth}, minSampleLeaf:{minSampleLeaf}, minSampleSplit:{minSampleSplit}, splitNumber:{splitNumber}, ccp_alpha:{ccp_alpha}, metrics:{metrics}"
                                 decisionTreeClassifierDict[decisionTreeRegKey] = makeDecisionTreeClassifierDictValue (criterion, maxDepth, minSampleLeaf, minSampleSplit, splitNumber,ccp_alpha,  metrics, model)
 
-                                if splitNumber % 10 == 0:
-                                    print(time.time() - startTime)
-                                    print(decisionTreeRegKey)
+                                print(decisionTreeRegKey)
                                 splitNumber += 1
                                 saveModelParams (decisionTreeClassifierDict, targetVariable)
         return decisionTreeClassifierDict
-    
-#getDecisionTreeModel("genre")
-#getDecisionTreeModel("grouped_genres")
