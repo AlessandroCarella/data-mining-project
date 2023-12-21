@@ -5,26 +5,26 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report, f1_score, recall_score
 from scipy.stats import uniform, randint
 from utils import getTrainDatasetPath, getTestDatasetPath, continousAndCategorialFeaturesForClassification
-
-targetVariable= "genre"
+from plotTrees import plotDecisionTree
+targetVariable= "mode"
 dataset = pd.read_csv (getTrainDatasetPath())[continousAndCategorialFeaturesForClassification]
 
 X_train = dataset.copy().drop(targetVariable, axis=1)
-dataset[targetVariable] = LabelEncoder().fit_transform(dataset[targetVariable])
 Y_train = dataset[targetVariable]
 
 param_dist = {
     'criterion': ['gini', 'entropy'],
-    'max_depth': randint(2, 20),
-    'min_samples_split': uniform(0.1, 0.9),
-    'min_samples_leaf': randint(1, 100),
-    'ccp_alpha': uniform(0.0, 0.5)
+    'max_depth': [5, 6, 7,8, 9, 10, None],
+    'min_samples_split': [0.002, 0.01, 0.05, 0.1, 0.2],
+    'min_samples_leaf': [0.01, 0.05, 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6],
+    'ccp_alpha': uniform(0.0, 0.1)
 }
 
 testDataset = pd.read_csv (getTestDatasetPath())[continousAndCategorialFeaturesForClassification]
-testDataset[targetVariable] = LabelEncoder().fit_transform(testDataset[targetVariable])
-
 X_test = testDataset.drop(targetVariable, axis=1) 
+
+mode_value = testDataset[targetVariable].mode().iloc[0]  # Get the mode value
+testDataset[targetVariable].fillna(mode_value, inplace=True)
 Y_test = testDataset[targetVariable]
 
 
@@ -34,8 +34,8 @@ dt_classifier = DecisionTreeClassifier()
 random_search = RandomizedSearchCV(
     dt_classifier,
     param_distributions=param_dist,
-    n_iter=10,  # Number of random combinations to try
-    cv=5,  # Number of cross-validation folds
+    n_iter=20,  # Number of random combinations to try
+    cv=33,  # Number of cross-validation folds
     scoring='accuracy',  # Use an appropriate scoring metric
     random_state=42
 )
@@ -58,8 +58,14 @@ y_train_pred = dtp.predict(X_train)
 y_test_pred = dtp.predict(X_test)
 
 print('Train Accuracy %s' % accuracy_score(Y_train, y_train_pred))
-print('Train F1-score %s' % f1_score(Y_train, y_train_pred, average=None))
+print('Train F1-score %s' % f1_score(Y_train, y_train_pred, average='weighted'))
 print()
 
 print('Test Accuracy %s' % accuracy_score(Y_test, y_test_pred))
-print('Test F1-score %s' % f1_score(Y_test, y_test_pred, average=None))
+print('Test F1-score %s' % f1_score(Y_test, y_test_pred, average='weighted'))
+
+print('\nClassification Report\n')
+print(classification_report(Y_test, y_test_pred, zero_division=1))
+
+plotDecisionTree(dtp)
+

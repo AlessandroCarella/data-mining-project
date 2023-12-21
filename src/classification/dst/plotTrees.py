@@ -8,10 +8,10 @@ import pandas as pd
 import os.path
 import matplotlib.pyplot as plt
 
-def plotDecisionTree(tree, rank):
+def plotDecisionTree(tree, rank=""):
 
         base_directory='src/classification/dst'
-        directoryName= 'W/O SOME FEATURES treePlots'
+        directoryName= 'treePlots'
         fileName = f"Decision Tree Rank {rank}"
         model_directory = os.path.join(base_directory, directoryName)
         file_path = os.path.join(base_directory, directoryName, fileName + ".png")
