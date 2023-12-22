@@ -5,10 +5,10 @@ from sklearn.model_selection import KFold
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
 from utils import getTrainDatasetPath, continousAndCategorialFeaturesForClassification, saveModelParams
 
-def makeDecisionTreeClassifierDictValue (criterion:str, maxDepth:int, minSampleLeaf:int, minSampleSplit:int, splitNumber:int, ccp_alpha, metrics):
+def makeDecisionTreeClassifierDictValue (criterion:str, maxDepth:int, minSampleLeaf:int, minSampleSplit:int, splitNumber:int, ccp_alpha, metrics,model):
     return {
         "criterion":criterion, 
         "max_depth":maxDepth, 
@@ -16,26 +16,24 @@ def makeDecisionTreeClassifierDictValue (criterion:str, maxDepth:int, minSampleL
         "min_samples_split":minSampleSplit, 
         "splitNumber":splitNumber,
         "ccp_alpha":ccp_alpha,
-        "metrics": metrics
+        "metrics": metrics,
+        "model": model
     }
 
-def getDecisionTreeModel (targetVariable = "genre"):
+def getDecisionTreeModel (targetVariable):
     columnsToUse = continousAndCategorialFeaturesForClassification  
-    
-    import time
-    startTime = time.time()
 
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
-    X = dataset.copy().drop(targetVariable, axis=1)
-    dataset[targetVariable]= LabelEncoder().fit_transform(dataset[targetVariable])     
+    dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"]) 
+    X = dataset.copy().drop(targetVariable, axis=1)  
     Y =  dataset[targetVariable]
-    kf = KFold(n_splits=33, shuffle=True, random_state=42)
+    kf = KFold(n_splits=20, shuffle=True, random_state=42)
 
-    criterions =  ['gini', 'entropy']
-    maxDepths = [None] + list(np.arange(2, 20))
-    minSamplesLeaf=list(np.arange(2, 20))
-    minSamplesSplit=list(np.arange(2, 20))
-    ccp_alphas= list(np.arange(0.0, 0.1))
+    criterions =  ['entropy'] #gini
+    maxDepths = list(np.arange(2, 3)) #+ [None]
+    minSamplesLeaf= [ 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
+    minSamplesSplit=[ 0.05, 0.1, 0.2]
+    ccp_alphas= list(np.arange(0.01, 0.1))
 
     decisionTreeClassifierDict = {}
     for criterion in criterions:
@@ -58,24 +56,19 @@ def getDecisionTreeModel (targetVariable = "genre"):
 
                                 predictions=model.predict(X_test)
                                 accuracyScore = accuracy_score(predictions, y_test)
-                                print('accuracyScore' + str(accuracyScore))
-                                if accuracyScore < 0.7:
+                                if accuracyScore < 0.6 :
                                     continue
                                 
                                 f1Score = f1_score(predictions, y_test, average="weighted")
+                                recallScore = recall_score(predictions, y_test, average="weighted", zero_division=1)
+                                precisionScore = precision_score(predictions, y_test, average="weighted", zero_division=1)
                                 
-                                metrics = {'accuracyScore':accuracyScore, "f1Score":f1Score}
+                                metrics = {'accuracyScore':accuracyScore, "f1Score":f1Score, "precisionScore": precisionScore, "recallScore":recallScore}
 
-                                decisionTreeRegDictKey = f"criterion:, maxDepth:, minSampleLeaf:, minSampleSplit:, splitNumber:, ccp_alpha:, metrics:"
-                                decisionTreeClassifierDict[decisionTreeRegDictKey] = makeDecisionTreeClassifierDictValue (criterion, maxDepth, minSampleLeaf, minSampleSplit, splitNumber,ccp_alpha,  metrics)
+                                decisionTreeRegKey = f"DST with criterion:{criterion}, maxDepth:{maxDepth}, minSampleLeaf:{minSampleLeaf}, minSampleSplit:{minSampleSplit}, splitNumber:{splitNumber}, ccp_alpha:{ccp_alpha}, metrics:{metrics}"
+                                decisionTreeClassifierDict[decisionTreeRegKey] = makeDecisionTreeClassifierDictValue (criterion, maxDepth, minSampleLeaf, minSampleSplit, splitNumber,ccp_alpha,  metrics, model)
 
-                                #To check on the advancement
-                                if splitNumber % 10 == 0:
-
-                                    print(time.time() - startTime)
-                                    print(decisionTreeRegDictKey)
+                                print(decisionTreeRegKey)
                                 splitNumber += 1
-                                saveModelParams (decisionTreeClassifierDict)
-        return decisionTreeClassifierDict
-    
-getDecisionTreeModel()
+                                #saveModelParams (decisionTreeClassifierDict, targetVariable)
+    return decisionTreeClassifierDict
