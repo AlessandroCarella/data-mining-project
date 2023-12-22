@@ -1,11 +1,5 @@
 import os.path as path
 import os
-import pickle
-import json
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
 originalDatasetColumnsToUse = [
     "name",
@@ -71,7 +65,26 @@ continousAndCategorialFeaturesForClassification = [
     "genre",
     #"time_signature",
     #"duration_ms",
-    #"popularity",
+    "popularity",
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "n_beats"
+]
+
+continousAndCategorialFeaturesForClassificationForNoTuning = [
+    "mode",
+    "key",
+    "genre",
+    "time_signature",
+    "duration_ms",
+    "popularity",
     "danceability",
     "energy",
     "loudness",
@@ -92,7 +105,7 @@ def getTestDatasetPath ():
     #(so the path might also change when we create the test dataset with different values, fills etc)
     return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
     
-directoryName = "TAKE 2 decisionTreeClassifierModels"
+directoryName = "decisionTreeClassifierModels"
 fileName= "decisionTreeClassifierModelsParams"
 def create_directory(base_directory='src/classification/dst'):
         model_directory = os.path.join(base_directory, directoryName)

@@ -24,16 +24,16 @@ def getDecisionTreeModel (targetVariable):
     columnsToUse = continousAndCategorialFeaturesForClassification  
 
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
-    X = dataset.copy().drop(targetVariable, axis=1)
-    dataset[targetVariable]= LabelEncoder().fit_transform(dataset[targetVariable])     
+    dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"]) 
+    X = dataset.copy().drop(targetVariable, axis=1)  
     Y =  dataset[targetVariable]
     kf = KFold(n_splits=20, shuffle=True, random_state=42)
 
-    criterions =  ['gini', 'entropy']
-    maxDepths = list(np.arange(2, 10))
-    minSamplesLeaf= [0.01, 0.05, 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
-    minSamplesSplit=[0.002, 0.01, 0.05, 0.1, 0.2]
-    ccp_alphas= list(np.arange(0.0, 0.1))
+    criterions =  ['entropy'] #gini
+    maxDepths = list(np.arange(2, 3)) #+ [None]
+    minSamplesLeaf= [ 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
+    minSamplesSplit=[ 0.05, 0.1, 0.2]
+    ccp_alphas= list(np.arange(0.01, 0.1))
 
     decisionTreeClassifierDict = {}
     for criterion in criterions:
@@ -56,13 +56,12 @@ def getDecisionTreeModel (targetVariable):
 
                                 predictions=model.predict(X_test)
                                 accuracyScore = accuracy_score(predictions, y_test)
-                                print('accuracyScore' + str(accuracyScore))
-                                if accuracyScore < 0.4:
+                                if accuracyScore < 0.6 :
                                     continue
                                 
                                 f1Score = f1_score(predictions, y_test, average="weighted")
-                                recallScore = recall_score(predictions, y_test, average="weighted")
-                                precisionScore = precision_score(predictions, y_test, average="weighted")
+                                recallScore = recall_score(predictions, y_test, average="weighted", zero_division=1)
+                                precisionScore = precision_score(predictions, y_test, average="weighted", zero_division=1)
                                 
                                 metrics = {'accuracyScore':accuracyScore, "f1Score":f1Score, "precisionScore": precisionScore, "recallScore":recallScore}
 
@@ -71,5 +70,5 @@ def getDecisionTreeModel (targetVariable):
 
                                 print(decisionTreeRegKey)
                                 splitNumber += 1
-                                saveModelParams (decisionTreeClassifierDict, targetVariable)
-        return decisionTreeClassifierDict
+                                #saveModelParams (decisionTreeClassifierDict, targetVariable)
+    return decisionTreeClassifierDict

@@ -69,6 +69,7 @@ print('Test F1-score %s' % f1_score(Y_test, y_test_pred, average='weighted'))
 print('\nClassification Report\n')
 print(classification_report(Y_test, y_test_pred, zero_division=1))
 
+# Feature Importance
 zipped = zip(continousAndCategorialFeaturesForClassificationForNoTuning, dtp.feature_importances_)
 zipped = sorted(zipped, key=lambda x: x[1], reverse=True)
 for col, imp in zipped:
