@@ -9,9 +9,9 @@ from classificationUtils import downsampleDataset, getTrainDatasetPath, copyAndS
 def compareMetrics (metrics1:dict, metrics2:dict, metrics_to_compare:list=['r2Score', 'meanSquaredError', 'meanAbsoluteDeviation']):
     #return True if metrics1 are better than metrics2, False otherwise
     # Check if MSE and MAD are lower in the first model, and if R2 is higher
-    mse_condition = metrics1.get("meanSquaredError", float('inf')) < metrics2.get("meanSquaredError", float('inf'))
-    mad_condition = metrics1.get("meanAbsoluteDeviation", float('inf')) < metrics2.get("meanAbsoluteDeviation", float('inf'))
-    r2_condition = metrics1.get("r2Score", float('-inf')) > metrics2.get("r2Score", float('-inf'))
+    mse_condition = metrics1.get("meanSquaredError") < metrics2.get("meanSquaredError")
+    mad_condition = metrics1.get("meanAbsoluteDeviation") < metrics2.get("meanAbsoluteDeviation")
+    r2_condition = metrics1.get("r2Score") > metrics2.get("r2Score")
 
     # Return True if all conditions are true, False otherwise
     return mse_condition and mad_condition and r2_condition
@@ -55,7 +55,7 @@ def getComapreModelResults (data):
         
 def compareModels ():
     #models = getModelFromPickleFile ("knn")
-    knnModels = modelNameToModelObject ("knn")
+    knnModels = modelNameToModelObject ("knnReg")
     values = []
     for key, value in knnModels.items():
         values.append(value)
@@ -78,9 +78,7 @@ def compareBestModels ():
         print (value)
         print()
 
-    bestModel = {'r2Score': float('-inf'), 'meanSquaredError': float('-inf'), 'meanAbsoluteDeviation': float('-inf')}
-    bestSize = 0
-    bestK = 0
+    bestModel = {'r2Score': float('-inf'), 'meanSquaredError': float('inf'), 'meanAbsoluteDeviation': float('inf')}
     for key, value in bestModels.items():
         if compareMetrics (value.get("metrics"), bestModel):
             bestModel = value.get("metrics")
@@ -96,22 +94,24 @@ def compareBestModels ():
     for key, value in bestModel.items ():
         print (key, ":", value)
         
-def learningCurveForDifferentDatasetSize ():
-    data = compareModels ()
+def learningCurveForDifferentDatasetSize():
+    data = compareModels()
     dataset_sizes = sorted(data.keys())
 
     plt.figure(figsize=(10, 6))
 
-    r2score_values = [data[size]['metrics']['r2Score'] for size in dataset_sizes]
-    plt.plot(dataset_sizes, r2score_values, marker='o', label='r2Score')
+    # Plotting the learning curves for R2 score
+    r2_values = [data[size]['metrics']['r2Score'] for size in dataset_sizes]
+    plt.plot(dataset_sizes, r2_values, marker='o', label='R2 Score')
 
-    # Plotting the learning curves
-    meanSquaredError_values = [data[size]['metrics']['meanSquaredError'] for size in dataset_sizes]
-    plt.plot(dataset_sizes, meanSquaredError_values, marker='o', label='meanSquaredError')
+    # Plotting the learning curves for Mean Squared Error
+    mse_values = [data[size]['metrics']['meanSquaredError'] for size in dataset_sizes]
+    plt.plot(dataset_sizes, mse_values, marker='o', label='Mean Squared Error')
 
-    meanAbsoluteDeviation_values = [data[size]['metrics']['meanAbsoluteDeviation'] for size in dataset_sizes]
-    plt.plot(dataset_sizes, meanAbsoluteDeviation_values, marker='o', label='meanAbsoluteDeviation')
-    
+    # Plotting the learning curves for Mean Absolute Error
+    mae_values = [data[size]['metrics']['meanAbsoluteDeviation'] for size in dataset_sizes]
+    plt.plot(dataset_sizes, mae_values, marker='o', label='Mean Absolute Error')
+
     # Adding labels and title
     plt.xlabel('Dataset Size')
     plt.ylabel('Metrics Value')
@@ -120,6 +120,7 @@ def learningCurveForDifferentDatasetSize ():
     plt.xticks(dataset_sizes)  # Set x-axis ticks to dataset sizes
     plt.grid(True)
     plt.show()
+
 
 def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
     #this method is needed just to get the best model found by the metrics
@@ -148,6 +149,6 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
             return pickle.load (file) """
 
 
-"""compareBestModels ()
+compareBestModels ()
 learningCurveForDifferentDatasetSize ()
-getBestKnnModel ()"""
+getBestKnnModel (k=35, datasetSize=1500, targetVariable="popularity")
