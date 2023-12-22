@@ -24,7 +24,11 @@ def getDecisionTreeModel (targetVariable):
     columnsToUse = continousAndCategorialFeaturesForClassification  
 
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
-    dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"]) 
+    if(targetVariable=="grouped_genres"):
+        dataset.drop("genre", axis=1)
+    elif(targetVariable != "genre"):
+        dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"])
+    
     X = dataset.copy().drop(targetVariable, axis=1)  
     Y =  dataset[targetVariable]
     kf = KFold(n_splits=20, shuffle=True, random_state=42)

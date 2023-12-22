@@ -7,24 +7,25 @@ from sklearn.preprocessing import KBinsDiscretizer
 
 def testModel (targetVariable, tree, desc, columnsToUse):
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
-
-    dataset["genre"] = LabelEncoder().fit_transform(dataset["genre"])
+    testDataset = pd.read_csv (getTestDatasetPath())[columnsToUse]
+    
+    if(targetVariable == "grouped_genres"):
+        dataset.drop("genre", axis=1)
+        testDataset.drop("genre", axis=1)
+    elif(targetVariable == "mode"):
+        mode_value = testDataset[targetVariable].mode().iloc[0]  
+        testDataset[targetVariable].fillna(mode_value, inplace=True)
+    elif(targetVariable != "genre"):
+        dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"]) 
+        testDataset["genre"]= LabelEncoder().fit_transform(testDataset["genre"]) 
+    
     X_train = dataset.copy().drop(targetVariable, axis=1)
     Y_train = dataset[targetVariable]
 
     #DISCRETIZATION
     discretizer = KBinsDiscretizer(encode='ordinal', strategy='quantile')
     X_train_discrete = discretizer.fit_transform(X_train)
-   
-    testDataset = pd.read_csv (getTestDatasetPath())[columnsToUse]
-    testDataset[targetVariable] = LabelEncoder().fit_transform(testDataset[targetVariable])
-    testDataset["genre"] = LabelEncoder().fit_transform(testDataset["genre"])
-    if(targetVariable=="mode"):
-        mode_value = testDataset[targetVariable].mode().iloc[0]  
-        testDataset[targetVariable].fillna(mode_value, inplace=True)
-
     X_test = testDataset.drop(targetVariable, axis=1) 
-    #DISCRETIZATION
     X_test_discrete = discretizer.transform(X_test)
     Y_test = testDataset[targetVariable]
     

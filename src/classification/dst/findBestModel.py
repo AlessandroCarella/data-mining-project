@@ -70,5 +70,7 @@ def find_best_decision_tree_model(target_variable, tuning = True):
 
 find_best_decision_tree_model("genre")
 #find_best_decision_tree_model("genre", False)
+#find_best_decision_tree_models("grouped_genres")
+#find_best_decision_tree_models("grouped_genres", False)
 #find_best_decision_tree_model("mode")
 #find_best_decision_tree_model("mode", False)
