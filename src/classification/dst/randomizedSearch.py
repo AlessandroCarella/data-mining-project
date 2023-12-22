@@ -2,13 +2,14 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
-from sklearn.metrics import accuracy_score, classification_report, f1_score, recall_score
-from scipy.stats import uniform, randint
-from utils import getTrainDatasetPath, getTestDatasetPath, continousAndCategorialFeaturesForClassification
-from plotTrees import plotDecisionTree
-targetVariable= "mode"
-dataset = pd.read_csv (getTrainDatasetPath())[continousAndCategorialFeaturesForClassification]
+from sklearn.metrics import accuracy_score, classification_report, f1_score
+from scipy.stats import uniform
+from utils import getTrainDatasetPath, getTestDatasetPath, continousAndCategorialFeaturesForClassification, continousAndCategorialFeaturesForClassificationForNoTuning
+from plotTrees import plotDecisionTree, plotConfusionMatrix
 
+targetVariable= "mode" #"genre"
+dataset = pd.read_csv (getTrainDatasetPath())[continousAndCategorialFeaturesForClassification]
+dataset['genre'] = LabelEncoder().fit_transform(dataset['genre'])
 X_train = dataset.copy().drop(targetVariable, axis=1)
 Y_train = dataset[targetVariable]
 
@@ -21,10 +22,11 @@ param_dist = {
 }
 
 testDataset = pd.read_csv (getTestDatasetPath())[continousAndCategorialFeaturesForClassification]
+testDataset['genre'] = LabelEncoder().fit_transform(testDataset['genre'])
 X_test = testDataset.drop(targetVariable, axis=1) 
-
-mode_value = testDataset[targetVariable].mode().iloc[0]  # Get the mode value
-testDataset[targetVariable].fillna(mode_value, inplace=True)
+if(targetVariable=="mode"):
+    mode_value = testDataset[targetVariable].mode().iloc[0]  # Get the mode value
+    testDataset[targetVariable].fillna(mode_value, inplace=True)
 Y_test = testDataset[targetVariable]
 
 
@@ -67,5 +69,11 @@ print('Test F1-score %s' % f1_score(Y_test, y_test_pred, average='weighted'))
 print('\nClassification Report\n')
 print(classification_report(Y_test, y_test_pred, zero_division=1))
 
+zipped = zip(continousAndCategorialFeaturesForClassificationForNoTuning, dtp.feature_importances_)
+zipped = sorted(zipped, key=lambda x: x[1], reverse=True)
+for col, imp in zipped:
+    print(col, imp)
+
 plotDecisionTree(dtp)
+plotConfusionMatrix(Y_test, y_test_pred)
 
