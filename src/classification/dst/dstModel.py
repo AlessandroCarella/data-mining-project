@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.model_selection import KFold
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import KBinsDiscretizer, LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
 from utils import getTrainDatasetPath, continousAndCategorialFeaturesForClassification, saveModelParams
 
@@ -29,7 +29,7 @@ def getDecisionTreeModel (targetVariable):
     Y =  dataset[targetVariable]
     kf = KFold(n_splits=20, shuffle=True, random_state=42)
 
-    criterions =  ['entropy'] #gini
+    criterions =  ['entropy', 'gini']
     maxDepths = list(np.arange(2, 3)) #+ [None]
     minSamplesLeaf= [ 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
     minSamplesSplit=[ 0.05, 0.1, 0.2]
@@ -45,6 +45,9 @@ def getDecisionTreeModel (targetVariable):
                         for trainIndex, testIndex in kf.split (X):
                                 X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
                                 y_train, y_test = Y.iloc[trainIndex], Y.iloc[testIndex]
+                                #DISCRETIZATION
+                                discretizer = KBinsDiscretizer(encode='ordinal', strategy='quantile')
+                                X_train_discrete = discretizer.fit_transform(X_train)
                                 model = DecisionTreeClassifier(
                                     max_depth=maxDepth, 
                                     criterion=criterion, 
@@ -52,12 +55,11 @@ def getDecisionTreeModel (targetVariable):
                                     min_samples_split=minSampleSplit, 
                                     ccp_alpha=ccp_alpha
                                 )
-                                model.fit (X_train, y_train)
-
-                                predictions=model.predict(X_test)
+                                model.fit (X_train_discrete, y_train)
+                                #DISCRETIZATION
+                                X_test_discrete = discretizer.transform(X_test)
+                                predictions=model.predict(X_test_discrete)
                                 accuracyScore = accuracy_score(predictions, y_test)
-                                if accuracyScore < 0.6 :
-                                    continue
                                 
                                 f1Score = f1_score(predictions, y_test, average="weighted")
                                 recallScore = recall_score(predictions, y_test, average="weighted", zero_division=1)
