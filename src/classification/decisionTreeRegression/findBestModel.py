@@ -3,19 +3,22 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 import pickle
 import os.path as path
+from sklearn.tree import DecisionTreeRegressor
+import time
 
 from classificationUtils import downsampleDataset, getTrainDatasetPath, copyAndScaleDataset, continuousFeatures, modelNameToModelObject
 
-def compareMetrics (metrics1:dict, metrics2:dict, metrics_to_compare:list=['r2Score', 'meanSquaredError', 'meanAbsoluteDeviation']):
+def compareMetrics (metrics1:dict, metrics2:dict):
     #return True if metrics1 are better than metrics2, False otherwise
     # Check if MSE and MAD are lower in the first model, and if R2 is higher
-    mse_condition = metrics1.get("meanSquaredError", float('inf')) < metrics2.get("meanSquaredError", float('inf'))
-    mad_condition = metrics1.get("meanAbsoluteDeviation", float('inf')) < metrics2.get("meanAbsoluteDeviation", float('inf'))
-    r2_condition = metrics1.get("r2Score", float('-inf')) > metrics2.get("r2Score", float('-inf'))
+    mse_condition = metrics1.get("meanSquaredError") < metrics2.get("meanSquaredError")
+    mad_condition = metrics1.get("meanAbsoluteDeviation") < metrics2.get("meanAbsoluteDeviation")
+    r2_condition = metrics1.get("r2Score") > metrics2.get("r2Score")
 
     # Return True if all conditions are true, False otherwise
     return mse_condition and mad_condition and r2_condition
 
+"""
 def getComapreModelResults (data):
     result_dict = {
         #key=datasetDimension
@@ -42,9 +45,9 @@ def getComapreModelResults (data):
         else:
             better = compareMetrics (metrics1=metrics, metrics2=result_dict[key]["metrics"], metrics_to_compare=metrics_to_compare)
             if better:
-                """print (metrics)
-                print ()
-                print (result_dict[key]["metrics"])"""
+                #print (metrics)
+                #print ()
+                #print (result_dict[key]["metrics"])
                 result_dict[key] = {
                     'k': k_value,
                     'metrics': metrics,
@@ -61,12 +64,6 @@ def compareModels ():
         values.append(value)
 
     results = getComapreModelResults (values)
-    sorted_keys = sorted(results.keys())
-    for key in sorted_keys:
-        #print (key)
-        #print (results.get(key))
-        #print ()
-        pass
 
     return results
 
@@ -78,9 +75,7 @@ def compareBestModels ():
         print (value)
         print()
 
-    bestModel = {'r2Score': float('-inf'), 'meanSquaredError': float('-inf'), 'meanAbsoluteDeviation': float('-inf')}
-    bestSize = 0
-    bestK = 0
+    bestModel = {'r2Score': float('-inf'), 'meanSquaredError': float('inf'), 'meanAbsoluteDeviation': float('inf')}
     for key, value in bestModels.items():
         if compareMetrics (value.get("metrics"), bestModel):
             bestModel = value.get("metrics")
@@ -95,7 +90,7 @@ def compareBestModels ():
     print ("And those metrics:")
     for key, value in bestModel.items ():
         print (key, ":", value)
-        
+
 def learningCurveForDifferentDatasetSize ():
     data = compareModels ()
     dataset_sizes = sorted(data.keys())
@@ -120,34 +115,46 @@ def learningCurveForDifferentDatasetSize ():
     plt.xticks(dataset_sizes)  # Set x-axis ticks to dataset sizes
     plt.grid(True)
     plt.show()
+"""
+     
+def getBestDecisionTreeRegressorModel (maxDepth:int=0, criterion:str="squared_error", minSampleLeaf:int=1, minSampleSplit:int=1):
+    return DecisionTreeRegressor(
+        max_depth=maxDepth, 
+        criterion=criterion, 
+        min_samples_leaf=minSampleLeaf, 
+        min_samples_split=minSampleSplit, 
+        random_state=69
+        #n_jobs=-1
+    )
 
-def getBestDecisionTreeRegressorModel (k=127, datasetSize=3000, targetVariable="genre"):
-    #this method is needed just to get the best model found by the metrics
-    #this method should train the classifier on the whole training set, not the train/validation split
-    modelFilePath = path.join(path.dirname(__file__), "..", "results", "decisionTreeRegressorBestModel.pickle")
-    #if not path.exists(modelFilePath):
-    dataset = pd.read_csv (getTrainDatasetPath())
-    
-    if dataset.shape[0] > datasetSize:
-        dowsampledDataset = downsampleDataset (dataset, datasetSize)
-    else:
-        dowsampledDataset = dataset
+import pickle
+def getTempModel ():
+    with open ("decisionTreeRegTemp.pickle", "rb") as f:
+        return pickle.load(f)
 
-    X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures)
-    y = dowsampledDataset [targetVariable]
-    
-    model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
-    model.fit (X, y)
+def getBestDecsionTreeReg ():
+    decisionTreeRegModels = modelNameToModelObject ("decisionTreeReg")
+    #decisionTreeRegModels = getTempModel()
 
-    with open (modelFilePath, "wb") as file:
-        pickle.dump (model, file)
-    
-    return model
-    """else:
-        with open (modelFilePath, "rb") as file:
-            return pickle.load (file) """
+    for key, elem in decisionTreeRegModels.items ():
+        print (elem["metrics"])
 
+    bestModel = {"metrics":{"meanSquaredError":float ('inf'), "meanAbsoluteDeviation":float ('inf'), "r2Score":float ('-inf')}}
+    for key, tempModel in decisionTreeRegModels.items():
+        if compareMetrics (tempModel["metrics"], bestModel["metrics"]):
+            bestModel = tempModel
 
-"""compareBestModels ()
-learningCurveForDifferentDatasetSize ()
-getBestKnnModel ()"""
+    return bestModel
+
+#compareBestModels ()
+#learningCurveForDifferentDatasetSize ()
+
+model = getBestDecsionTreeReg ()
+print("Criterion:", model["criterion"])
+print("Max Depth:", model["maxDepth"])
+print("Min Sample Leaf:", model["minSampleLeaf"])
+print("Min Sample Split:", model["minSampleSplit"])
+for metric, score in model["metrics"].items():
+    print(metric, score)
+
+#getBestDecisionTreeRegressorModel (maxDepth=top10Models[0]["maxDepth"], criterion=top10Models[0]["criterion"], minSampleLeaf=top10Models[0]["minSampleLeaf"], minSampleSplit=top10Models[0]["minSampleSplit"])

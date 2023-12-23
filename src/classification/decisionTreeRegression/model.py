@@ -52,15 +52,16 @@ def getDecisionTreeRegressorModel (targetVariable = "popularity"):
 
         kf = KFold(n_splits=33, shuffle=True, random_state=42)
 
-        X = copyAndScaleDataset (df=dataset, columnsToUse=columnsToUse)
+        X = dataset[columnsToUse]#copyAndScaleDataset (df=dataset, columnsToUse=columnsToUse)
         y = dataset[targetVariable]
 
-        criterions = ['squared_error', 'friedman_mse', 'absolute_error', 'poisson']
+        criterions = ['squared_error', 'friedman_mse']#, 'absolute_error', 'poisson']
         maxDepths = [None] + [1, 5, 10, 20, 30, 50, 100]
         minSamplesLeaf = [1, 5, 10, 20, 30, 50, 100]
         minSamplesSplit = [2, 5, 10, 20, 30, 50, 100]
 
         decisionTreeRegDict = {}
+        #NO DATASET SIZE ITERATION
         for criterion in criterions:
             for maxDepth in maxDepths:
                 for minSampleLeaf in minSamplesLeaf:

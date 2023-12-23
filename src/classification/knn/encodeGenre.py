@@ -1,8 +1,8 @@
-from classificationUtils import getTrainDatasetPath
+from classificationUtils import getTrainDatasetPath, getTestDatasetPath
 import pandas as pd
 import os.path as path
 
-df = pd.read_csv (getTrainDatasetPath())
+df = pd.read_csv (getTestDatasetPath())
 
 mapping =  {'j-idol': 14, 'afrobeat': 0, 'spanish': 17, 'study': 18, 'breakbeat': 4, 'forro': 7, 'idm': 9, 'mandopop': 15, 'chicago-house': 5, 'bluegrass': 2, 'black-metal': 1, 'brazil': 3, 'iranian': 12, 'happy': 8, 'indian': 10, 'j-dance': 13, 'industrial': 11, 'techno': 19, 'disney': 6, 'sleep': 16}
 
@@ -29,4 +29,4 @@ def map_groups(val):
 # Create a new column with grouped categories
 df['knnGroupByGenre'] = df['genreEncoded'].apply(map_groups)
 
-df.to_csv(path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "trainFilledWithoutUselessFeatures + Encoding.csv"))
+df.to_csv(path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test + Encoding.csv"))
