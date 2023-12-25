@@ -21,12 +21,11 @@ def makeDecisionTreeClassifierDictValue (criterion:str, maxDepth:int, minSampleL
     }
 
 def getDecisionTreeModel (targetVariable):
-    columnsToUse = continousAndCategorialFeaturesForClassification  
+    columnsToUse = continousAndCategorialFeaturesForClassification
 
     dataset = pd.read_csv (getTrainDatasetPath())[columnsToUse]
-    if(targetVariable=="grouped_genres"):
-        dataset.drop("genre", axis=1)
-    elif(targetVariable != "genre"):
+
+    if(targetVariable == "mode"):
         dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"])
     
     X = dataset.copy().drop(targetVariable, axis=1)  
@@ -49,9 +48,6 @@ def getDecisionTreeModel (targetVariable):
                         for trainIndex, testIndex in kf.split (X):
                                 X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
                                 y_train, y_test = Y.iloc[trainIndex], Y.iloc[testIndex]
-                                #DISCRETIZATION
-                                discretizer = KBinsDiscretizer(encode='ordinal', strategy='quantile')
-                                X_train_discrete = discretizer.fit_transform(X_train)
                                 model = DecisionTreeClassifier(
                                     max_depth=maxDepth, 
                                     criterion=criterion, 
@@ -59,10 +55,8 @@ def getDecisionTreeModel (targetVariable):
                                     min_samples_split=minSampleSplit, 
                                     ccp_alpha=ccp_alpha
                                 )
-                                model.fit (X_train_discrete, y_train)
-                                #DISCRETIZATION
-                                X_test_discrete = discretizer.transform(X_test)
-                                predictions=model.predict(X_test_discrete)
+                                model.fit (X_train, y_train)
+                                predictions=model.predict(X_test)
                                 accuracyScore = accuracy_score(predictions, y_test)
                                 
                                 f1Score = f1_score(predictions, y_test, average="weighted")

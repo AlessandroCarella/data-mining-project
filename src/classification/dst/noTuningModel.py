@@ -14,7 +14,7 @@ def makeDecisionTreeClassifierDictValue (splitNumber, metrics,model):
 
 def getNoTuningDecisionTreeModel (targetVariable):
     dataset = pd.read_csv (getTrainDatasetPath())[continousAndCategorialFeaturesForClassificationForNoTuning]
-    dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"])  
+    #dataset["genre"]= LabelEncoder().fit_transform(dataset["genre"])  
     X = dataset.copy().drop(targetVariable, axis=1)
 
     Y =  dataset[targetVariable]

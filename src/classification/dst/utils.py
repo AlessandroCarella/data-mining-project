@@ -77,11 +77,29 @@ continousAndCategorialFeaturesForClassification = [
     "tempo",
     "n_beats"
 ]
-
+continousAndCategorialFeaturesForClassificationGrouped = [
+    "mode",
+    "key",
+    "grouped_genres",
+    #"time_signature",
+    #"duration_ms",
+    "popularity",
+    "danceability",
+    "energy",
+    "loudness",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "n_beats"
+]
 continousAndCategorialFeaturesForClassificationForNoTuning = [
     "mode",
     "key",
-    "genre",
+    #"genre",
+    "grouped_genres",
     "time_signature",
     "duration_ms",
     "popularity",
@@ -103,7 +121,7 @@ def getTrainDatasetPath ():
 def getTestDatasetPath ():
     #TODO check if the test dataset is ok as it is right now, might need to do the various operations we did on the train one 
     #(so the path might also change when we create the test dataset with different values, fills etc)
-    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test + Encoding.csv")
     
 directoryName = "decisionTreeClassifierModels"
 fileName= "decisionTreeClassifierModelsParams"

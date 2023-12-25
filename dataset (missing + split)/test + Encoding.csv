@@ -1,4 +1,4 @@
-,name,duration_ms,explicit,popularity,artists,album_name,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,features_duration_ms,time_signature,n_beats,n_bars,popularity_confidence,processing,genre,genreEncoded,knnGroupByGenre
+,name,duration_ms,explicit,popularity,artists,album_name,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,features_duration_ms,time_signature,n_beats,n_bars,popularity_confidence,processing,genre,genreEncoded,grouped_genres
 0,Untrue,206826,False,32,Coal Chamber,Chamber Music,0.383,0.951,0,-3.743,1.0,0.104,0.00607,0.0,0.261,0.668,110.584,206827,4.0,385.0,96.0,,3.349056603773585,industrial,11,3
 1,High Roller,329733,False,41,The Crystal Method,Vegas,0.464,0.579,5,-9.136,1.0,0.0596,0.281,0.827,0.0992,0.14,171.752,329733,4.0,935.0,235.0,,1.2793053545586106,breakbeat,4,2
 2,Na Tum Jano Na Hum (ReVibe),136000,False,40,Ashwin Adwani,Na Tum Jano Na Hum (ReVibe),0.611,0.778,9,-4.803,1.0,0.0326,0.0946,5.04e-06,0.139,0.285,90.024,136000,4.0,200.0,49.0,,1.343558282208589,indian,10,0

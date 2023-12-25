@@ -328,15 +328,41 @@ weighted avg       0.41      0.42      0.41      5000
 Less accuracy than Scenario 5 so not really worth it.
 
 
-# Conclusion:
-I'm between scenario 1 & 5.
-## Scenario 1:
-Model key: DST with criterion:gini, maxDepth:9, minSampleLeaf:6, minSampleSplit:0.002, splitNumber:7, ccp_alpha:0.0, metrics:{'accuracyScore': 0.49066666666666664, 'f1Score': 0.48810293354615863, 'precisionScore': 0.5000136447686478, 'recallScore': 0.49066666666666664}
-Train Accuracy **0.5188**
-Test Accuracy **0.4482**
+# TARGET VARIABLE = "GROUPED_GENRES"
+# Scenario 6 Grouped Genres:
 
-## Scenario 5 Random:
-DecisionTreeClassifier(ccp_alpha=0.0020584494295802446, criterion='entropy',
-                       max_depth=8, min_samples_leaf=2, min_samples_split=0.01)
-Train Accuracy **0.4816666666666667**
-Test Accuracy **0.4528**
+
+## Results:
+Details: {'criterion': 'entropy', 'max_depth': 2, 'min_samples_leaf': 0.1, 'min_samples_split': 0.05, 'splitNumber': 18, 'ccp_alpha': 0.01, 'metrics': {'accuracyScore': 0.688, 'f1Score': 0.6829508616177088, 'precisionScore': 0.6921920946387429, 'recallScore': 0.688}, 'model': DecisionTreeClassifier(ccp_alpha=0.01, criterion='entropy', max_depth=2,
+                       min_samples_leaf=0.1, min_samples_split=0.05)}
+Model key: DST with criterion:entropy, maxDepth:2, minSampleLeaf:0.1, minSampleSplit:0.05, splitNumber:18, ccp_alpha:0.01, metrics:{'accuracyScore': 0.688, 'f1Score': 0.6829508616177088, 'precisionScore': 0.6921920946387429, 'recallScore': 0.688}
+
+Train Accuracy **0.6626**
+Train F1-score 0.6592883558878498
+Train Precision Score 0.6682486125819765
+Train Recall Score 0.6626
+
+Test Accuracy **0.6566**
+Test F1-score 0.6521851778668034
+Test Precision Score 0.6604963203588354
+Test Recall Score 0.6566
+
+# Scenario 7 Grouped Genres No Tuning:
+Using no hyperparameter tuning.
+
+## Results:
+Details: {'splitNumber': 1, 'metrics': {'accuracyScore': 0.764, 'f1Score': 0.7653346388680372, 'precisionScore': 0.7678635601068698, 'recallScore': 0.764}, 'model': DecisionTreeClassifier()}
+Model key: NO TUNING DST with splitNumber:1, metrics:{'accuracyScore': 0.764, 'f1Score': 0.7653346388680372, 'precisionScore': 0.7678635601068698, 'recallScore': 0.764}
+
+Train Accuracy **0.9864**
+Train F1-score 0.9864071402342695
+Train Precision Score 0.9864216553689213
+Train Recall Score 0.9864
+
+Test Accuracy **0.7238**
+Test F1-score 0.7238630977487077
+Test Precision Score 0.724496177915007
+Test Recall Score 0.7238
+
+# Conclusion:
+Definitely 6.

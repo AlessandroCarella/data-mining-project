@@ -5,7 +5,7 @@ import os.path as path
 from dstModel import getDecisionTreeModel
 from noTuningModel import getNoTuningDecisionTreeModel
 from dstTest import testModel
-from utils import continousAndCategorialFeaturesForClassification, continousAndCategorialFeaturesForClassificationForNoTuning
+from utils import continousAndCategorialFeaturesForClassification, continousAndCategorialFeaturesForClassificationGrouped, continousAndCategorialFeaturesForClassificationForNoTuning
 
 def compareMetrics(metrics1: dict, metrics2: dict, metrics_to_compare: list = ['accuracyScore', 'f1Score', 'precisionScore', 'recallScore']):
     # Return True if metrics1 are better than metrics2, False otherwise
@@ -43,11 +43,14 @@ def calculate_overall_score(metrics):
 #find_best_decision_tree_models("mode")
 #find_best_decision_tree_models("grouped_genres")
 
-def find_best_decision_tree_model(target_variable, tuning = True):
+def find_best_decision_tree_model(target_variable, tuning = True, grouped = False):
     columnsToUse = continousAndCategorialFeaturesForClassification
     if(tuning == False):
         columnsToUse = continousAndCategorialFeaturesForClassificationForNoTuning
         decision_tree_classifier_dict = getNoTuningDecisionTreeModel(targetVariable=target_variable)
+    elif(grouped == True):
+        columnsToUse = continousAndCategorialFeaturesForClassificationGrouped
+        decision_tree_classifier_dict = getDecisionTreeModel(targetVariable=target_variable)
     else:
         decision_tree_classifier_dict = getDecisionTreeModel(targetVariable=target_variable)
 
@@ -68,9 +71,9 @@ def find_best_decision_tree_model(target_variable, tuning = True):
     else:
         print("No best model found.")
 
-find_best_decision_tree_model("genre")
+#find_best_decision_tree_model("genre")
 #find_best_decision_tree_model("genre", False)
-#find_best_decision_tree_models("grouped_genres")
-#find_best_decision_tree_models("grouped_genres", False)
+#find_best_decision_tree_model("grouped_genres", , True)
+#find_best_decision_tree_model("grouped_genres", False, True)
 #find_best_decision_tree_model("mode")
 #find_best_decision_tree_model("mode", False)
