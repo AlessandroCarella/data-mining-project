@@ -11,3 +11,10 @@
 11. we could popuate time signature NANS by calculating the missing values with the nbeats nbars and length of the song
 12. we could also use key as the target in classification models
 13. we cannot use speechiness and instrumentalness trogether they are oposite from each other in definition and by numbers.
+
+
+
+THINGS APART FROM CLUSTERING
+
+1. Classification When is a multi class we only have one accuracy, the precision we average it through all the variables, same for recall
+2. Accuracy is very limited for unbalanced data where you have all True negatives and nothing in the other boxes, but that is why we grouped some genres, way of showing robustness
