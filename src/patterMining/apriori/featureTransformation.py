@@ -6,7 +6,7 @@ def getDatasetWithPatterMiningFeatures()->pd.DataFrame:
     df = pd.read_csv(getTrainDataset ())
 
     #Get the usueful columns
-    df = df[['duration_ms', 'explicit', 'popularity', 'artists', 'genre']]
+    df = df[['duration_ms', 'explicit', 'popularity', 'artists', 'genre', 'danceability']]
 
     #duration_ms transformation
     df['duration_category'] = pd.cut(df['duration_ms'],
@@ -24,5 +24,12 @@ def getDatasetWithPatterMiningFeatures()->pd.DataFrame:
     df['artists_category'] = df['artists']
 
     df['genre_category'] = df['genre']
+    
+    # Create the new column based on the conditions and values
+    df['danceability_category'] = pd.cut(df['danceability'], 
+                                  bins=[-float('inf'), 0.25, 0.50, 0.75, float('inf')], 
+                                  include_lowest=True, 
+                                  labels=['veryNotDancable', 'notDancable', 'dancable', 'veryDancable'])
 
-    return df[['duration_category', 'explicit_category', 'popularity_category', 'artists_category', 'genre_category']]
+    newColumns = ['duration_category', 'explicit_category', 'popularity_category', 'artists_category', 'genre_category', 'danceability_category']
+    return df[newColumns], newColumns
