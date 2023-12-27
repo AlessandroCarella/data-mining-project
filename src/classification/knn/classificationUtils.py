@@ -122,7 +122,7 @@ def getTrainDatasetPath ():
 def getTestDatasetPath ():
     #TODO check if the test dataset is ok as it is right now, might need to do the various operations we did on the train one 
     #(so the path might also change when we create the test dataset with different values, fills etc)
-    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test.csv")
+    return path.join(path.abspath(path.dirname(__file__)), "..", "..", "..", "dataset (missing + split)", "test + Encoding.csv")
 
 def saveScalerToPickleObject (scaler, modelName):
     if not path.exists (path.join (getModelsPickleFolder (), f"scaler {modelName}.pickle")):

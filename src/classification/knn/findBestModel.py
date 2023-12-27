@@ -145,6 +145,6 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
             return pickle.load (file) """
 
 
-compareBestModels ()
+"""compareBestModels ()
 learningCurveForDifferentDatasetSize ()
-getBestKnnModel ()
+getBestKnnModel ()"""

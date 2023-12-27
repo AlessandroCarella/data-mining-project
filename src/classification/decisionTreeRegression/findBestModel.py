@@ -117,7 +117,7 @@ def learningCurveForDifferentDatasetSize ():
     plt.show()
 """
      
-def getBestDecisionTreeRegressorModel (maxDepth:int=0, criterion:str="squared_error", minSampleLeaf:int=1, minSampleSplit:int=1):
+def getBestDecisionTreeRegressorModel (maxDepth:int=0, criterion:str="squared_error", minSampleLeaf:int=1, minSampleSplit:int=1)->DecisionTreeRegressor:
     return DecisionTreeRegressor(
         max_depth=maxDepth, 
         criterion=criterion, 
@@ -149,12 +149,12 @@ def getBestDecsionTreeReg ():
 #compareBestModels ()
 #learningCurveForDifferentDatasetSize ()
 
-model = getBestDecsionTreeReg ()
+"""model = getBestDecsionTreeReg ()
 print("Criterion:", model["criterion"])
 print("Max Depth:", model["maxDepth"])
 print("Min Sample Leaf:", model["minSampleLeaf"])
 print("Min Sample Split:", model["minSampleSplit"])
 for metric, score in model["metrics"].items():
-    print(metric, score)
+    print(metric, score)"""
 
 #getBestDecisionTreeRegressorModel (maxDepth=top10Models[0]["maxDepth"], criterion=top10Models[0]["criterion"], minSampleLeaf=top10Models[0]["minSampleLeaf"], minSampleSplit=top10Models[0]["minSampleSplit"])

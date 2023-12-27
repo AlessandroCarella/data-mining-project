@@ -37,66 +37,66 @@ def getDecisionTreeRegressorModel (targetVariable = "popularity"):
     if targetVariable in columnsToUse:
         columnsToUse.remove (targetVariable)
 
-    if not path.exists(getModelPath ("DecisionTreeReg")):
-        import time
-        startTime = time.time()
+    #if not path.exists(getModelPath ("DecisionTreeReg")):
+    import time
+    startTime = time.time()
 
-        dataset = pd.read_csv (getTrainDatasetPath())
-        
-        """
-        SEE COMMENT IN model.py in the knn folder
-        """
-
-        #no need for decision tree + it was useless in knn
-        #dowsampledDatasets = getDownsampledDataset (dataset=dataset)
-
-        kf = KFold(n_splits=33, shuffle=True, random_state=42)
-
-        X = dataset[columnsToUse]#copyAndScaleDataset (df=dataset, columnsToUse=columnsToUse)
-        y = dataset[targetVariable]
-
-        criterions = ['squared_error', 'friedman_mse']#, 'absolute_error', 'poisson']
-        maxDepths = [None] + [1, 5, 10, 20, 30, 50, 100]
-        minSamplesLeaf = [1, 5, 10, 20, 30, 50, 100]
-        minSamplesSplit = [2, 5, 10, 20, 30, 50, 100]
-
-        decisionTreeRegDict = {}
-        #NO DATASET SIZE ITERATION
-        for criterion in criterions:
-            for maxDepth in maxDepths:
-                for minSampleLeaf in minSamplesLeaf:
-                    for minSampleSplit in minSamplesSplit:
-                        splitNumber = 1
-                        for trainIndex, testIndex in kf.split (X):
-                            X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
-                            y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
-                            
-                            model = DecisionTreeRegressor(
-                                max_depth=maxDepth, 
-                                criterion=criterion, 
-                                min_samples_leaf=minSampleLeaf, 
-                                min_samples_split=minSampleSplit, 
-                                random_state=69
-                                #n_jobs=-1
-                            )
-                            model.fit (X_train, y_train)
-
-                            predictions=model.predict(X_test)
-                            metrics = decisionTreeRegMetrics (predictions=predictions, groundTruth=y_test)
-
-                            decisionTreeRegDictKey = f"criterion:{criterion}, maxDepth:{maxDepth}, minSampleLeaf:{minSampleLeaf}, minSampleSplit:{minSampleSplit} splitNumber:{splitNumber}"
-                            decisionTreeRegDict[decisionTreeRegDictKey] = makeDecisionTreeRegDictValue (criterion, maxDepth, minSampleLeaf, minSampleSplit, splitNumber, model, metrics, trainIndex, testIndex, targetVariable, predictions, y_test)
-
-                            #To check on the advancement
-                            if splitNumber % 10 == 0:
-                                print(time.time() - startTime)
-                                print(decisionTreeRegDictKey)
-                            splitNumber += 1
-        saveModelToPickleFile (decisionTreeRegDict)
-        saveMetricsToFile (decisionTreeRegDict)
-        #saveOtherInfoModelDict (decisionTreeRegDict)
-        return decisionTreeRegDict
-    else:
-        return getModelFromPickleFile ("DecisionTreeReg")
+    dataset = pd.read_csv (getTrainDatasetPath())
     
-getDecisionTreeRegressorModel()
+    """
+    SEE COMMENT IN model.py in the knn folder
+    """
+
+    #no need for decision tree + it was useless in knn
+    #dowsampledDatasets = getDownsampledDataset (dataset=dataset)
+
+    kf = KFold(n_splits=33, shuffle=True, random_state=42)
+
+    X = dataset[columnsToUse]#copyAndScaleDataset (df=dataset, columnsToUse=columnsToUse)
+    y = dataset[targetVariable]
+
+    criterions = ['squared_error', 'friedman_mse']#, 'absolute_error', 'poisson']
+    maxDepths = [None] + [1, 5, 10, 20, 30, 50, 100]
+    minSamplesLeaf = [1, 5, 10, 20, 30, 50, 100]
+    minSamplesSplit = [2, 5, 10, 20, 30, 50, 100]
+
+    decisionTreeRegDict = {}
+    #NO DATASET SIZE ITERATION
+    for criterion in criterions:
+        for maxDepth in maxDepths:
+            for minSampleLeaf in minSamplesLeaf:
+                for minSampleSplit in minSamplesSplit:
+                    splitNumber = 1
+                    for trainIndex, testIndex in kf.split (X):
+                        X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
+                        y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
+                        
+                        model = DecisionTreeRegressor(
+                            max_depth=maxDepth, 
+                            criterion=criterion, 
+                            min_samples_leaf=minSampleLeaf, 
+                            min_samples_split=minSampleSplit, 
+                            random_state=69
+                            #n_jobs=-1
+                        )
+                        model.fit (X_train, y_train)
+
+                        predictions=model.predict(X_test)
+                        metrics = decisionTreeRegMetrics (predictions=predictions, groundTruth=y_test)
+
+                        decisionTreeRegDictKey = f"criterion:{criterion}, maxDepth:{maxDepth}, minSampleLeaf:{minSampleLeaf}, minSampleSplit:{minSampleSplit} splitNumber:{splitNumber}"
+                        decisionTreeRegDict[decisionTreeRegDictKey] = makeDecisionTreeRegDictValue (criterion, maxDepth, minSampleLeaf, minSampleSplit, splitNumber, model, metrics, trainIndex, testIndex, targetVariable, predictions, y_test)
+
+                        #To check on the advancement
+                        if splitNumber % 10 == 0:
+                            print(time.time() - startTime)
+                            print(decisionTreeRegDictKey)
+                        splitNumber += 1
+    saveModelToPickleFile (decisionTreeRegDict)
+    saveMetricsToFile (decisionTreeRegDict)
+    #saveOtherInfoModelDict (decisionTreeRegDict)
+    return decisionTreeRegDict
+    #else:
+    #    return getModelFromPickleFile ("DecisionTreeReg")
+    
+getDecisionTreeRegressorModel('duration_ms')

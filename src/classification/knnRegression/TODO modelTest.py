@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsRegressor
 
 from classificationUtils import continuousFeatures, downsampleDataset, getTrainDatasetPath, getTestDatasetPath, copyAndScaleDataset
-from findBestModel import getBestKnnModel
-from metrics import knnMetrics
+from metrics import knnRegMetrics
 
 def getDatasetScaler (originalDataset:pd.DataFrame, datasetDownscaleSize=-1, columnsToUse=continuousFeatures) -> StandardScaler:
     if datasetDownscaleSize != -1:
@@ -19,36 +19,33 @@ def getDatasetScaler (originalDataset:pd.DataFrame, datasetDownscaleSize=-1, col
 
     return scaler
 
-def modelTest (targetVariable="genre"):
+def modelTest (targetVariable="popularity"):
+    columnsToUse = continuousFeatures
+    if targetVariable in columnsToUse:
+        columnsToUse.remove (targetVariable)
+        
     originalDataset = pd.read_csv (getTrainDatasetPath())
-    scaler = getDatasetScaler (originalDataset=originalDataset, datasetDownscaleSize=3000)
+    scaler = getDatasetScaler (originalDataset=originalDataset, datasetDownscaleSize=1500)
 
     testDataset = pd.read_csv (getTestDatasetPath())
     testDatasetScaled = copyAndScaleDataset (df=testDataset, columnsToUse=continuousFeatures, scaler=scaler)
     groundTruth = testDataset[targetVariable]
 
-    #The model is already trained on the targetVariable="genre",
-    #remeber to change the model if you want to predict for other target variable
-    #knnModel = getBestKnnModel ()
+    dowsampledDataset = downsampleDataset (originalDataset, n=1500)
+    X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures, scaler=scaler)
+    y = dowsampledDataset [targetVariable]
+    
+    model = KNeighborsRegressor(n_neighbors=35, weights="uniform", n_jobs=-1)
+    model.fit (X, y)
 
-    #TODO change this for the new results
-    #Since the results with the best model found are 
-    #{'accuracy': 0.4164, 'precision': 0.43231061115016034, 'recall': 0.41640000000000005, 'f1Score': 0.39274632191616515}
-    #I decided to try with the full dataset to check if the results are better if i use the same k for the smaller dataset
-    #those are the best results for the full dataset btw:
-    #{'accuracy': 0.48, 'precision': 0.48525256281376805, 'recall': 0.48, 'f1Score': 0.4635663793692188}
-    #but when using k=35 as used for the 15000 dataset the results are slightly better
-    #{'accuracy': 0.5074, 'precision': 0.5067468815233543, 'recall': 0.5074, 'f1Score': 0.49382314980438785}
-    knnModel = getBestKnnModel (k=25, datasetSize=15000)
-    #and i got those results
-    #
+    predictions = model.predict (testDatasetScaled)
 
-    predictions = knnModel.predict (testDatasetScaled)
-
-    return knnMetrics (predictions=predictions, groundTruth=groundTruth)
+    return knnRegMetrics (predictions=predictions, groundTruth=groundTruth)
 
 for key, value in modelTest().items():
     print (key,":")
     print (value)
 
+print ()
 print (modelTest())
+print ()
