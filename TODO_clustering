@@ -18,3 +18,8 @@ THINGS APART FROM CLUSTERING
 
 1. Classification When is a multi class we only have one accuracy, the precision we average it through all the variables, same for recall
 2. Accuracy is very limited for unbalanced data where you have all True negatives and nothing in the other boxes, but that is why we grouped some genres, way of showing robustness
+3. Decision trees: • Irrelevant attributes are poorly associated with the target class labels, so they have little or no gain in purity
+4. Decision trees: • Since redundant attributes show similar gains in purity if they are selected for splitting, only one of them will be selected as an attribute test condition in the decision tree algorithm.
+5. Decision trees: The tree is not able to separate with a decision boundary so it starts to segment the data in to very little segments vertically and horizontally, it starts to make more and more separations that are not necessary and so gives a bad result.
+
+
