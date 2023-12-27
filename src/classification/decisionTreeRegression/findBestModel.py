@@ -133,7 +133,7 @@ def getTempModel ():
         return pickle.load(f)
 
 def getBestDecsionTreeReg ():
-    decisionTreeRegModels = modelNameToModelObject ("decisionTreeReg")
+    decisionTreeRegModels = modelNameToModelObject ("decisionTreeReg duration_ms")
     #decisionTreeRegModels = getTempModel()
 
     for key, elem in decisionTreeRegModels.items ():
@@ -141,6 +141,7 @@ def getBestDecsionTreeReg ():
 
     bestModel = {"metrics":{"meanSquaredError":float ('inf'), "meanAbsoluteDeviation":float ('inf'), "r2Score":float ('-inf')}}
     for key, tempModel in decisionTreeRegModels.items():
+        print (key)
         if compareMetrics (tempModel["metrics"], bestModel["metrics"]):
             bestModel = tempModel
 

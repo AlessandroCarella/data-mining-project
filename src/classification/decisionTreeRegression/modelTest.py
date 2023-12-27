@@ -22,13 +22,18 @@ def visualize_decision_tree(regressor):
     plt.title("Decision Tree Regressor")
     plt.savefig(path.join(path.dirname(__file__), "../results", "representation decision tree regressor.png"))
 
-def modelTest (targetVariable="popularity")->(DecisionTreeRegressor, dict):
+def modelTest (targetVariable="danceability")->(DecisionTreeRegressor, dict):
     columnsToUse = continuousFeatures
     if targetVariable in columnsToUse:
         columnsToUse.remove (targetVariable)
         
     originalDataset = pd.read_csv (getTrainDatasetPath())
-    decisionTreeRegressorModel = getBestDecisionTreeRegressorModel (maxDepth=10 , criterion="squared_error", minSampleLeaf=100, minSampleSplit=2)
+    decisionTreeRegressorModel = getBestDecisionTreeRegressorModel (
+        maxDepth=None, 
+        criterion="squared_error", 
+        minSampleLeaf=1, 
+        minSampleSplit=20
+    )
     decisionTreeRegressorModel.fit (originalDataset[columnsToUse], originalDataset[targetVariable])
 
     testDataset = pd.read_csv (getTestDatasetPath())
