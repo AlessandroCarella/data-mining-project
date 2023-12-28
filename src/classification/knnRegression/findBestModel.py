@@ -53,9 +53,9 @@ def getComapreModelResults (data):
 
     return result_dict
         
-def compareModels ():
+def compareModels (modelPickleFileName):
     #models = getModelFromPickleFile ("knn")
-    knnModels = modelNameToModelObject ("knnReg")
+    knnModels = modelNameToModelObject (modelPickleFileName)
     values = []
     for key, value in knnModels.items():
         values.append(value)
@@ -70,8 +70,8 @@ def compareModels ():
 
     return results
 
-def compareBestModels ():
-    bestModels = compareModels ()
+def compareBestModels (modelPickleFileName):
+    bestModels = compareModels (modelPickleFileName)
 
     for key, value in bestModels.items():
         print (key)
@@ -94,8 +94,8 @@ def compareBestModels ():
     for key, value in bestModel.items ():
         print (key, ":", value)
         
-def learningCurveForDifferentDatasetSize():
-    data = compareModels()
+def learningCurveForDifferentDatasetSize(modelPickleFileName):
+    data = compareModels(modelPickleFileName)
     dataset_sizes = sorted(data.keys())
 
     plt.figure(figsize=(10, 6))
@@ -149,6 +149,6 @@ def getBestKnnModel (k=127, datasetSize=3000, targetVariable="genre"):
             return pickle.load (file) """
 
 
-compareBestModels ()
-learningCurveForDifferentDatasetSize ()
-getBestKnnModel (k=35, datasetSize=1500, targetVariable="popularity")
+compareBestModels ("knnReg danceability")
+#learningCurveForDifferentDatasetSize ("knnReg duration_ms")
+#getBestKnnModel (k=35, datasetSize=1500, targetVariable="popularity")

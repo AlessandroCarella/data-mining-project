@@ -45,53 +45,53 @@ def getKnnRegressorModel (targetVariable = "popularity"):
     if targetVariable in columnsToUse:
         columnsToUse.remove (targetVariable)
     
-    if not path.exists(getModelPath ("knnReg")):
-        import time
-        startTime = time.time()
+    #if not path.exists(getModelPath ("knnReg")):
+    import time
+    startTime = time.time()
 
-        dataset = pd.read_csv (getTrainDatasetPath())
-        
-        """
-        SEE COMMENT IN model.py in the knn folder
-        """
-
-        dowsampledDatasets = getDownsampledDataset (dataset=dataset)
-
-        kf = KFold(n_splits=33, shuffle=True, random_state=42)
-
-        weights = ['uniform', 'distance']
-
-        knnRegDict = {}
-        for weight in weights:
-            for datasetDimension, subDataset in dowsampledDatasets.items ():
-                X = copyAndScaleDataset (df=subDataset, columnsToUse=columnsToUse)
-                y = subDataset[targetVariable]
-                
-                splitNumber = 1
-                for trainIndex, testIndex in kf.split (X):
-                    for k in getRangeForK (datasetDimension): #for different values of k
-                        X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
-                        y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
-                        
-                        model = KNeighborsRegressor(n_neighbors=k, n_jobs=-1)#ONLY LINE CHANGED FROM KNN FOLDER
-                        model.fit (X_train, y_train)
-
-                        predictions=model.predict(X_test)
-                        metrics = knnRegMetrics (predictions=predictions, groundTruth=y_test)
-
-
-                        knnRegDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"
-                        knnRegDict[knnRegDictKey] = makeknnRegDictValue (k, model, weight, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
-
-                        #To check on the advancement
-                        print (time.time() - startTime)
-                        print (knnRegDictKey)
-                    splitNumber += 1
-        saveModelToPickleFile (knnRegDict)
-        saveMetricsToFile (knnRegDict)
-        #saveOtherInfoModelDict (knnRegDict)
-        return knnRegDict
-    else:
-        return getModelFromPickleFile ("knnReg")
+    dataset = pd.read_csv (getTrainDatasetPath())
     
-getKnnRegressorModel()
+    """
+    SEE COMMENT IN model.py in the knn folder
+    """
+
+    dowsampledDatasets = getDownsampledDataset (dataset=dataset)
+
+    kf = KFold(n_splits=33, shuffle=True, random_state=42)
+
+    weights = ['uniform', 'distance']
+
+    knnRegDict = {}
+    for weight in weights:
+        for datasetDimension, subDataset in dowsampledDatasets.items ():
+            X = copyAndScaleDataset (df=subDataset, columnsToUse=columnsToUse)
+            y = subDataset[targetVariable]
+            
+            splitNumber = 1
+            for trainIndex, testIndex in kf.split (X):
+                for k in getRangeForK (datasetDimension): #for different values of k
+                    X_train, X_test = X.iloc[trainIndex], X.iloc[testIndex]
+                    y_train, y_test = y.iloc[trainIndex], y.iloc[testIndex]
+                    
+                    model = KNeighborsRegressor(n_neighbors=k, n_jobs=-1)#ONLY LINE CHANGED FROM KNN FOLDER
+                    model.fit (X_train, y_train)
+
+                    predictions=model.predict(X_test)
+                    metrics = knnRegMetrics (predictions=predictions, groundTruth=y_test)
+
+
+                    knnRegDictKey = f"k:{k}, splitNumber:{splitNumber}, datasetDimension:{datasetDimension}, weights:{weight}"
+                    knnRegDict[knnRegDictKey] = makeknnRegDictValue (k, model, weight, metrics, datasetDimension, splitNumber, trainIndex, testIndex, targetVariable, predictions, y_test)
+
+                    #To check on the advancement
+                    print (time.time() - startTime)
+                    print (knnRegDictKey)
+                splitNumber += 1
+    saveModelToPickleFile (knnRegDict)
+    saveMetricsToFile (knnRegDict)
+    #saveOtherInfoModelDict (knnRegDict)
+    return knnRegDict
+    #else:
+    #    return getModelFromPickleFile ("knnReg")
+    
+getKnnRegressorModel("danceability")

@@ -19,33 +19,33 @@ def getDatasetScaler (originalDataset:pd.DataFrame, datasetDownscaleSize=-1, col
 
     return scaler
 
-def modelTest (targetVariable="popularity"):
+def modelTest (targetVariable="popularity", k=33, sampleSize=1500):
     columnsToUse = continuousFeatures
     if targetVariable in columnsToUse:
         columnsToUse.remove (targetVariable)
         
     originalDataset = pd.read_csv (getTrainDatasetPath())
-    scaler = getDatasetScaler (originalDataset=originalDataset, datasetDownscaleSize=1500)
+    scaler = getDatasetScaler (originalDataset=originalDataset, datasetDownscaleSize=sampleSize)
 
     testDataset = pd.read_csv (getTestDatasetPath())
     testDatasetScaled = copyAndScaleDataset (df=testDataset, columnsToUse=continuousFeatures, scaler=scaler)
     groundTruth = testDataset[targetVariable]
 
-    dowsampledDataset = downsampleDataset (originalDataset, n=1500)
+    dowsampledDataset = downsampleDataset (originalDataset, n=sampleSize)
     X = copyAndScaleDataset (df=dowsampledDataset, columnsToUse=continuousFeatures, scaler=scaler)
     y = dowsampledDataset [targetVariable]
     
-    model = KNeighborsRegressor(n_neighbors=35, weights="uniform", n_jobs=-1)
+    model = KNeighborsRegressor(n_neighbors=k, weights="uniform", n_jobs=-1)
     model.fit (X, y)
 
     predictions = model.predict (testDatasetScaled)
 
     return knnRegMetrics (predictions=predictions, groundTruth=groundTruth)
 
-for key, value in modelTest().items():
+for key, value in modelTest("danceability", 47).items():
     print (key,":")
     print (value)
 
 print ()
-print (modelTest())
+print (modelTest("danceability", 47))
 print ()
