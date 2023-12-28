@@ -12,7 +12,7 @@ X = getDatasetWithPatterMiningFeatures().values.tolist()
 len_r = []
 zmin=2
 min_sup = 1
-max_sup = 20
+max_sup = 25
 min_conf = 50
 max_conf = 90
 for i in range(min_sup, max_sup):  # support
@@ -25,7 +25,7 @@ for i in range(min_sup, max_sup):  # support
 len_r = np.array(len_r)
 
 # Specify the desired values of support and confidence
-desired_support = 15
+desired_support = 24
 desired_confidence = 60
 
 # Find the indices corresponding to the desired support and confidence values
@@ -37,13 +37,13 @@ length_of_rules = len_r[support_index, confidence_index]
 
 print(f"The length of rules for support {desired_support} and confidence {desired_confidence} is {length_of_rules}")
 
-sns.heatmap(len_r, cmap="Greens", fmt='g')
+sns.heatmap(len_r, cmap="Blues", fmt='g')
 plt.yticks(np.arange(0, max_sup-min_sup +1, 5), np.arange(min_sup, max_sup+1,5 ))
 plt.xticks(np.arange(0, max_conf-min_conf+1, 5), np.arange(min_conf, max_conf+1, 5))
 plt.xlabel("%confidence")
 plt.ylabel("%support")
 title='Optimization heatmap for rules extraction'
 plt.title(title)
-plt.grid(True)
+plt.grid(False)
 plt.savefig(os.path.join('src/patterMining/fpgrowth/charts', title + ".png"))
 

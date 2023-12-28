@@ -19,7 +19,7 @@ def findCommonHighestSupport(df1, df2):
 
     return common_highest_support
 
-supp = 20 
+supp = 25
 zmin = 2 # minimum number of items per item set
 
 X = getDatasetWithPatterMiningFeatures().values.tolist()
@@ -36,7 +36,7 @@ print (pd.DataFrame(maximalFrequentItemSets, columns=["frequent_itemset", "suppo
 
 len_max_it, len_cl_it, support_thresholds = [], [], []
 max_supp = findCommonHighestSupport(pd.DataFrame(closedFrequentItemSets, columns=["frequent_itemset", "support"]),pd.DataFrame(maximalFrequentItemSets, columns=["frequent_itemset", "support"]))
-
+print('max is' + str(max_supp))
 
 for i in range(2, int(max_supp)):
     support_thresholds.append(i)
