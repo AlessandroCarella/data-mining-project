@@ -23,7 +23,9 @@ def findCommonHighestSupport(df1, df2):
     return common_highest_support
 
 
-patterMiningDf = getDatasetWithPatterMiningFeatures().values.tolist()
+patterMiningDf, columnsInDataset = getDatasetWithPatterMiningFeatures()
+print ("Patter mining using the following columns:", columnsInDataset)
+patterMiningDf = patterMiningDf.values.tolist()
 
 supp = 20  # 20%
 zmin = 2  # minimum number of items per item set
@@ -39,8 +41,10 @@ len_max_it = []
 len_cl_it = []
 max_supp = findCommonHighestSupport(pd.DataFrame(closedFrequentItemSets, columns=["frequent_itemset", "support"]), pd.DataFrame(maximalFrequentItemSets, columns=["frequent_itemset", "support"])) #depends on output of the closedFrequentItemSets and maximalFrequentItemSets (the highest support in both)
 for i in range(2, max_supp):
+    closedFrequentItemSets = apriori(patterMiningDf, target="c", supp=supp, zmin=zmin)  
+    maximalFrequentItemSets = apriori(patterMiningDf, target="m", supp=supp, zmin=zmin)
     len_max_it.append(len(maximalFrequentItemSets))
-    len_cl_it.append(len(maximalFrequentItemSets))
+    len_cl_it.append(len(closedFrequentItemSets))
 
 plt.plot(np.arange(2, max_supp), len_max_it, label="maximal")
 plt.plot(np.arange(2, max_supp), len_cl_it, label="closed")
