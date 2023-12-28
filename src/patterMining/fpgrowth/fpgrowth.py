@@ -51,7 +51,7 @@ for i in range(2, int(max_supp)):
 # Plotting as a line chart
 plt.plot(support_thresholds, len_max_it, label='Maximal', marker='o')
 plt.plot(support_thresholds, len_cl_it, label='Closed', marker='o')
-plt.plot(support_thresholds, len_fr_it, label='Frequent', marker='o')
+#plt.plot(support_thresholds, len_fr_it, label='Frequent', marker='o')
 
 plt.xlabel('Support Threshold')
 plt.ylabel('Number of Itemsets')
