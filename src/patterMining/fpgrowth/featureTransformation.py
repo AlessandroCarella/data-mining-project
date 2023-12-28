@@ -7,7 +7,7 @@ def getTrainDataset ():
 
 def getDatasetWithPatterMiningFeatures()->pd.DataFrame:
     df = pd.read_csv(getTrainDataset ())
-    selected_cols=['duration_ms', 'explicit', 'popularity', 'mode', 'genre', 'danceability', 'energy','speechiness', 'instrumentalness', 'acousticness', 'liveness', 'key']
+    selected_cols=['duration_ms', 'explicit', 'popularity', 'mode', 'genre', 'danceability', 'energy','speechiness', 'acousticness', 'liveness']
     
     df = df[selected_cols]
 
@@ -25,8 +25,6 @@ def getDatasetWithPatterMiningFeatures()->pd.DataFrame:
     #speechiness transformation
     df['speechiness_category'] = pd.cut(df['speechiness'], bins=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], labels=['veryLowSpeechiness', 'lowSpeechiness', 'moderateSpeechiness', 'highSpeechiness', 'veryHighSpeechiness'], include_lowest=True, right=True)
     
-    #instrumentalness transformation
-    df['instrumentalness_category'] = pd.cut(df['instrumentalness'], bins=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], labels=['veryLowInstrumentalness', 'lowInstrumentalness', 'moderateInstrumentalness', 'highInstrumentalness', 'veryHighInstrumentalness'], include_lowest=True, right=True)
     
     #acousticness transformation
     df['acousticness_category'] = pd.cut(df['acousticness'], bins=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], labels=['veryLowAcousticness', 'lowAcousticness', 'moderateAcousticness', 'highAcousticness', 'veryHighAcousticness'], include_lowest=True, right=True)
@@ -48,4 +46,4 @@ def getDatasetWithPatterMiningFeatures()->pd.DataFrame:
     df['genre_category'] = df['genre']
 
 
-    return df[['popularity_category','acousticness_category', 'liveness_category', 'danceability_category','energy_category' ,'speechiness_category', 'duration_category', 'instrumentalness_category', 'explicit_category', 'mode_category', 'genre_category']]
+    return df[['popularity_category','acousticness_category', 'liveness_category', 'danceability_category','energy_category' ,'speechiness_category', 'duration_category', 'explicit_category', 'mode_category', 'genre_category']]

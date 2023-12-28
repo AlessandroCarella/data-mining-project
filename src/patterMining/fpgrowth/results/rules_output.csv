@@ -7,35 +7,16 @@ veryLowAcousticness,"('veryHighEnergy',)",4718,31.453333333333333,0.822954822954
 veryLowAcousticness,"('veryHighEnergy', 'notExplicit')",4269,28.46,0.8164084911072863,1.515797421290914
 veryLowAcousticness,"('veryHighEnergy', 'Major', 'notExplicit')",3074,20.493333333333332,0.816250663834307,1.5155043888494373
 veryLowAcousticness,"('veryLongDuration', 'veryUnpopular')",2729,18.193333333333335,0.719862833025587,1.336544435621216
-veryLowInstrumentalness,"('longDuration',)",3599,23.993333333333332,0.7776577355229041,1.2319005209466216
-veryLowInstrumentalness,"('longDuration', 'notExplicit')",3248,21.653333333333332,0.765857109172365,1.213206952960764
-veryLowInstrumentalness,"('moderateDanceability', 'Major')",2994,19.96,0.7616382599847367,1.206523803967795
-veryLowInstrumentalness,"('longDuration', 'veryLowSpeechiness')",3156,21.04,0.7612156295224313,1.205854308040603
-veryLowInstrumentalness,"('longDuration', 'veryLowSpeechiness', 'notExplicit')",2962,19.74666666666667,0.7556122448979592,1.1969778934913282
-veryLowInstrumentalness,"('moderateDanceability',)",3802,25.346666666666668,0.7391135303265941,1.1708420060089673
-veryLowInstrumentalness,"('unpopular', 'Major')",2938,19.586666666666666,0.7387477998491325,1.1702626462917929
-veryLowInstrumentalness,"('moderateDanceability', 'notExplicit')",3553,23.686666666666667,0.7331820057779612,1.1614457795616664
-veryLowInstrumentalness,"('unpopular', 'Major', 'notExplicit')",2789,18.593333333333334,0.7324054621848739,1.1602156439722366
-veryLowInstrumentalness,"('moderateDanceability', 'veryLowSpeechiness')",3480,23.200000000000003,0.7310924369747899,1.1581356589525662
-veryLowInstrumentalness,"('moderateDanceability', 'veryLowSpeechiness', 'notExplicit')",3326,22.173333333333332,0.7284275076653526,1.1539141002196946
-veryLowInstrumentalness,"('unpopular',)",3737,24.913333333333334,0.7231037151702786,1.1454805922013074
-veryLowInstrumentalness,"('unpopular', 'notExplicit')",3503,23.353333333333335,0.7137326813365933,1.1306357820307213
-veryLowInstrumentalness,"('unpopular', 'veryLowSpeechiness')",3387,22.58,0.7099140641374974,1.1245866471710277
-veryLowInstrumentalness,"('unpopular', 'veryLowSpeechiness', 'notExplicit')",3251,21.673333333333332,0.7052060737527115,1.117128641492309
 veryLowLiveness,"('highDanceability', 'veryLowSpeechiness', 'notExplicit')",3521,23.473333333333333,0.7098790322580645,1.0834539564378274
 veryLowLiveness,"('highDanceability', 'veryLowSpeechiness')",3657,24.38,0.7083091226031377,1.0810578794309185
 veryLowLiveness,"('highDanceability', 'Major', 'notExplicit')",2724,18.16,0.7049689440993789,1.0759599268916038
 veryLowLiveness,"('highDanceability', 'notExplicit')",3787,25.246666666666666,0.704820398287735,1.075733208619864
 veryLowLiveness,"('highDanceability',)",4043,26.953333333333333,0.7031304347826087,1.0731538992408558
 veryLowLiveness,"('highDanceability', 'Major')",2890,19.26666666666667,0.7028210116731517,1.0726816417477896
-Major,"('moderateDanceability', 'veryLowInstrumentalness')",2994,19.96,0.787480273540242,1.0631090003693304
 veryLowSpeechiness,"('veryLongDuration', 'veryLowLiveness', 'notExplicit')",4097,27.313333333333333,0.964,1.0558598028477546
-Major,"('veryLongDuration', 'veryLowInstrumentalness')",3007,20.046666666666667,0.7806334371754933,1.0538656788437044
 Major,"('unpopular', 'veryLowSpeechiness', 'notExplicit')",3597,23.98,0.7802603036876355,1.053361943597744
 veryLowSpeechiness,"('veryLongDuration', 'veryLowLiveness')",4219,28.126666666666665,0.9584279872785098,1.0497568316303503
 veryLowSpeechiness,"('veryLongDuration', 'veryLowAcousticness', 'notExplicit')",3833,25.553333333333335,0.9577711144427786,1.049037365216625
-Major,"('veryLowInstrumentalness', 'veryLowLiveness', 'veryLowSpeechiness', 'notExplicit')",3785,25.233333333333334,0.7768883415435139,1.0488097491812356
-Major,"('veryLowInstrumentalness', 'veryLowSpeechiness', 'notExplicit')",6156,41.04,0.7760968229954615,1.0477411884557575
 Major,"('unpopular', 'notExplicit')",3808,25.38666666666667,0.7758761206193969,1.0474432372685585
 Major,"('unpopular', 'veryLowSpeechiness')",3701,24.673333333333332,0.7757283588346259,1.0472437568643136
 veryLowSpeechiness,"('veryLongDuration', 'Major', 'notExplicit')",4476,29.84,0.9557975656630365,1.0468757564764912
@@ -44,11 +25,7 @@ Major,"('moderateDanceability', 'veryLowSpeechiness', 'notExplicit')",3536,23.57
 veryLowSpeechiness,"('veryLongDuration', 'veryLowAcousticness')",4039,26.926666666666666,0.9525943396226415,1.0433672942197607
 Major,"('moderateDanceability', 'veryLowSpeechiness')",3677,24.513333333333335,0.7724789915966387,1.0428570672261344
 veryLowSpeechiness,"('veryLongDuration', 'Major')",4650,31.0,0.9513093289689034,1.0419598345771122
-Major,"('veryLowInstrumentalness', 'veryLowSpeechiness')",6475,43.166666666666664,0.7712005717008099,1.0411311831079244
-Major,"('veryLowInstrumentalness', 'veryLowLiveness', 'veryLowSpeechiness')",3972,26.479999999999997,0.770663562281723,1.0404062131424574
 veryLowSpeechiness,"('veryLongDuration',)",6285,41.9,0.9495392053180238,1.0400210353976165
-Major,"('veryLowInstrumentalness', 'veryLowLiveness', 'notExplicit')",4068,27.12,0.7701628171147292,1.0397302004068887
-Major,"('veryLowInstrumentalness', 'notExplicit')",6665,44.43333333333334,0.7699861367837338,1.0394916795748363
 Major,"('unpopular',)",3977,26.513333333333332,0.7695433436532507,1.0388939028709172
 Major,"('moderateDanceability', 'notExplicit')",3726,24.84,0.768881551795295,1.0380004749283978
 notExplicit,"('veryLongDuration', 'veryLowLiveness', 'veryLowSpeechiness')",4097,27.313333333333333,0.9710831950699218,1.0379256039652862
@@ -66,13 +43,10 @@ veryLowSpeechiness,"('veryLowLiveness', 'notExplicit')",8690,57.93333333333334,0
 notExplicit,"('veryLongDuration', 'Major', 'veryLowSpeechiness')",4476,29.84,0.9625806451612903,1.028837799445586
 veryLowSpeechiness,"('unpopular', 'notExplicit')",4610,30.733333333333334,0.939282803585982,1.028787298560769
 veryLowSpeechiness,"('veryHighEnergy', 'veryLowAcousticness', 'notExplicit')",4009,26.726666666666667,0.9390958069805575,1.0285824830017058
-Major,"('veryLowInstrumentalness',)",7208,48.053333333333335,0.7612208258527827,1.0276583914851716
 notExplicit,"('veryLowLiveness', 'veryLowSpeechiness')",8690,57.93333333333334,0.960858027421495,1.0269966090439235
 veryLowSpeechiness,"('Major', 'notExplicit')",9795,65.3,0.9375,1.0268346111719606
 notExplicit,"('highDanceability', 'veryLowSpeechiness')",4960,33.06666666666666,0.9606817741623087,1.0268082237733098
-veryLowSpeechiness,"('veryLongDuration', 'veryLowInstrumentalness')",3609,24.060000000000002,0.9369158878504673,1.0261948388285513
 notExplicit,"('veryUnpopular', 'veryLowLiveness', 'veryLowSpeechiness')",4524,30.159999999999997,0.9601018675721562,1.026188400568786
-Major,"('veryLowInstrumentalness', 'veryLowLiveness')",4394,29.293333333333333,0.7600761113994119,1.026113011519321
 veryLowSpeechiness,"('veryLowAcousticness', 'Major', 'notExplicit')",4981,33.20666666666667,0.9368064698138048,1.026074994319611
 veryLowSpeechiness,"('veryLowAcousticness', 'notExplicit')",6928,46.18666666666667,0.9364693160313599,1.025705713068302
 notExplicit,"('moderateDanceability', 'veryLowSpeechiness')",4566,30.44,0.9592436974789916,1.0252711601955875
@@ -86,16 +60,12 @@ notExplicit,"('veryLowSpeechiness',)",13097,87.31333333333333,0.9563344286235852
 Major,"('longDuration', 'veryLowSpeechiness', 'notExplicit')",2960,19.733333333333334,0.7551020408163265,1.0193979490815317
 veryLowSpeechiness,"('veryUnpopular', 'veryLowLiveness', 'notExplicit')",4524,30.159999999999997,0.9306727010903106,1.0193567372292558
 veryLowSpeechiness,"('unpopular', 'Major')",3701,24.673333333333332,0.930600955494091,1.0192781549770986
-veryLowSpeechiness,"('veryLowInstrumentalness', 'veryLowLiveness', 'Major', 'notExplicit')",3785,25.233333333333334,0.9304326450344149,1.0190938061713197
 veryLowSpeechiness,"('veryHighEnergy', 'notExplicit')",4865,32.43333333333333,0.9303882195448461,1.0190451473656583
-notExplicit,"('veryLowInstrumentalness', 'veryLowLiveness', 'Major', 'veryLowSpeechiness')",3785,25.233333333333334,0.952920443101712,1.0185126582959727
 notExplicit,"('veryLongDuration', 'veryUnpopular')",3612,24.08,0.952782906884727,1.01836565507132
 veryLowSpeechiness,"('highDanceability', 'veryLowLiveness', 'notExplicit')",3521,23.473333333333333,0.9297597042513863,1.0183567406915512
-notExplicit,"('veryLongDuration', 'veryLowInstrumentalness')",3666,24.44,0.9517133956386293,1.017222526334576
 veryLowSpeechiness,"('veryHighEnergy', 'Major', 'notExplicit')",3497,23.313333333333333,0.9285714285714286,1.0170552339227037
 veryLowSpeechiness,"('highDanceability', 'Major', 'notExplicit')",3586,23.906666666666666,0.9280538302277432,1.016488313502457
 notExplicit,"('veryUnpopular', 'veryLowSpeechiness')",6698,44.653333333333336,0.9508801817149347,1.0163319599347314
-notExplicit,"('veryLowInstrumentalness', 'Major', 'veryLowSpeechiness')",6156,41.04,0.9507335907335908,1.0161752786806229
 veryLowSpeechiness,"('veryLowLiveness', 'Major')",6723,44.82,0.9275662251655629,1.0159542444310656
 notExplicit,"('veryUnpopular', 'Major', 'veryLowSpeechiness')",4827,32.18,0.9503839338452451,1.0158015539175342
 notExplicit,"('unpopular',)",4908,32.72,0.9496904024767802,1.0150602848191324
@@ -106,7 +76,6 @@ veryLowSpeechiness,"('veryUnpopular', 'veryLowAcousticness', 'notExplicit')",403
 Major,"('longDuration', 'notExplicit')",3183,21.22,0.75053053525112,1.0132263548525606
 notExplicit,"('moderateDanceability', 'Major')",3726,24.84,0.9478504197405241,1.0130936508556263
 veryLowSpeechiness,"('longDuration', 'notExplicit')",3920,26.13333333333333,0.924310304173544,1.0123880659074962
-veryLowSpeechiness,"('veryLowInstrumentalness', 'Major', 'notExplicit')",6156,41.04,0.9236309077269317,1.011643929602335
 veryLowSpeechiness,"('veryLowAcousticness', 'veryLowLiveness')",4519,30.12666666666667,0.9235642754956059,1.0115709479689003
 notExplicit,"('veryLowLiveness', 'Major')",6859,45.72666666666667,0.9463300220750552,1.0114685999092081
 veryLowSpeechiness,"('unpopular',)",4771,31.806666666666665,0.9231811145510835,1.0111512755214498
@@ -114,17 +83,13 @@ veryLowSpeechiness,"('highDanceability', 'notExplicit')",4960,33.06666666666666,
 veryLowSpeechiness,"('veryHighEnergy', 'veryLowAcousticness')",4355,29.03333333333333,0.9230606189063162,1.0110192978163377
 veryLowSpeechiness,"('veryUnpopular', 'Major', 'notExplicit')",4827,32.18,0.9227681131714778,1.0106989191363391
 notExplicit,"('longDuration', 'veryLowSpeechiness')",3920,26.13333333333333,0.945489628557646,1.0105703597238627
-notExplicit,"('veryLowInstrumentalness', 'veryLowLiveness', 'veryLowSpeechiness')",4872,32.48,0.9452852153667055,1.0103518761935715
-veryLowSpeechiness,"('veryLowInstrumentalness', 'veryLowLiveness', 'notExplicit')",4872,32.48,0.9223778871639531,1.010271508394253
-notExplicit,"('veryLowInstrumentalness', 'veryLowSpeechiness')",7932,52.88,0.9447355883754168,1.0097644168185302
 Major,"('veryLowSpeechiness', 'notExplicit')",9795,65.3,0.747881194166603,1.0096497086220004
 notExplicit,"('veryLongDuration', 'veryLowAcousticness')",4002,26.68,0.9438679245283019,1.0088370292093864
 veryLowSpeechiness,"('veryLowLiveness',)",9044,60.29333333333333,0.9202279202279202,1.007916670567273
 veryLowSpeechiness,"('veryUnpopular', 'notExplicit')",6698,44.653333333333336,0.9201813435911527,1.0078656556310543
 notExplicit,"('veryLowAcousticness', 'veryLowLiveness', 'veryLowSpeechiness')",4259,28.39333333333333,0.9424651471564506,1.0073376946947954
-Major,"('veryLowSpeechiness',)",10217,68.11333333333334,0.7460387002555677,1.007162316968186
 veryLowSpeechiness,"('Major',)",10217,68.11333333333334,0.919539195391954,1.007162316968186
-veryLowSpeechiness,"('veryLowAcousticness', 'veryLowInstrumentalness', 'notExplicit')",4024,26.826666666666664,0.9193511537582819,1.0069563567998707
+Major,"('veryLowSpeechiness',)",10217,68.11333333333334,0.7460387002555677,1.007162316968186
 notExplicit,"('moderateDanceability',)",4846,32.306666666666665,0.9420684292379471,1.0069136695574468
 Major,"('veryLowLiveness', 'veryLowSpeechiness', 'notExplicit')",6480,43.2,0.7456846950517837,1.0066844051639596
 veryLowSpeechiness,"('veryLowAcousticness', 'Major')",5338,35.586666666666666,0.918918918918919,1.0064829341937775
@@ -134,62 +99,44 @@ Major,"('notExplicit',)",10448,69.65333333333334,0.7444776970215191,1.0050549415
 Major,"('longDuration',)",3445,22.966666666666665,0.7443820224719101,1.0049257795948745
 veryLowSpeechiness,"('veryLowAcousticness',)",7412,49.413333333333334,0.9174402772620374,1.0048633924009172
 notExplicit,"('highDanceability', 'Major')",3864,25.759999999999998,0.9396887159533074,1.0043701538620216
-veryLowSpeechiness,"('veryLowInstrumentalness', 'notExplicit')",7932,52.88,0.916358595194085,1.0036786365762158
 Major,"('veryLowLiveness', 'veryLowSpeechiness')",6723,44.82,0.7433657673595754,1.0035538214736415
-veryLowSpeechiness,"('moderateDanceability', 'veryLowInstrumentalness')",3480,23.200000000000003,0.9153077327722251,1.002527637209447
 Major,"('veryLowLiveness', 'notExplicit')",6859,45.72666666666667,0.7416738754325259,1.0012697445313554
 notExplicit,"('highDanceability', 'veryLowLiveness')",3787,25.246666666666666,0.93668068266139,1.0011550691122169
 notExplicit,"('veryUnpopular', 'veryLowLiveness')",4861,32.406666666666666,0.9364284338277788,1.0008854572763775
-Major,"('veryLowAcousticness', 'veryLowInstrumentalness', 'veryLowSpeechiness', 'notExplicit')",2979,19.86,0.7403081510934394,0.9994259982361255
 veryLowSpeechiness,"('veryHighEnergy',)",5231,34.873333333333335,0.9124367695796267,0.9993830992109821
 veryLowSpeechiness,"('veryHighEnergy', 'Major')",3776,25.173333333333332,0.9122976564387533,0.99923072994387
 notExplicit,"('veryLowAcousticness', 'veryLowSpeechiness')",6928,46.18666666666667,0.9347004856988667,0.9990385695798062
-notExplicit,"('moderateDanceability', 'veryLowInstrumentalness')",3553,23.686666666666667,0.9345081536033667,0.998832998720999
 Major,"('veryLongDuration', 'veryLowSpeechiness')",4650,31.0,0.7398568019093079,0.998816670744273
 notExplicit,"('highDanceability',)",5373,35.82,0.9344347826086956,0.9987545773927914
-Major,"('veryLowAcousticness', 'veryLowInstrumentalness', 'veryLowSpeechiness')",3237,21.58,0.7393787117405208,0.9981712425621286
 Major,"('veryLongDuration', 'veryLowSpeechiness', 'notExplicit')",4476,29.84,0.7393458870168483,0.9981269287420327
 notExplicit,"('veryLowAcousticness', 'Major', 'veryLowSpeechiness')",4981,33.20666666666667,0.9331210191082803,0.9973503838267211
 Major,"('veryLongDuration', 'notExplicit')",4683,31.22,0.738760056791292,0.9973360500287445
 Major,"('veryLongDuration',)",4888,32.586666666666666,0.7384801329505968,0.9969581490647963
-Major,"('veryLowAcousticness', 'veryLowInstrumentalness', 'notExplicit')",3231,21.54,0.7381768334475668,0.9965486906411216
-Major,"('veryUnpopular', 'veryLowInstrumentalness')",3033,20.22,0.7377766966674775,0.9960085005861005
 notExplicit,"('veryUnpopular', 'veryLowAcousticness', 'veryLowSpeechiness')",4039,26.926666666666666,0.9317185697808535,0.9958513999367823
 Major,"('veryLowLiveness',)",7248,48.32,0.7374847374847375,0.9956143517479131
 veryLowSpeechiness,"('veryUnpopular', 'veryLowLiveness')",4712,31.41333333333333,0.9077249084954729,0.9942222436971226
 notExplicit,"('veryHighEnergy', 'veryLowSpeechiness')",4865,32.43333333333333,0.9300324985662397,0.9940492716612225
 Major,"('veryLongDuration', 'veryLowLiveness', 'veryLowSpeechiness', 'notExplicit')",3013,20.086666666666666,0.7354161581645107,0.9928217417395068
 notExplicit,"('veryUnpopular', 'Major')",5231,34.873333333333335,0.9287997159090909,0.9927316330794046
-Major,"('veryLowAcousticness', 'veryLowInstrumentalness')",3608,24.05333333333333,0.734826883910387,0.9920262135411578
 Major,"('veryLongDuration', 'veryLowLiveness', 'veryLowSpeechiness')",3099,20.66,0.7345342498222328,0.99163115357155
-Major,"('highDanceability', 'veryLowInstrumentalness')",2779,18.526666666666667,0.7344080338266384,0.9914607602735647
 veryLowSpeechiness,"('highDanceability', 'Major')",3722,24.813333333333336,0.9051556420233463,0.9914081511756258
 Major,"('veryLongDuration', 'veryLowLiveness', 'notExplicit')",3119,20.793333333333333,0.7338823529411764,0.9907510839814281
 veryLowSpeechiness,"('highDanceability', 'veryLowLiveness')",3657,24.38,0.9045263418253772,0.9907188848032609
 notExplicit,"('veryUnpopular',)",7279,48.52666666666667,0.9267888973771327,0.9905824042081367
 veryLowSpeechiness,"('veryUnpopular', 'veryLowAcousticness')",4335,28.9,0.9042553191489362,0.9904220363077066
-veryLowSpeechiness,"('veryLowInstrumentalness', 'veryLowLiveness', 'Major')",3972,26.479999999999997,0.9039599453800637,0.9900985162979887
 notExplicit,"('veryHighEnergy', 'Major', 'veryLowSpeechiness')",3497,23.313333333333333,0.9261122881355932,0.989859222034623
-notExplicit,"('veryLowInstrumentalness', 'veryLowLiveness', 'Major')",4068,27.12,0.9258079198907602,0.9895339032607526
 Major,"('veryLongDuration', 'veryLowLiveness')",3224,21.493333333333332,0.7323943661971831,0.988742281789015
-notExplicit,"('veryLowInstrumentalness', 'Major')",6665,44.43333333333334,0.9246670366259712,0.9883144897669636
 veryLowSpeechiness,"('veryUnpopular', 'Major')",5079,33.86,0.9018110795454546,0.9877448844966643
 notExplicit,"('veryLowAcousticness', 'veryLowLiveness')",4521,30.14,0.923973022685469,0.9875727048797233
 notExplicit,"('Minor',)",3586,23.906666666666666,0.9220879403445615,0.985557866977941
 notExplicit,"('veryHighEnergy', 'veryLowAcousticness', 'veryLowSpeechiness')",4009,26.726666666666667,0.9205510907003445,0.9839152316164433
-veryLowSpeechiness,"('veryLowInstrumentalness', 'Major')",6475,43.166666666666664,0.89830743618202,0.9839073780745016
 veryLowSpeechiness,"('highDanceability',)",5163,34.42,0.8979130434782608,0.9834754035906472
-notExplicit,"('veryLowAcousticness', 'veryLowInstrumentalness', 'veryLowSpeechiness')",4024,26.826666666666664,0.9191411603471905,0.9824082517605713
 veryLowSpeechiness,"('veryUnpopular',)",7044,46.96,0.8968678380443086,0.9823306002675889
 veryLowSpeechiness,"('longDuration',)",4146,27.639999999999997,0.8958513396715644,0.9812172395088329
 veryLowSpeechiness,"('Minor',)",3478,23.186666666666667,0.8943173052198509,0.9795370265277665
 notExplicit,"('longDuration',)",4241,28.273333333333333,0.9163785652549697,0.9794554994174538
 notExplicit,"('veryLowAcousticness',)",7398,49.32,0.915707389528407,0.9787381247631541
 notExplicit,"('veryLowAcousticness', 'Major')",5317,35.446666666666665,0.9153038388707179,0.9783067965698139
-notExplicit,"('veryLowInstrumentalness',)",8656,57.70666666666666,0.9141408807688246,0.9770637887653106
-veryLowSpeechiness,"('veryLowAcousticness', 'veryLowInstrumentalness')",4378,29.186666666666667,0.8916496945010183,0.9766152185115207
-notExplicit,"('veryLowInstrumentalness', 'veryLowLiveness')",5282,35.21333333333334,0.913682753848815,0.9765741276708156
-veryLowSpeechiness,"('veryLowInstrumentalness', 'veryLowLiveness')",5154,34.36,0.8915412558380903,0.9764964467010847
 Major,"('highDanceability', 'veryLowSpeechiness', 'notExplicit')",3586,23.906666666666666,0.722983870967742,0.9760379861863134
 Major,"('veryHighEnergy', 'veryLowAcousticness')",3410,22.733333333333334,0.7227638830012717,0.9757409994617114
 notExplicit,"('veryHighEnergy',)",5229,34.86,0.9120879120879121,0.9748695084308594
@@ -204,7 +151,6 @@ notExplicit,"('veryHighEnergy', 'Major')",3766,25.106666666666666,0.909881613916
 Major,"('veryHighEnergy', 'notExplicit')",3766,25.106666666666666,0.7202141900937081,0.9722988796153021
 Major,"('veryLowAcousticness', 'veryLowSpeechiness')",5338,35.586666666666666,0.7201834862385321,0.9722574289963083
 Major,"('veryHighEnergy', 'veryLowAcousticness', 'notExplicit')",3074,20.493333333333332,0.7200749590067932,0.9721109157683284
-veryLowSpeechiness,"('veryLowInstrumentalness',)",8396,55.97333333333333,0.8866828598584856,0.9711750929446721
 Major,"('highDanceability', 'veryLowLiveness', 'notExplicit')",2724,18.16,0.7193028782677581,0.9710685963474369
 Major,"('highDanceability', 'notExplicit')",3864,25.759999999999998,0.7191513121161363,0.9708639799965839
 Major,"('veryLowAcousticness',)",5809,38.72666666666667,0.7190246317613566,0.9706929598074295
@@ -214,7 +160,6 @@ Major,"('veryLowAcousticness', 'notExplicit')",5317,35.446666666666665,0.7187077
 Major,"('veryUnpopular', 'notExplicit')",5231,34.873333333333335,0.7186426706965242,0.9701773072133799
 Major,"('veryHighEnergy', 'veryLowAcousticness', 'veryLowSpeechiness', 'notExplicit')",2879,19.193333333333335,0.7181341980543776,0.9694908622820326
 Major,"('veryUnpopular',)",5632,37.54666666666667,0.7170868347338936,0.9680769076598329
-notExplicit,"('highDanceability', 'veryLowInstrumentalness')",3427,22.846666666666668,0.9056553911205074,0.9679942188120002
 Major,"('veryLongDuration', 'veryLowAcousticness')",3038,20.253333333333334,0.7165094339622642,0.9672974088231449
 notExplicit,"('veryHighEnergy', 'veryLowAcousticness')",4269,28.46,0.9048325561678677,0.9671147457972079
 Major,"('highDanceability',)",4112,27.413333333333334,0.7151304347826087,0.9654357413139348
@@ -230,8 +175,4 @@ Major,"('veryLongDuration', 'veryLowAcousticness', 'veryLowSpeechiness', 'notExp
 Major,"('veryLowAcousticness', 'veryLowLiveness', 'notExplicit')",3213,21.42,0.7106834771068348,0.9594322884171111
 Major,"('veryUnpopular', 'veryLowLiveness', 'notExplicit')",3449,22.993333333333332,0.7095247891380374,0.9578680440167907
 Major,"('veryUnpopular', 'veryLowLiveness')",3676,24.506666666666664,0.7081487189366211,0.9560103306677451
-notExplicit,"('veryLowAcousticness', 'veryLowInstrumentalness')",4377,29.18,0.8914460285132383,0.9528067854993997
 Major,"('veryLongDuration', 'veryUnpopular')",2671,17.80666666666667,0.704563439725666,0.9511701553312025
-notExplicit,"('veryUnpopular', 'veryLowInstrumentalness')",3654,24.36,0.8888348333738749,0.9500158543970446
-veryLowSpeechiness,"('highDanceability', 'veryLowInstrumentalness')",3277,21.846666666666668,0.866014799154334,0.9485375675293911
-veryLowSpeechiness,"('veryUnpopular', 'veryLowInstrumentalness')",3482,23.213333333333335,0.8469958647531014,0.9277063140778767

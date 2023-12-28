@@ -34,7 +34,7 @@ maximalFrequentItemSets = fpgrowth(X, target="m", supp=supp, zmin=zmin, report="
 print('\nMaximal Item Set\n')
 print (pd.DataFrame(maximalFrequentItemSets, columns=["frequent_itemset", "support"]))
 
-len_max_it, len_cl_it, support_thresholds = [], [], []
+len_max_it, len_cl_it, len_fr_it, support_thresholds = [], [], [], []
 max_supp = findCommonHighestSupport(pd.DataFrame(closedFrequentItemSets, columns=["frequent_itemset", "support"]),pd.DataFrame(maximalFrequentItemSets, columns=["frequent_itemset", "support"]))
 print('max is' + str(max_supp))
 
@@ -42,13 +42,16 @@ for i in range(2, int(max_supp)):
     support_thresholds.append(i)
     max_itemsets = fpgrowth(X, target="m", supp=i, zmin=zmin)
     cl_itemsets = fpgrowth(X, target="c", supp=i, zmin=zmin)
+    freq_itemsets = fpgrowth(X, target="s", supp=i, zmin=zmin)
     len_max_it.append(len(max_itemsets))
     len_cl_it.append(len(cl_itemsets))
+    len_fr_it.append(len(freq_itemsets))
 
 
 # Plotting as a line chart
 plt.plot(support_thresholds, len_max_it, label='Maximal', marker='o')
 plt.plot(support_thresholds, len_cl_it, label='Closed', marker='o')
+plt.plot(support_thresholds, len_fr_it, label='Frequent', marker='o')
 
 plt.xlabel('Support Threshold')
 plt.ylabel('Number of Itemsets')
