@@ -1,25 +1,25 @@
-1. We can add the randomization validation for clustering models (example: Clustering_Iris line 80)(For the randomized dataset for silhouette and sse)
-2. Improve the readability of the plots (Not only the sse ones also, hists, entropy, correlation and so on)(Also maybe add new prittier and maybe useful ones(?))
+[IGNORE]1. We can add the randomization validation for clustering models (example: Clustering_Iris line 80)(For the randomized dataset for silhouette and sse)
+[DONE]2. Improve the readability of the plots (Not only the sse ones also, hists, entropy, correlation and so on)(Also maybe add new prittier and maybe useful ones(?))
 3. Report the different test that we did and the differences between dendrograms and other stuff for hirearchical clusterings(Not only hierarchical all models in general)
-4. Remove the time_signature table for the replacement of the values from one of the firsts pages
-5. Remove the table for semantic inconsistences
-6. Remove the example column from the first table
-7. Replace the python type of the features with continuous, categorical etc(In the first table)
-8. 1.2.1 table, remove the count column and say that there are X missing values from feature A, Y missing values from feature B, etc
-9. Remove one of the 2 clustermap and make it larger, describe the changes (Remove the hirerachical correlation in the clustermap)
-10. evaluate the clustering models regarding the genre so we could then put some of them in groups for classification models
+[DONE]4. Remove the time_signature table for the replacement of the values from one of the firsts pages
+[DONE]5. Remove the table for semantic inconsistences
+[DONE]6. Remove the example column from the first table
+[DONE]7. Replace the python type of the features with continuous, categorical etc(In the first table)
+[DONE]8. 1.2.1 table, remove the count column and say that there are X missing values from feature A, Y missing values from feature B, etc
+[DONE]9. Remove one of the 2 clustermap and make it larger, describe the changes (Remove the hirerachical correlation in the clustermap)
+[DONE]10. evaluate the clustering models regarding the genre so we could then put some of them in groups for classification models
 11. we could popuate time signature NANS by calculating the missing values with the nbeats nbars and length of the song
-12. we could also use key as the target in classification models
-13. we cannot use speechiness and instrumentalness trogether they are oposite from each other in definition and by numbers.
+[WE DID SOMETHING ELSE]12. we could also use key as the target in classification models
+[IGNORE]13. we cannot use speechiness and instrumentalness trogether they are oposite from each other in definition and by numbers.
 
 
 
 THINGS APART FROM CLUSTERING
 
-1. Classification When is a multi class we only have one accuracy, the precision we average it through all the variables, same for recall
-2. Accuracy is very limited for unbalanced data where you have all True negatives and nothing in the other boxes, but that is why we grouped some genres, way of showing robustness
-3. Decision trees: • Irrelevant attributes are poorly associated with the target class labels, so they have little or no gain in purity
-4. Decision trees: • Since redundant attributes show similar gains in purity if they are selected for splitting, only one of them will be selected as an attribute test condition in the decision tree algorithm.
-5. Decision trees: The tree is not able to separate with a decision boundary so it starts to segment the data in to very little segments vertically and horizontally, it starts to make more and more separations that are not necessary and so gives a bad result.
+[To explain our results]1. Classification When is a multi class we only have one accuracy, the precision we average it through all the variables, same for recall
+[To explain our results]2. Accuracy is very limited for unbalanced data where you have all True negatives and nothing in the other boxes, but that is why we grouped some genres, way of showing robustness
+[To note for exam]3. Decision trees: • Irrelevant attributes are poorly associated with the target class labels, so they have little or no gain in purity
+[To note for exam]4. Decision trees: • Since redundant attributes show similar gains in purity if they are selected for splitting, only one of them will be selected as an attribute test condition in the decision tree algorithm.
+[To note for exam]5. Decision trees: The tree is not able to separate with a decision boundary so it starts to segment the data in to very little segments vertically and horizontally, it starts to make more and more separations that are not necessary and so gives a bad result.
 
 
