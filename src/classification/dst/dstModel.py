@@ -33,7 +33,9 @@ def getDecisionTreeModel (targetVariable):
     kf = KFold(n_splits=20, shuffle=True, random_state=42)
 
     criterions =  ['entropy', 'gini']
+
     maxDepths = list(np.arange(2, 3)) + [None]
+
     minSamplesLeaf= [ 0.1, 0.2, 1, 2 ,3 ,4 ,5 , 6]
     minSamplesSplit=[ 0.05, 0.1, 0.2]
     ccp_alphas= list(np.arange(0.01, 0.1))
