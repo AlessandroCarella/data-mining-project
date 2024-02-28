@@ -3,6 +3,8 @@ src/classification/modelPickle/*
 !src/classification/modelPickle/*/
 !src/classification/modelPickle/*/*.pickle
 
+*.pickle
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

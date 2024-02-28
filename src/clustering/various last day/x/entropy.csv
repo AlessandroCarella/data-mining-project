@@ -1,0 +1,669 @@
+clustering type,value
+hierarchicalCentroidLinkage threshold1,0.26345977509039425
+hierarchicalCentroidLinkage threshold2,0.2666965823124484
+hierarchicalCentroidLinkage threshold3,0.07888657909233716
+hierarchicalCentroidLinkage threshold4,0.03356599161226189
+hierarchicalCentroidLinkage threshold5,0.02246647494545627
+hierarchicalCentroidLinkage threshold6,0.02003518572054147
+hierarchicalCentroidLinkage threshold7,0.018440572635349154
+hierarchicalCentroidLinkage threshold8,0.018440572635349154
+hierarchicalCentroidLinkage threshold9,0.018440572635349154
+hierarchicalCentroidLinkage threshold10,0.018853659589530107
+hierarchicalCentroidLinkage threshold11,0.018853659589530107
+hierarchicalCentroidLinkage threshold12,0.018853659589530107
+hierarchicalCentroidLinkage threshold13,0.018853659589530107
+hierarchicalCentroidLinkage threshold14,0.018853659589530107
+hierarchicalCentroidLinkage threshold15,0.018853659589530107
+hierarchicalCentroidLinkage threshold16,0.018853659589530107
+hierarchicalCentroidLinkage threshold17,0.018853659589530107
+hierarchicalCentroidLinkage threshold18,0.018853659589530107
+hierarchicalCentroidLinkage threshold19,0.018853659589530107
+hierarchicalCentroidLinkage threshold20,0.018853659589530107
+hierarchicalCentroidLinkage threshold21,0.018853659589530107
+hierarchicalCentroidLinkage threshold22,0.018853659589530107
+hierarchicalCentroidLinkage threshold23,0.018853659589530107
+hierarchicalCentroidLinkage threshold24,0.018853659589530107
+hierarchicalCentroidLinkage threshold25,0.018853659589530107
+hierarchicalCentroidLinkage threshold26,0.018853659589530107
+hierarchicalCentroidLinkage threshold27,0.018853659589530107
+hierarchicalCentroidLinkage threshold28,0.018853659589530107
+hierarchicalCentroidLinkage threshold29,0.018853659589530107
+hierarchicalCentroidLinkage threshold30,0.018853659589530107
+hierarchicalCentroidLinkage threshold31,0.018853659589530107
+hierarchicalCentroidLinkage threshold32,0.018853659589530107
+hierarchicalCentroidLinkage threshold33,0.018853659589530107
+hierarchicalCentroidLinkage threshold34,0.018853659589530107
+hierarchicalCentroidLinkage threshold35,0.018853659589530107
+hierarchicalCentroidLinkage threshold36,0.018853659589530107
+hierarchicalCentroidLinkage threshold37,0.018853659589530107
+hierarchicalCentroidLinkage threshold38,0.018853659589530107
+hierarchicalCentroidLinkage threshold39,0.018853659589530107
+hierarchicalCentroidLinkage threshold40,0.018853659589530107
+hierarchicalCentroidLinkage threshold41,0.018853659589530107
+hierarchicalCentroidLinkage threshold42,0.018853659589530107
+hierarchicalCentroidLinkage threshold43,0.018853659589530107
+hierarchicalCentroidLinkage threshold44,0.018853659589530107
+hierarchicalCentroidLinkage threshold45,0.018853659589530107
+hierarchicalCentroidLinkage threshold46,0.018853659589530107
+hierarchicalCentroidLinkage threshold47,0.018853659589530107
+hierarchicalCentroidLinkage threshold48,0.018853659589530107
+hierarchicalCentroidLinkage threshold49,0.018853659589530107
+hierarchicalCompleteLinkage threshold1,0.17253743373095118
+hierarchicalCompleteLinkage threshold2,0.39339636362221986
+hierarchicalCompleteLinkage threshold3,0.5801133550533566
+hierarchicalCompleteLinkage threshold4,0.6056972099315873
+hierarchicalCompleteLinkage threshold5,0.5069640458274464
+hierarchicalCompleteLinkage threshold6,0.3588628090404734
+hierarchicalCompleteLinkage threshold7,0.21779482466037858
+hierarchicalCompleteLinkage threshold8,0.15199132312889252
+hierarchicalCompleteLinkage threshold9,0.09745660004234322
+hierarchicalCompleteLinkage threshold10,0.07064904695362526
+hierarchicalCompleteLinkage threshold11,0.051085444606054645
+hierarchicalCompleteLinkage threshold12,0.04321777272772898
+hierarchicalCompleteLinkage threshold13,0.037071786720479644
+hierarchicalCompleteLinkage threshold14,0.023691954702073796
+hierarchicalCompleteLinkage threshold15,0.023691954702073796
+hierarchicalCompleteLinkage threshold16,0.018853659589530107
+hierarchicalCompleteLinkage threshold17,0.018853659589530107
+hierarchicalCompleteLinkage threshold18,0.018853659589530107
+hierarchicalCompleteLinkage threshold19,0.018853659589530107
+hierarchicalCompleteLinkage threshold20,0.018853659589530107
+hierarchicalCompleteLinkage threshold21,0.018853659589530107
+hierarchicalCompleteLinkage threshold22,0.018853659589530107
+hierarchicalCompleteLinkage threshold23,0.018853659589530107
+hierarchicalCompleteLinkage threshold24,0.018853659589530107
+hierarchicalCompleteLinkage threshold25,0.018853659589530107
+hierarchicalCompleteLinkage threshold26,0.018853659589530107
+hierarchicalCompleteLinkage threshold27,0.018853659589530107
+hierarchicalCompleteLinkage threshold28,0.018853659589530107
+hierarchicalCompleteLinkage threshold29,0.018853659589530107
+hierarchicalCompleteLinkage threshold30,0.018853659589530107
+hierarchicalCompleteLinkage threshold31,0.018853659589530107
+hierarchicalCompleteLinkage threshold32,0.018853659589530107
+hierarchicalCompleteLinkage threshold33,0.018853659589530107
+hierarchicalCompleteLinkage threshold34,0.018853659589530107
+hierarchicalCompleteLinkage threshold35,0.018853659589530107
+hierarchicalCompleteLinkage threshold36,0.018853659589530107
+hierarchicalCompleteLinkage threshold37,0.018853659589530107
+hierarchicalCompleteLinkage threshold38,0.018853659589530107
+hierarchicalCompleteLinkage threshold39,0.018853659589530107
+hierarchicalCompleteLinkage threshold40,0.018853659589530107
+hierarchicalCompleteLinkage threshold41,0.018853659589530107
+hierarchicalCompleteLinkage threshold42,0.018853659589530107
+hierarchicalCompleteLinkage threshold43,0.018853659589530107
+hierarchicalCompleteLinkage threshold44,0.018853659589530107
+hierarchicalCompleteLinkage threshold45,0.018853659589530107
+hierarchicalCompleteLinkage threshold46,0.018853659589530107
+hierarchicalCompleteLinkage threshold47,0.018853659589530107
+hierarchicalCompleteLinkage threshold48,0.018853659589530107
+hierarchicalCompleteLinkage threshold49,0.018853659589530107
+hierarchicalSingleLinkage threshold1,0.12289600920900212
+hierarchicalSingleLinkage threshold2,0.01975173619584626
+hierarchicalSingleLinkage threshold3,0.017679999614459818
+hierarchicalSingleLinkage threshold4,0.017608658074501984
+hierarchicalSingleLinkage threshold5,0.017608658074501984
+hierarchicalSingleLinkage threshold6,0.017608658074501984
+hierarchicalSingleLinkage threshold7,0.017608658074501984
+hierarchicalSingleLinkage threshold8,0.017608658074501984
+hierarchicalSingleLinkage threshold9,0.017608658074501984
+hierarchicalSingleLinkage threshold10,0.018025588879356833
+hierarchicalSingleLinkage threshold11,0.018025588879356833
+hierarchicalSingleLinkage threshold12,0.018025588879356833
+hierarchicalSingleLinkage threshold13,0.018025588879356833
+hierarchicalSingleLinkage threshold14,0.018025588879356833
+hierarchicalSingleLinkage threshold15,0.018025588879356833
+hierarchicalSingleLinkage threshold16,0.018025588879356833
+hierarchicalSingleLinkage threshold17,0.018025588879356833
+hierarchicalSingleLinkage threshold18,0.018025588879356833
+hierarchicalSingleLinkage threshold19,0.018025588879356833
+hierarchicalSingleLinkage threshold20,0.018025588879356833
+hierarchicalSingleLinkage threshold21,0.018025588879356833
+hierarchicalSingleLinkage threshold22,0.018025588879356833
+hierarchicalSingleLinkage threshold23,0.018025588879356833
+hierarchicalSingleLinkage threshold24,0.018025588879356833
+hierarchicalSingleLinkage threshold25,0.018025588879356833
+hierarchicalSingleLinkage threshold26,0.018025588879356833
+hierarchicalSingleLinkage threshold27,0.018025588879356833
+hierarchicalSingleLinkage threshold28,0.018025588879356833
+hierarchicalSingleLinkage threshold29,0.018025588879356833
+hierarchicalSingleLinkage threshold30,0.018025588879356833
+hierarchicalSingleLinkage threshold31,0.018025588879356833
+hierarchicalSingleLinkage threshold32,0.018025588879356833
+hierarchicalSingleLinkage threshold33,0.018025588879356833
+hierarchicalSingleLinkage threshold34,0.018025588879356833
+hierarchicalSingleLinkage threshold35,0.018025588879356833
+hierarchicalSingleLinkage threshold36,0.018025588879356833
+hierarchicalSingleLinkage threshold37,0.018025588879356833
+hierarchicalSingleLinkage threshold38,0.018025588879356833
+hierarchicalSingleLinkage threshold39,0.018025588879356833
+hierarchicalSingleLinkage threshold40,0.018025588879356833
+hierarchicalSingleLinkage threshold41,0.018025588879356833
+hierarchicalSingleLinkage threshold42,0.018025588879356833
+hierarchicalSingleLinkage threshold43,0.018025588879356833
+hierarchicalSingleLinkage threshold44,0.018025588879356833
+hierarchicalSingleLinkage threshold45,0.018025588879356833
+hierarchicalSingleLinkage threshold46,0.018025588879356833
+hierarchicalSingleLinkage threshold47,0.018025588879356833
+hierarchicalSingleLinkage threshold48,0.018025588879356833
+hierarchicalSingleLinkage threshold49,0.018025588879356833
+hierarchicalGroupAverage threshold2 criterion=maxclust,0.02627014590368313
+hierarchicalGroupAverage threshold3 criterion=maxclust,0.026181282698836246
+hierarchicalGroupAverage threshold4 criterion=maxclust,0.025968191892946243
+hierarchicalGroupAverage threshold5 criterion=maxclust,0.0409094799464042
+hierarchicalGroupAverage threshold6 criterion=maxclust,0.040912658025697796
+hierarchicalGroupAverage threshold7 criterion=maxclust,0.047984642766237005
+hierarchicalGroupAverage threshold8 criterion=maxclust,0.049729302121193905
+hierarchicalGroupAverage threshold9 criterion=maxclust,0.056998237780262036
+hierarchicalGroupAverage threshold10 criterion=maxclust,0.07036104359990394
+hierarchicalGroupAverage threshold11 criterion=maxclust,0.07035559262812222
+hierarchicalGroupAverage threshold12 criterion=maxclust,0.07237270635728521
+hierarchicalGroupAverage threshold13 criterion=maxclust,0.07232892709941881
+hierarchicalGroupAverage threshold14 criterion=maxclust,0.08657566446305705
+hierarchicalGroupAverage threshold15 criterion=maxclust,0.08827490166610208
+hierarchicalGroupAverage threshold16 criterion=maxclust,0.08999045627791141
+hierarchicalGroupAverage threshold17 criterion=maxclust,0.08999257180183035
+hierarchicalGroupAverage threshold18 criterion=maxclust,0.08994381759672877
+hierarchicalGroupAverage threshold19 criterion=maxclust,0.08989257035113714
+kMeans=2,0.008582342588220994
+kMeans=3,0.012322662938092106
+kMeans=4,0.015502712844020373
+kMeans=5,0.01876198809018977
+kMeans=6,0.021894205751955192
+kMeans=7,0.025048777185982765
+kMeans=8,0.028133164792658587
+kMeans=9,0.031160790934968218
+kMeans=10,0.037746318712311225
+kMeans=11,0.04092028240672038
+kMeans=12,0.04363494161210515
+kMeans=13,0.046706403479491114
+kMeans=14,0.049730314624071174
+kMeans=15,0.05269470876084552
+kMeans=16,0.05493179961008754
+kMeans=17,0.05843692279960224
+kMeans=18,0.060693017237986875
+kMeans=19,0.0632278555111688
+kMeans=20,0.06596378261736618
+kMeans=21,0.0685234586109434
+kMeans=22,0.0712160216996024
+kMeans=23,0.07380903661477572
+kMeans=24,0.07613636750170769
+kMeans=25,0.07850937764420146
+kMeans=26,0.08109841201435355
+kMeans=27,0.0835388918568821
+kMeans=28,0.08622330194980715
+kMeans=29,0.08853720140273803
+kMeans=30,0.09120328240380397
+kMeans=31,0.09327662242766054
+kMeans=32,0.09569562922898583
+kMeans=33,0.09825801557847283
+kMeans=34,0.10035214434466141
+kMeans=35,0.10242370039133344
+kMeans=36,0.10487397516612391
+kMeans=37,0.10723425964972834
+kMeans=38,0.10921502926048161
+kMeans=39,0.11110127515427234
+kMeans=40,0.11341667649950399
+kMeans=41,0.1155591870247362
+kMeans=42,0.11747780546991494
+kMeans=43,0.12036946665043655
+kMeans=44,0.1218686787059749
+kMeans=45,0.12403024653343046
+kMeans=46,0.12650570766227953
+kMeans=47,0.12650315164250078
+kMeans=48,0.13004251424585456
+kMeans=49,0.13175178795002376
+kMeans=50,0.13497926218391193
+bisectingKmeans=2,0.016415551114280974
+bisectingKmeans=3,0.023545008707304402
+bisectingKmeans=4,0.029224858299875128
+bisectingKmeans=5,0.03488030154473357
+bisectingKmeans=6,0.040766823106391306
+bisectingKmeans=7,0.04742535736940762
+bisectingKmeans=8,0.053075562639682924
+bisectingKmeans=9,0.057933629328120045
+bisectingKmeans=10,0.06575373846508094
+bisectingKmeans=11,0.07088466146889433
+bisectingKmeans=12,0.07601183649136614
+bisectingKmeans=13,0.08143688869760404
+bisectingKmeans=14,0.08685967892510935
+bisectingKmeans=15,0.09173464746345086
+bisectingKmeans=16,0.09619253373603921
+bisectingKmeans=17,0.09661703768870843
+bisectingKmeans=18,0.10492202015158439
+bisectingKmeans=19,0.10849710603233106
+bisectingKmeans=20,0.1133465623722976
+bisectingKmeans=21,0.1183600798951575
+bisectingKmeans=22,0.12112535893449763
+bisectingKmeans=23,0.12629069169430918
+bisectingKmeans=24,0.1301647502792636
+bisectingKmeans=25,0.1342045821628365
+bisectingKmeans=26,0.13473519126365555
+bisectingKmeans=27,0.14333984859520082
+bisectingKmeans=28,0.14581531749511337
+bisectingKmeans=29,0.14690860165523503
+bisectingKmeans=30,0.1486361559661508
+bisectingKmeans=31,0.15293286722219082
+bisectingKmeans=32,0.15780617450792633
+bisectingKmeans=33,0.16253796656346425
+bisectingKmeans=34,0.16548281126478134
+bisectingKmeans=35,0.1686195858381015
+bisectingKmeans=36,0.17148260036443738
+bisectingKmeans=37,0.17694536896905882
+bisectingKmeans=38,0.17843478660499415
+bisectingKmeans=39,0.1807928856499351
+bisectingKmeans=40,0.184837118380475
+bisectingKmeans=41,0.18632852209530623
+bisectingKmeans=42,0.1919615571327307
+bisectingKmeans=43,0.19395410622409767
+bisectingKmeans=44,0.19785392376691815
+bisectingKmeans=45,0.20132236649881205
+bisectingKmeans=46,0.20665819326258747
+bisectingKmeans=47,0.20794522616711647
+bisectingKmeans=48,0.21267677607199095
+bisectingKmeans=49,0.21566177296204136
+bisectingKmeans=50,0.21860162896807186
+kModes=2,0.008353119972195148
+kModes=3,0.011855126788586377
+kModes=4,0.015297592082666865
+kModes=5,0.018677452489233585
+kModes=6,0.021927582612282805
+kModes=7,0.02507175504206797
+kModes=8,0.02810838387651433
+kModes=9,0.031099632537627164
+kModes=10,0.037414692198793016
+kModes=11,0.04029878378283833
+kModes=12,0.04267346168121257
+kModes=13,0.04473803552313672
+kModes=14,0.046883728003099874
+kModes=15,0.048811636468659415
+kModes=16,0.050736770176115095
+kModes=17,0.052608042374219795
+kModes=18,0.0548956448089735
+kModes=19,0.05704194647584274
+kModes=20,0.05889715651615121
+kModes=21,0.06066420833035745
+kModes=22,0.062488101048379124
+kModes=23,0.06456185285076425
+kModes=24,0.06661065321904078
+kModes=25,0.06854161294435301
+kModes=26,0.07053992033242901
+kModes=27,0.07257488982788907
+kModes=28,0.0744775873841208
+kModes=29,0.07649920756381105
+kModes=30,0.0786944263627636
+kModes=31,0.08065099207923561
+kModes=32,0.08265707616556855
+kModes=33,0.08460245650852566
+kModes=34,0.08659981436476127
+kModes=35,0.08853543990969019
+kModes=36,0.09026620702647249
+kModes=37,0.09213570850280216
+kModes=38,0.09404952108720917
+kModes=39,0.09600432983231363
+kModes=40,0.0980649554854384
+kModes=41,0.09992063095561562
+kModes=42,0.10175162730306653
+kModes=43,0.1035682206483031
+kModes=44,0.1053030929931687
+kModes=45,0.10707137436138525
+kModes=46,0.10882989938286003
+kModes=47,0.110481823856565
+kModes=48,0.11229192938883745
+kModes=49,0.11406018393482618
+kModes=50,0.11595347792573103
+mixtureGaussian nComponents= 2 tol=0.01,0.03379744883782929
+mixtureGaussian nComponents= 2 tol=0.001,0.03450292730199381
+mixtureGaussian nComponents= 2 tol=0.0001,0.035259617341518605
+mixtureGaussian nComponents= 2 tol=1e-05,0.03454801964148593
+mixtureGaussian nComponents= 3 tol=0.01,0.04683619534087294
+mixtureGaussian nComponents= 3 tol=0.001,0.04779091864190291
+mixtureGaussian nComponents= 3 tol=0.0001,0.048727470707546114
+mixtureGaussian nComponents= 3 tol=1e-05,0.04774883342694279
+mixtureGaussian nComponents= 4 tol=0.01,0.05834273176799096
+mixtureGaussian nComponents= 4 tol=0.001,0.059579723145049134
+mixtureGaussian nComponents= 4 tol=0.0001,0.06078621750953056
+mixtureGaussian nComponents= 4 tol=1e-05,0.05952304494433715
+mixtureGaussian nComponents= 5 tol=0.01,0.06864527633414651
+mixtureGaussian nComponents= 5 tol=0.001,0.0698083528648089
+mixtureGaussian nComponents= 5 tol=0.0001,0.07106235642124711
+mixtureGaussian nComponents= 5 tol=1e-05,0.06954050945428361
+mixtureGaussian nComponents= 6 tol=0.01,0.07760772712199057
+mixtureGaussian nComponents= 6 tol=0.001,0.07957524415523436
+mixtureGaussian nComponents= 6 tol=0.0001,0.081339014262572
+mixtureGaussian nComponents= 6 tol=1e-05,0.08300076840577837
+mixtureGaussian nComponents= 7 tol=0.01,0.09038354270091627
+mixtureGaussian nComponents= 7 tol=0.001,0.09228105150468509
+mixtureGaussian nComponents= 7 tol=0.0001,0.09104559134328366
+mixtureGaussian nComponents= 7 tol=1e-05,0.08935298411780698
+mixtureGaussian nComponents= 8 tol=0.01,0.10041843542586568
+mixtureGaussian nComponents= 8 tol=0.001,0.09799579175815142
+mixtureGaussian nComponents= 8 tol=0.0001,0.10426725889204813
+mixtureGaussian nComponents= 8 tol=1e-05,0.10231735286489316
+mixtureGaussian nComponents= 9 tol=0.01,0.10877413338198942
+mixtureGaussian nComponents= 9 tol=0.001,0.11065047018382818
+mixtureGaussian nComponents= 9 tol=0.0001,0.11548984811191262
+mixtureGaussian nComponents= 9 tol=1e-05,0.11331671001649402
+mixtureGaussian nComponents= 10 tol=0.01,0.12194493884973888
+mixtureGaussian nComponents= 10 tol=0.001,0.12336583403137123
+mixtureGaussian nComponents= 10 tol=0.0001,0.12636073280822205
+mixtureGaussian nComponents= 10 tol=1e-05,0.12395399323501778
+mixtureGaussian nComponents= 11 tol=0.01,0.1298900905572669
+mixtureGaussian nComponents= 11 tol=0.001,0.13254461816700625
+mixtureGaussian nComponents= 11 tol=0.0001,0.13802786148588578
+mixtureGaussian nComponents= 11 tol=1e-05,0.13257982279980843
+mixtureGaussian nComponents= 12 tol=0.01,0.1404398653610911
+mixtureGaussian nComponents= 12 tol=0.001,0.14173888541356272
+mixtureGaussian nComponents= 12 tol=0.0001,0.1454466676783464
+mixtureGaussian nComponents= 12 tol=1e-05,0.1414157646824616
+mixtureGaussian nComponents= 13 tol=0.01,0.14696236071734514
+mixtureGaussian nComponents= 13 tol=0.001,0.15017697554361986
+mixtureGaussian nComponents= 13 tol=0.0001,0.15318144665116143
+mixtureGaussian nComponents= 13 tol=1e-05,0.1510652950738612
+mixtureGaussian nComponents= 14 tol=0.01,0.1580972752152856
+mixtureGaussian nComponents= 14 tol=0.001,0.16069542692409913
+mixtureGaussian nComponents= 14 tol=0.0001,0.1605636264365981
+mixtureGaussian nComponents= 14 tol=1e-05,0.15843335635095676
+mixtureGaussian nComponents= 15 tol=0.01,0.16190052901646282
+mixtureGaussian nComponents= 15 tol=0.001,0.16835350579027294
+mixtureGaussian nComponents= 15 tol=0.0001,0.17052834984507184
+mixtureGaussian nComponents= 15 tol=1e-05,0.16950998180190702
+mixtureGaussian nComponents= 16 tol=0.01,0.1719210439801798
+mixtureGaussian nComponents= 16 tol=0.001,0.17280087069116257
+mixtureGaussian nComponents= 16 tol=0.0001,0.17943419981859504
+mixtureGaussian nComponents= 16 tol=1e-05,0.1729939648489427
+mixtureGaussian nComponents= 17 tol=0.01,0.18026240274852345
+mixtureGaussian nComponents= 17 tol=0.001,0.18165012074036696
+mixtureGaussian nComponents= 17 tol=0.0001,0.18843010579347713
+mixtureGaussian nComponents= 17 tol=1e-05,0.18413399136576172
+mixtureGaussian nComponents= 18 tol=0.01,0.18677665926938125
+mixtureGaussian nComponents= 18 tol=0.001,0.18969564990571353
+mixtureGaussian nComponents= 18 tol=0.0001,0.1927065823716856
+mixtureGaussian nComponents= 18 tol=1e-05,0.19171203775903445
+mixtureGaussian nComponents= 19 tol=0.01,0.19259358110831432
+mixtureGaussian nComponents= 19 tol=0.001,0.19746058286043974
+mixtureGaussian nComponents= 19 tol=0.0001,0.2010848102007404
+mixtureGaussian nComponents= 19 tol=1e-05,0.19822921976640664
+dbscan min_samples=1 eps=0.1,0.1501816330919883
+dbscan min_samples=1 eps=0.5,0.1550437944240345
+dbscan min_samples=1 eps=1,0.14071598728321083
+dbscan min_samples=1 eps=1.5,0.033441382888625595
+dbscan min_samples=1 eps=2,0.016025117031533687
+dbscan min_samples=1 eps=2.5,0.014659023808331062
+dbscan min_samples=1 eps=3,0.013409726864750244
+dbscan min_samples=2 eps=0.1,0.01467383476143027
+dbscan min_samples=2 eps=0.5,0.02399477561007904
+dbscan min_samples=2 eps=1,0.08372487981699389
+dbscan min_samples=2 eps=1.5,0.030972188001536595
+dbscan min_samples=2 eps=2,0.018787521661409436
+dbscan min_samples=2 eps=2.5,0.015609978024103539
+dbscan min_samples=2 eps=3,0.013509253723596288
+dbscan min_samples=3 eps=0.1,0.014196044532367
+dbscan min_samples=3 eps=0.5,0.018842361772976653
+dbscan min_samples=3 eps=1,0.06845953815980685
+dbscan min_samples=3 eps=1.5,0.027701881024077165
+dbscan min_samples=3 eps=2,0.01863655993352155
+dbscan min_samples=3 eps=2.5,0.015856857754237803
+dbscan min_samples=3 eps=3,0.01357202123883633
+dbscan min_samples=4 eps=0.1,0.014196044532367
+dbscan min_samples=4 eps=0.5,0.017150504126927153
+dbscan min_samples=4 eps=1,0.06308280153221149
+dbscan min_samples=4 eps=1.5,0.027058050037611685
+dbscan min_samples=4 eps=2,0.01878063295806065
+dbscan min_samples=4 eps=2.5,0.016052268790755515
+dbscan min_samples=4 eps=3,0.01357202123883633
+dbscan min_samples=5 eps=0.1,0.014196044532367
+dbscan min_samples=5 eps=0.5,0.016074186914418843
+dbscan min_samples=5 eps=1,0.05301467980498878
+dbscan min_samples=5 eps=1.5,0.02672676833246075
+dbscan min_samples=5 eps=2,0.018866795688192127
+dbscan min_samples=5 eps=2.5,0.01617559335197856
+dbscan min_samples=5 eps=3,0.013678044718230375
+dbscan min_samples=6 eps=0.1,0.014196044532367
+dbscan min_samples=6 eps=0.5,0.015817001751538592
+dbscan min_samples=6 eps=1,0.046310862549706996
+dbscan min_samples=6 eps=1.5,0.026685076749080137
+dbscan min_samples=6 eps=2,0.0191170696742028
+dbscan min_samples=6 eps=2.5,0.016255136322870282
+dbscan min_samples=6 eps=3,0.013678044718230375
+dbscan min_samples=7 eps=0.1,0.014196044532367
+dbscan min_samples=7 eps=0.5,0.015009655519918938
+dbscan min_samples=7 eps=1,0.03933681582021349
+dbscan min_samples=7 eps=1.5,0.026540923826990123
+dbscan min_samples=7 eps=2,0.01927508755896095
+dbscan min_samples=7 eps=2.5,0.01637062836225746
+dbscan min_samples=7 eps=3,0.013678044718230375
+dbscan min_samples=8 eps=0.1,0.014196044532367
+dbscan min_samples=8 eps=0.5,0.014545500292810562
+dbscan min_samples=8 eps=1,0.03643411468074627
+dbscan min_samples=8 eps=1.5,0.025910350425036643
+dbscan min_samples=8 eps=2,0.020425990841470284
+dbscan min_samples=8 eps=2.5,0.01640814364393302
+dbscan min_samples=8 eps=3,0.013732561201373197
+dbscan min_samples=9 eps=0.1,0.014196044532367
+dbscan min_samples=9 eps=0.5,0.014545500292810562
+dbscan min_samples=9 eps=1,0.037953743928043765
+dbscan min_samples=9 eps=1.5,0.025186869474689327
+dbscan min_samples=9 eps=2,0.020354242895403656
+dbscan min_samples=9 eps=2.5,0.016588762185750314
+dbscan min_samples=9 eps=3,0.01384295958753407
+dbscan min_samples=10 eps=0.1,0.014630752963911751
+dbscan min_samples=10 eps=0.5,0.014630752963911751
+dbscan min_samples=10 eps=1,0.03653807400320578
+dbscan min_samples=10 eps=1.5,0.02679297026025911
+dbscan min_samples=10 eps=2,0.021035471894346163
+dbscan min_samples=10 eps=2.5,0.017041635689418973
+dbscan min_samples=10 eps=3,0.014277416303408879
+dbscan min_samples=11 eps=0.1,0.014630752963911751
+dbscan min_samples=11 eps=0.5,0.014630752963911751
+dbscan min_samples=11 eps=1,0.03469517750075785
+dbscan min_samples=11 eps=1.5,0.026200465152015073
+dbscan min_samples=11 eps=2,0.02114457076279393
+dbscan min_samples=11 eps=2.5,0.017147146659184175
+dbscan min_samples=11 eps=3,0.014277416303408879
+dbscan min_samples=12 eps=0.1,0.014630752963911751
+dbscan min_samples=12 eps=0.5,0.014630752963911751
+dbscan min_samples=12 eps=1,0.048269033853471296
+dbscan min_samples=12 eps=1.5,0.02533036582087029
+dbscan min_samples=12 eps=2,0.0220365458091741
+dbscan min_samples=12 eps=2.5,0.01728214210295391
+dbscan min_samples=12 eps=3,0.014277416303408879
+dbscan min_samples=13 eps=0.1,0.014630752963911751
+dbscan min_samples=13 eps=0.5,0.014630752963911751
+dbscan min_samples=13 eps=1,0.04740803186435079
+dbscan min_samples=13 eps=1.5,0.025390458927173155
+dbscan min_samples=13 eps=2,0.02202541725312881
+dbscan min_samples=13 eps=2.5,0.01728214210295391
+dbscan min_samples=13 eps=3,0.014277416303408879
+dbscan min_samples=14 eps=0.1,0.014630752963911751
+dbscan min_samples=14 eps=0.5,0.014630752963911751
+dbscan min_samples=14 eps=1,0.04777797283177157
+dbscan min_samples=14 eps=1.5,0.026453930036885766
+dbscan min_samples=14 eps=2,0.021956185627093883
+dbscan min_samples=14 eps=2.5,0.017504048208839978
+dbscan min_samples=14 eps=3,0.014277416303408879
+dbscan min_samples=15 eps=0.1,0.014630752963911751
+dbscan min_samples=15 eps=0.5,0.014630752963911751
+dbscan min_samples=15 eps=1,0.04604379387208147
+dbscan min_samples=15 eps=1.5,0.026390518622116717
+dbscan min_samples=15 eps=2,0.021971021428046307
+dbscan min_samples=15 eps=2.5,0.01759402952372656
+dbscan min_samples=15 eps=3,0.014277416303408879
+dbscan min_samples=16 eps=0.1,0.014630752963911751
+dbscan min_samples=16 eps=0.5,0.014630752963911751
+dbscan min_samples=16 eps=1,0.04496833746040155
+dbscan min_samples=16 eps=1.5,0.026177592985620966
+dbscan min_samples=16 eps=2,0.022027155190759196
+dbscan min_samples=16 eps=2.5,0.01765243149782327
+dbscan min_samples=16 eps=3,0.014277416303408879
+dbscan min_samples=17 eps=0.1,0.014630752963911751
+dbscan min_samples=17 eps=0.5,0.014630752963911751
+dbscan min_samples=17 eps=1,0.04323183508569217
+dbscan min_samples=17 eps=1.5,0.026221688199733712
+dbscan min_samples=17 eps=2,0.02144748843840994
+dbscan min_samples=17 eps=2.5,0.017793209179047892
+dbscan min_samples=17 eps=3,0.014277416303408879
+dbscan min_samples=18 eps=0.1,0.014630752963911751
+dbscan min_samples=18 eps=0.5,0.014630752963911751
+dbscan min_samples=18 eps=1,0.04346978647538303
+dbscan min_samples=18 eps=1.5,0.026169452055685164
+dbscan min_samples=18 eps=2,0.0207518198556388
+dbscan min_samples=18 eps=2.5,0.017847537744377553
+dbscan min_samples=18 eps=3,0.014332816549554594
+dbscan min_samples=19 eps=0.1,0.014630752963911751
+dbscan min_samples=19 eps=0.5,0.014630752963911751
+dbscan min_samples=19 eps=1,0.040370704309326974
+dbscan min_samples=19 eps=1.5,0.02655828342198914
+dbscan min_samples=19 eps=2,0.020805317054078832
+dbscan min_samples=19 eps=2.5,0.017978736724497246
+dbscan min_samples=19 eps=3,0.014332816549554594
+hdbscan min_samples50,0.023281827641810596
+hdbscan min_samples51,0.023274308954869618
+hdbscan min_samples52,0.02326594689812185
+hdbscan min_samples53,0.02325955950939024
+hdbscan min_samples54,0.023238376116410987
+hdbscan min_samples55,0.023266255134953326
+hdbscan min_samples56,0.023264970214121047
+hdbscan min_samples57,0.023261420119318994
+hdbscan min_samples58,0.023271573538856255
+hdbscan min_samples59,0.023308969022762756
+hdbscan min_samples60,0.023329129241416884
+hdbscan min_samples61,0.023294443132123144
+hdbscan min_samples62,0.023486533414912254
+hdbscan min_samples63,0.023551550890328267
+hdbscan min_samples64,0.023526744473456866
+hdbscan min_samples65,0.023481030926438898
+hdbscan min_samples66,0.023448637101467322
+hdbscan min_samples67,0.023493518103977776
+hdbscan min_samples68,0.02347769928028024
+hdbscan min_samples69,0.023460095400025006
+hdbscan min_samples70,0.0234636944329292
+hdbscan min_samples71,0.02341822351373986
+hdbscan min_samples72,0.023420417762739672
+hdbscan min_samples73,0.023664818293459275
+hdbscan min_samples74,0.023624478467067014
+hdbscan min_samples75,0.023581452909376487
+hdbscan min_samples76,0.02356770088977951
+hdbscan min_samples77,0.023558406128011057
+hdbscan min_samples78,0.023378158756227563
+hdbscan min_samples79,0.02334417438358139
+hdbscan min_samples80,0.023309510192611592
+hdbscan min_samples81,0.023257562772219242
+hdbscan min_samples82,0.023187723977857205
+hdbscan min_samples83,0.023267136403679646
+hdbscan min_samples84,0.023249613579958087
+hdbscan min_samples85,0.023214119972359684
+hdbscan min_samples86,0.02318431141903725
+hdbscan min_samples87,0.02320231920191724
+hdbscan min_samples88,0.023166582618204704
+hdbscan min_samples89,0.023112071032044528
+hdbscan min_samples90,0.02309355685994891
+hdbscan min_samples91,0.011075613569417572
+hdbscan min_samples92,0.011075613569417572
+hdbscan min_samples93,0.011075613569417572
+hdbscan min_samples94,0.011075613569417572
+hdbscan min_samples95,0.011075613569417572
+hdbscan min_samples96,0.011075613569417572
+hdbscan min_samples97,0.011075613569417572
+hdbscan min_samples98,0.011075613569417572
+hdbscan min_samples99,0.011075613569417572
+hdbscan min_samples100,0.011530489093902394
+hdbscan min_samples101,0.011530489093902394
+hdbscan min_samples102,0.011530489093902394
+hdbscan min_samples103,0.011530489093902394
+hdbscan min_samples104,0.011530489093902394
+hdbscan min_samples105,0.011530489093902394
+hdbscan min_samples106,0.011530489093902394
+hdbscan min_samples107,0.011530489093902394
+hdbscan min_samples108,0.011530489093902394
+hdbscan min_samples109,0.011530489093902394
+hdbscan min_samples110,0.011530489093902394
+hdbscan min_samples111,0.011530489093902394
+hdbscan min_samples112,0.011530489093902394
+hdbscan min_samples113,0.011530489093902394
+hdbscan min_samples114,0.011530489093902394
+hdbscan min_samples115,0.011530489093902394
+hdbscan min_samples116,0.011530489093902394
+hdbscan min_samples117,0.011530489093902394
+hdbscan min_samples118,0.011530489093902394
+hdbscan min_samples119,0.011530489093902394
+hdbscan min_samples120,0.011530489093902394
+hdbscan min_samples121,0.011530489093902394
+hdbscan min_samples122,0.011530489093902394
+hdbscan min_samples123,0.011530489093902394
+hdbscan min_samples124,0.011530489093902394
+hdbscan min_samples125,0.011530489093902394
+hdbscan min_samples126,0.011530489093902394
+hdbscan min_samples127,0.011530489093902394
+hdbscan min_samples128,0.011530489093902394
+hdbscan min_samples129,0.011530489093902394
+hdbscan min_samples130,0.011530489093902394
+hdbscan min_samples131,0.011530489093902394
+hdbscan min_samples132,0.011530489093902394
+hdbscan min_samples133,0.011530489093902394
+hdbscan min_samples134,0.011530489093902394
+hdbscan min_samples135,0.011530489093902394
+hdbscan min_samples136,0.011530489093902394
+hdbscan min_samples137,0.011530489093902394
+hdbscan min_samples138,0.011530489093902394
+hdbscan min_samples139,0.011530489093902394
+hdbscan min_samples140,0.011530489093902394
+hdbscan min_samples141,0.011530489093902394
+hdbscan min_samples142,0.011530489093902394
+hdbscan min_samples143,0.011530489093902394
+hdbscan min_samples144,0.011530489093902394
+hdbscan min_samples145,0.011530489093902394
+hdbscan min_samples146,0.011530489093902394
+hdbscan min_samples147,0.011530489093902394
+hdbscan min_samples148,0.011530489093902394
+hdbscan min_samples149,0.011530489093902394
+hdbscan min_samples150,0.011530489093902394
+hdbscan min_samples151,0.011530489093902394
+hdbscan min_samples152,0.011530489093902394
+hdbscan min_samples153,0.011530489093902394
+hdbscan min_samples154,0.011530489093902394
+hdbscan min_samples155,0.011530489093902394
+hdbscan min_samples156,0.011530489093902394
+hdbscan min_samples157,0.011530489093902394
+hdbscan min_samples158,0.011530489093902394
+hdbscan min_samples159,0.011530489093902394
+hdbscan min_samples160,0.011530489093902394
+hdbscan min_samples161,0.011530489093902394
+hdbscan min_samples162,0.011530489093902394
+hdbscan min_samples163,0.011530489093902394
+hdbscan min_samples164,0.011530489093902394
+hdbscan min_samples165,0.011530489093902394
+hdbscan min_samples166,0.011530489093902394
+hdbscan min_samples167,0.011530489093902394
+hdbscan min_samples168,0.011530489093902394
+hdbscan min_samples169,0.011530489093902394
+hdbscan min_samples170,0.011530489093902394
+hdbscan min_samples171,0.011530489093902394
+hdbscan min_samples172,0.011530489093902394
+hdbscan min_samples173,0.011530489093902394
+hdbscan min_samples174,0.011530489093902394
+hdbscan min_samples175,0.011530489093902394
+hdbscan min_samples176,0.011530489093902394
+hdbscan min_samples177,0.011530489093902394
+hdbscan min_samples178,0.011530489093902394
+hdbscan min_samples179,0.011530489093902394
+hdbscan min_samples180,0.011530489093902394
+hdbscan min_samples181,0.011530489093902394
+hdbscan min_samples182,0.011530489093902394
+hdbscan min_samples183,0.011530489093902394
+hdbscan min_samples184,0.011530489093902394
+hdbscan min_samples185,0.011530489093902394
+hdbscan min_samples186,0.011530489093902394
+hdbscan min_samples187,0.011530489093902394
+hdbscan min_samples188,0.011530489093902394
+hdbscan min_samples189,0.011530489093902394
+hdbscan min_samples190,0.011530489093902394
+hdbscan min_samples191,0.011530489093902394
+hdbscan min_samples192,0.011530489093902394
+hdbscan min_samples193,0.011530489093902394
+hdbscan min_samples194,0.011530489093902394
+hdbscan min_samples195,0.011530489093902394
+hdbscan min_samples196,0.011530489093902394
+hdbscan min_samples197,0.011530489093902394
+hdbscan min_samples198,0.011530489093902394
+hdbscan min_samples199,0.011530489093902394
+hdbscan min_samples200,0.011530489093902394
